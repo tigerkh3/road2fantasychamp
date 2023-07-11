@@ -1,16 +1,20 @@
-const path = require('path');
+const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin")
 
 module.exports = {
   mode: "development",
-  entry: path.join(__dirname, "client", "src", "index.js"),
+  entry: path.resolve(__dirname, "client", "src", "index.jsx"),
   output: {
-    filename: 'bundle.js',
-    path: path.resolve(__dirname, "client", "src", "dist")
+    path: path.resolve(__dirname, "client", "src", "dist"),
+    filename: "bundle.js"
+  },
+  devServer: {
+    static: path.resolve(__dirname, "client", "src", "dist")
   },
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
+        test: /\.jsx?/,
         exclude: /node_modules/,
         use: {
           loader: "babel-loader",
@@ -21,5 +25,5 @@ module.exports = {
       },
     ]
   },
-  // HTML plugins would go below here
+  // anything else below here
 }

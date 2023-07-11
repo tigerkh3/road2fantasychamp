@@ -1,5 +1,5 @@
 // react imports
-
+import React from 'react';
 // global styles for bootstrap
 
 // components
@@ -9,9 +9,10 @@
 // context
 
 function App () {
-  return (
-    <div>I should really see this!</div>
-  )
+
+  return [
+    <div> nice </div>
+  ]
 }
 
 export default App;
