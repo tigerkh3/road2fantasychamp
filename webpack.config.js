@@ -8,12 +8,14 @@ module.exports = {
     filename: "bundle.js"
   },
   devServer: {
-    static: path.resolve(__dirname, "client", "src", "dist")
+    static: path.resolve(__dirname, "client", "src", "dist"),
+    hot: true,
+    port: 3000,
   },
   module: {
     rules: [
       {
-        test: /\.jsx?/,
+        test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: {
           loader: "babel-loader",
@@ -22,6 +24,19 @@ module.exports = {
           }
         }
       },
+      {
+        test: /\.(css)$/,
+        use: [
+          {
+            // Adds CSS to the DOM by injecting a `<style>` tag
+            loader: 'style-loader'
+          },
+          {
+            // Interprets `@import` and `url()` like `import/require()` and will resolve them
+            loader: 'css-loader'
+          },
+        ]
+      }
     ]
   },
   // anything else below here

@@ -1,7 +1,8 @@
 // react imports
 import React from 'react';
 // global styles for bootstrap
-
+import { Button } from 'reactstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 // components
 
 // hooks
@@ -10,9 +11,9 @@ import React from 'react';
 
 function App () {
 
-  return [
-    <div> nice </div>
-  ]
+  return (
+    <Button> test </Button>
+  )
 }
 
 export default App;
