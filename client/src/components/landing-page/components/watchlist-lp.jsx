@@ -25,12 +25,17 @@ function WatchlistLP () {
 
     if (e.target.name === "next") {
       var currIndex = imageIndex
-      setImageIndex(currIndex + 4)
+      if (imageIndex + 4 < data.length) {
+        setImageIndex(currIndex + 4)
+      }
     } else if (e.target.name === "back") {
       var currIndex = imageIndex
-      setImageIndex(currIndex - 4)
+      if (!(imageIndex - 4 < 0)) {
+        setImageIndex(currIndex - 4)
+      }
     }
 
+    console.log(imageIndex)
   }
 
   return (
@@ -46,18 +51,38 @@ function WatchlistLP () {
           <Row style={{height: "100%"}}>
           <Container>
             <Row style={{border: "solid green 3px", height: "100%"}} xs="12">
-              {data.map((currPlayer, index) => {
-                return (
-                  <Col key={index} style={{border: "solid black 3px", margin: "20px"}}>
-                      <Row style={{border: "solid orange 3px", height: "80%"}}>
-                      <img style={{minWidth: "100%", minHeight: "100%", border: "solid black 3px", padding: "0"}} src={images.image}></img>
-                      </Row>
-                      <Row style={{border: "solid orange 3px", height: "20%"}}>
-                        <Col style={{border: "solid blue 3px"}}> player name here </Col>
-                      </Row>
-                  </Col>
-                )
-              })}
+              <Col style={{border: "solid black 3px", margin: "20px"}}>
+                <Row style={{border: "solid orange 3px", height: "80%"}}>
+                  <img style={{minWidth: "100%", minHeight: "100%", border: "solid black 3px", padding: "0"}} src={images.image}></img>
+                </Row>
+                <Row style={{border: "solid orange 3px", height: "20%"}}>
+                  <Col style={{border: "solid blue 3px"}}> {data[imageIndex].player.first_name} {data[imageIndex].player.last_name} </Col>
+                </Row>
+              </Col>
+              <Col style={{border: "solid black 3px", margin: "20px"}}>
+                <Row style={{border: "solid orange 3px", height: "80%"}}>
+                  <img style={{minWidth: "100%", minHeight: "100%", border: "solid black 3px", padding: "0"}} src={images.image}></img>
+                </Row>
+                <Row style={{border: "solid orange 3px", height: "20%"}}>
+                  <Col style={{border: "solid blue 3px"}}> {data[imageIndex + 1].player.first_name} {data[imageIndex + 1].player.last_name} </Col>
+                </Row>
+              </Col>
+              <Col style={{border: "solid black 3px", margin: "20px"}}>
+                <Row style={{border: "solid orange 3px", height: "80%"}}>
+                  <img style={{minWidth: "100%", minHeight: "100%", border: "solid black 3px", padding: "0"}} src={images.image}></img>
+                </Row>
+                <Row style={{border: "solid orange 3px", height: "20%"}}>
+                  <Col style={{border: "solid blue 3px"}}> {data[imageIndex + 2].player.first_name} {data[imageIndex + 2].player.last_name} </Col>
+                </Row>
+              </Col>
+              <Col style={{border: "solid black 3px", margin: "20px"}}>
+                <Row style={{border: "solid orange 3px", height: "80%"}}>
+                  <img style={{minWidth: "100%", minHeight: "100%", border: "solid black 3px", padding: "0"}} src={images.image}></img>
+                </Row>
+                <Row style={{border: "solid orange 3px", height: "20%"}}>
+                  <Col style={{border: "solid blue 3px"}}> {data[imageIndex + 3].player.first_name} {data[imageIndex + 3].player.last_name} </Col>
+                </Row>
+              </Col>
             </Row>
           </Container>
         </Row>
