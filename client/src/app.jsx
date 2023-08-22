@@ -20,7 +20,7 @@ function App () {
       <Row xs="12" md="12" lg="12">
         <NavigationBar/>
       </Row>
-      <Row xs="12"style={{height: "30vh", margin: "0"}}>
+      <Row xs="12"style={{height: "30vh", margin: "5% 0"}}>
         <LandingPage/>
       </Row>
     </Container>

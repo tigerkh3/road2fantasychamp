@@ -14,6 +14,7 @@ module.exports = {
   },
   module: {
     rules: [
+      // babel loaders here
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
@@ -24,6 +25,7 @@ module.exports = {
           }
         }
       },
+      // css loaders here
       {
         test: /\.(css)$/,
         use: [
@@ -39,5 +41,5 @@ module.exports = {
       }
     ]
   },
-  // anything else below here
+  // css loaders here
 }
