@@ -14,6 +14,7 @@ module.exports = {
   },
   module: {
     rules: [
+      // babel loaders here
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
@@ -23,21 +24,22 @@ module.exports = {
             presets: ["@babel/preset-env", "@babel/preset-react"]
           }
         }
+      },
+      // css loaders here
+      {
+        test: /\.(css)$/,
+        use: [
+          {
+            // Adds CSS to the DOM by injecting a `<style>` tag
+            loader: 'style-loader'
+          },
+          {
+            // Interprets `@import` and `url()` like `import/require()` and will resolve them
+            loader: 'css-loader'
+          },
+        ]
       }
     ]
   },
   // css loaders here
-  {
-    test: /\.(css)$/,
-    use: [
-      {
-        // Adds CSS to the DOM by injecting a `<style>` tag
-        loader: 'style-loader'
-      },
-      {
-        // Interprets `@import` and `url()` like `import/require()` and will resolve them
-        loader: 'css-loader'
-      },
-    ]
-  }
 }
