@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Container, Row, Col } from "reactstrap";
 import WatchlistLP from "./components/watchlist-lp.jsx";
+import PlayerRankingLP from "./components/player-ranking-lp.jsx";
 
 
 
@@ -14,6 +15,9 @@ function LandingPage () {
     <Container style={{height: "100%"}}>
       <Row style={{height: "100%"}}>
         <WatchlistLP/>
+      </Row>
+      <Row style={{marginTop: "10%", height: "100%"}}>
+        <PlayerRankingLP/>
       </Row>
     </Container>
   )
