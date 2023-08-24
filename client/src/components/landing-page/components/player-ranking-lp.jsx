@@ -59,43 +59,72 @@ function PlayerRankingLP () {
             </tr>
           </thead>
           <tbody>
-        {data.map( (currentPlayer, index) => {
-          return (
-            <tr>
-              <th>
-              {currentPlayer.player.first_name} {currentPlayer.player.last_name}
-              </th>
-              <th>
-                {currentPlayer.fg_pct}
-              </th>
-              <th>
-                {currentPlayer.ft_pct}
-              </th>
-              <th>
-                {currentPlayer.fg3m}
-              </th>
-              <th>
-                {currentPlayer.reb}
-              </th>
-              <th>
-                {currentPlayer.ast}
-              </th>
-              <th>
-                {currentPlayer.stl}
-              </th>
-              <th>
-                {currentPlayer.blk}
-              </th>
-              <th>
-                {currentPlayer.turnover}
-              </th>
-              <th>
-                {currentPlayer.pts}
-              </th>
-            </tr>
-          )
-        })}
-        </tbody>
+            {data.map( (currentPlayer, index) => {
+              var fgPct = currentPlayer.fg_pct.toString();
+              var ftPct = currentPlayer.ft_pct.toString();
+              if (ftPct[0] === "1") {
+                ftPct = "100"
+              } else if (ftPct === "0") {
+                ftPct = "0"
+              } else {
+                if (ftPct[4]) {
+                  ftPct = ftPct[2] + ftPct[3] + "." + ftPct[4]
+                } else {
+                  ftPct = ftPct[2] + ftPct[3]
+                }
+
+              }
+
+              if (fgPct[0] === "1") {
+                ftPct = "100"
+              } else if (fgPct === "0") {
+                ftPct = "0"
+              } else {
+                if (fgPct[4]) {
+                  fgPct = fgPct[2] + fgPct[3] + "." + fgPct[4];
+                } else {
+                  fgPct = fgPct[2] + fgPct[3];
+                }
+              }
+
+              if (index <= 20) {
+                return (
+                  <tr>
+                    <th>
+                    {currentPlayer.player.first_name} {currentPlayer.player.last_name}
+                    </th>
+                    <th>
+                      {fgPct}%
+                    </th>
+                    <th>
+                      {ftPct}%
+                    </th>
+                    <th>
+                      {currentPlayer.fg3m}
+                    </th>
+                    <th>
+                      {currentPlayer.reb}
+                    </th>
+                    <th>
+                      {currentPlayer.ast}
+                    </th>
+                    <th>
+                      {currentPlayer.stl}
+                    </th>
+                    <th>
+                      {currentPlayer.blk}
+                    </th>
+                    <th>
+                      {currentPlayer.turnover}
+                    </th>
+                    <th>
+                      {currentPlayer.pts}
+                    </th>
+                  </tr>
+                )
+              }
+            })}
+          </tbody>
         </Table>
       </Row>
     </Container>
