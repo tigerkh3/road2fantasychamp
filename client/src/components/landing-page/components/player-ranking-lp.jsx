@@ -60,44 +60,40 @@ function PlayerRankingLP () {
           </thead>
           <tbody>
             {data.map( (currentPlayer, index) => {
-              var fgPct = currentPlayer.fg_pct.toString();
-              var ftPct = currentPlayer.ft_pct.toString();
-              if (ftPct[0] === "1") {
-                ftPct = "100"
-              } else if (ftPct === "0") {
-                ftPct = "0"
+              var fg = (currentPlayer.fg_pct * 100)
+              if (fg === 100) {
+                fg = 100;
+              } else if (fg === 0) {
+                fg = "0.00"
               } else {
-                if (ftPct[4]) {
-                  ftPct = ftPct[2] + ftPct[3] + "." + ftPct[4]
-                } else {
-                  ftPct = ftPct[2] + ftPct[3]
-                }
-
+                fg = fg.toFixed(1)
+              }
+              var ft = (currentPlayer.ft_pct * 100)
+              if (ft === 100) {
+                ft = 100;
+              } else if (ft === 0) {
+                ft = "0.00"
+              } else {
+                ft = ft.toFixed(1)
+              }
+              if (!fg) {
+                fg = "0.00"
+              }
+              if (!ft) {
+                fg = "0.00"
               }
 
-              if (fgPct[0] === "1") {
-                ftPct = "100"
-              } else if (fgPct === "0") {
-                ftPct = "0"
-              } else {
-                if (fgPct[4]) {
-                  fgPct = fgPct[2] + fgPct[3] + "." + fgPct[4];
-                } else {
-                  fgPct = fgPct[2] + fgPct[3];
-                }
-              }
-
-              if (index <= 20) {
+              if (index <= 20 && Number.parseInt(currentPlayer.min) > 10) {
                 return (
                   <tr>
                     <th>
                     {currentPlayer.player.first_name} {currentPlayer.player.last_name}
                     </th>
                     <th>
-                      {fgPct}%
+                      {fg}%
                     </th>
                     <th>
-                      {ftPct}%
+                      {ft}%
                     </th>
                     <th>
                       {currentPlayer.fg3m}
