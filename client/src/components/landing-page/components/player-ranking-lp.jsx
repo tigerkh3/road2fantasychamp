@@ -10,6 +10,7 @@ import { data, images } from "./mock-data/lp-data.js"
 
 // we need to look into the following questions:
 // how many pings can we make to the api in an hour?
+  // we can make 60 requests per minute
 // should we store our data in our own data base just in case we exceed the limit?
   // note: we can store the data as a whole very easily to a table in postgres
 // how do I want the data displayed?
@@ -17,13 +18,31 @@ import { data, images } from "./mock-data/lp-data.js"
 // could we do that in a database query to start with?
 
 function PlayerRankingLP () {
+
+  // useState here
+  const [pageIndex, setPageIndex] = useState(1);
+  // useEffect here
+
+  // update pageIndex here
+  function updatePageIndex (e) {
+    console.log(e.target.name);
+    e.preventDefault();
+    if (e.target.name === "previousPage" && pageIndex > 1) {
+      var newIndex = pageIndex - 1
+      setPageIndex(newIndex)
+    } else if (e.target.name === "nextPage" && pageIndex < (data.length / 10)) {
+      var newIndex = pageIndex + 1
+      setPageIndex(newIndex)
+    }
+  }
+
   return (
     <Container style={{height: "100%"}}>
-      <Row style={{height: "10%"}}>
-        <h2 style={{border: "solid black 1px"}}>Player Rankings</h2>
+      <Row style={{height: "5%"}}>
+        <h2 style={{border: "solid black 1px", marginBottom: "0"}}>Player Rankings</h2>
       </Row>
-      <Row>
-        <Table style={{marginTop: "0.5%", border: "solid 1px"}}>
+      <Row style={{minHeight: "35%"}}>
+        <Table style={{border: "solid 1px"}}>
           <thead>
             <tr>
               <th>
@@ -83,7 +102,7 @@ function PlayerRankingLP () {
                 fg = "0.00"
               }
 
-              if (index <= 20 && Number.parseInt(currentPlayer.min) > 10) {
+              if (index <= 10 * pageIndex && index >= ((pageIndex * 10) - 10)) {
                 return (
                   <tr>
                     <th>
@@ -122,6 +141,19 @@ function PlayerRankingLP () {
             })}
           </tbody>
         </Table>
+      </Row>
+      <Row xs={12} style={{textAlign: "center", width: "100%", marginBottom: "5%"}}>
+        <Col>
+         <Button name={"previousPage"} onClick={updatePageIndex} style={{marginRight: "0.5%"}}>
+          Prev
+         </Button>
+
+          Page {pageIndex}
+
+          <Button name={"nextPage"} onClick={updatePageIndex} style={{marginLeft: "0.5%"}}>
+            Next
+         </Button>
+        </Col>
       </Row>
     </Container>
   )

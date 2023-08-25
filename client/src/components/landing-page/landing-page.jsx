@@ -13,10 +13,10 @@ function LandingPage () {
 
   return (
     <Container style={{height: "100%"}}>
-      <Row style={{height: "100%"}}>
+      <Row style={{height: "30%"}}>
         <WatchlistLP/>
       </Row>
-      <Row style={{marginTop: "10%", height: "100%"}}>
+      <Row style={{marginTop: "2.5%", marginBottom: "2.5%", height: "80%"}}>
         <PlayerRankingLP/>
       </Row>
     </Container>
