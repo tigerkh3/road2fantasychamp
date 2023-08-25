@@ -54,7 +54,7 @@ function WatchlistLP () {
       <Row style={{height: "10%"}}>
         <h2 style={{border: "solid black 1px"}}>Player Watchlist</h2>
       </Row>
-      <Row style={{height: "90%", marginTop: "0.5%", border: "solid black 1px"}}>
+      <Row style={{height: "90%", border: "solid black 1px"}}>
         <Col style={{padding: 0}} xs="1">
           <Button style={{marginLeft: "22.5%", marginTop: "122.5%"}} name="back" onClick={nextPlayers}> Left </Button>
         </Col>
