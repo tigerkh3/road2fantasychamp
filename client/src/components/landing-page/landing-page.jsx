@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Container, Row, Col } from "reactstrap";
 import WatchlistLP from "./components/watchlist-lp.jsx";
 import PlayerRankingLP from "./components/player-ranking-lp.jsx";
+import FantasyTrackerLP from "./components/fantasy-tracker-lp.jsx";
 
 
 
@@ -13,6 +14,9 @@ function LandingPage () {
 
   return (
     <Container style={{height: "100%"}}>
+      <Row>
+        <FantasyTrackerLP/>
+      </Row>
       <Row style={{height: "30%"}}>
         <WatchlistLP/>
       </Row>

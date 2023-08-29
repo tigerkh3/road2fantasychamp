@@ -104,7 +104,7 @@ function PlayerRankingLP () {
 
               if (index <= 10 * pageIndex && index >= ((pageIndex * 10) - 10)) {
                 return (
-                  <tr>
+                  <tr key={"table" + index}>
                     <th>
                     {currentPlayer.player.first_name} {currentPlayer.player.last_name}
                     </th>
