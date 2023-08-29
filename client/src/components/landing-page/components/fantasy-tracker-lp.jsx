@@ -21,78 +21,40 @@ function FantasyTrackerLP () {
 
   // need to start with a useEffect should ping the ESPN api for data
   useEffect( () => {
-    // make a request to the ESPN API
-    // var urlPrefix = "https://fantasy.espn.com/apis/v3/games/fba/seasons/" + REACT_APP_SEASON + "/segments/0/leagues/segements/0/" + REACT_APP_LEAGUE
-    // var urlSuffix = "/?view=mMatchupScore&view=mStatus&view=mBoxscore"
-    // var options = {
-    //   method: "GET",
-    //   mode: "no-cors",
-    //   credentials: "include",
-    //   headers: {
-    //     "Set-Cookie": `{SWID=${REACT_APP_SWID}}`,
-    //     "Set-Cookie": `espn_s2=${REACT_APP_ESPN}`,
-    //     "Content-Type": 'application/json',
-    //   },
-
-    // }
-
-    // fetch(urlPrefix+urlSuffix, options)
-    // .then ( (response, error) => {
-    //   if (error) {
-    //     console.log('error here accessing api', error)
-    //   } else {
-    //     response.json()
-    //     .then ( (result, error) => {
-    //       if (error) {
-    //         console.log('error parsing api response', error)
-    //       } else {
-    //         console.log('worked here is data', result);
-    //         // wait for the returned data and update use state with new data
-    //         setMatchupData(result);
-    //       }
-    //     })
-    //   }
-    // })
-    // we will eventually move this around to a conditional to first check database for stored data
-    // this can reduce overall website transmission and calls to the API since the data set is so large
-    // can parse the data into the parts we need instead
-  }, [])
-
-  function onClick (e) {
-    e.preventDefault();
-
-    axios.get("https://ec2-107-21-87-27.compute-1.amazonaws.com/api")
+    // make a request to the cors proxy server which will return us API data!
+    axios.get("http://50.19.158.210/api")
     .then ((res, err) => {
-      console.log('nothing?')
       if (err) {
         console.log('error', err)
       } else {
         console.log('worked', res);
       }
     })
-    // fetch(, options)
+    // we will eventually move this around to a conditional to first check database for stored data
+    // this can reduce overall website transmission and calls to the API since the data set is so large
+    // can parse the data into the parts we need instead
+
+    // it will also include a request to the API in the case that our database does not have the current
+    // date's information we will run an axios call to our imported env variables
+    // const API_URL = "https://fantasy.espn.com/apis/v3/games/fba/seasons/" + REACT_APP_SEASON + "/segments/0/leagues/" + REACT_APP_LEAGUE // Replace this URL with your own
+    // var options = {
+    //   'url': `${API_URL}`,
+    //   'method': "get",
+    //   'headers': {
+    //     'Cookie': `SWID={${process.env.REACT_APP_SWID}}; espn_s2=${process.env.REACT_APP_ESPN};`
+    //   },
+    //   'withCredentials': 'true'
+    // }
+    // axios.get(API_URL, options)
     // .then ( (response, error) => {
-    //   if (error) {
-    //     console.log('error here accessing api', error)
-    //   } else {
-    //     console.log('worked?')
-    //     response.json()
-    //     .then ( (result, error) => {
-    //       if (error) {
-    //         console.log('error parsing api response', error)
-    //       } else {
-    //         console.log('worked here is data', result);
-    //         // wait for the returned data and update use state with new data
-    //       }
-    //     })
-    //   }
+      // setMatchupData(response.data)
     // })
-  }
+  }, [])
 
     // create all related components and render out table using map on the data received from api
     return (
 
-      <Button onClick={onClick}></Button>
+      <Button></Button>
     )
 }
 

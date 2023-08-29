@@ -5401,6 +5401,8 @@ export const data = [
         }
     ]
 
+  export const matchupData = []
+
   export const images = {
     image: 'https://www.vhv.rs/dpng/d/550-5508649_person-image-placeholder-clipart-png-download-no-profile.png',
     gray: 'https://www.vhv.rs/dpng/d/550-5508649_person-image-placeholder-clipart-png-download-no-profile.png'
