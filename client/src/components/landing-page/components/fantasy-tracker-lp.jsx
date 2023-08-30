@@ -16,8 +16,9 @@ import {REACT_APP_SEASON, REACT_APP_LEAGUE, REACT_APP_SWID, REACT_APP_ESPN} from
 function FantasyTrackerLP () {
 
   // useStates
-  const [matchupData, setMatchupData] = useState({});
-  const [matchupPeriod, setMatchupPeriod] = useState(0);
+  const [matchupMetaData, setMatchupMetaData] = useState({});
+  const [matchupData, setMatchupData] = useState({})
+  const [teamIds, setTeamIds] = useState({})
 
   // need to start with a useEffect should ping the ESPN api for data
   useEffect( () => {
@@ -27,7 +28,36 @@ function FantasyTrackerLP () {
       if (err) {
         console.log('error', err)
       } else {
-        console.log('worked', res);
+        console.log('worked', res.data);
+        setMatchupMetaData(res.data);
+        var ids = {};
+        // create an object of key values pairs of id to name
+        for (var i = 0; i < res.data.teams.length; i++) {
+          var currentTeam = res.data.teams[i];
+          ids[currentTeam.id] = currentTeam.abbrev + " " + currentTeam.location;
+        }
+
+        setTeamIds(ids);
+
+        //res.data.schedule is our array of games, each match up period is 6 objects
+        // we know this because we can take the number of teams and divide it by 2 to find the #
+        // of match ups per week which would be 6 aka 6 objects
+        var matchupPeriodSet = res.data.teams.length / 2;
+        // that gives us our ending index for the current week
+        var endingIndex = ((res.data.status.currentMatchupPeriod - 15) * matchupPeriodSet);
+        // to find our starting index we subtract that by the matchup period set and minus
+        // the matchupPeriod set since our ending index is inclusive in slice minus one after
+        var startingIndex = endingIndex - (matchupPeriodSet);
+        // we can iterate over the starting index until the ending index and if either the home
+        // or the away team has an id of 15 then we set out matchupData to that because
+        // our id is 15, whether we are home or away is irrelevant
+        for (var j = startingIndex; j <= endingIndex; j++) {
+
+          if (res.data.schedule[j].away.teamId === 15 || res.data.schedule[j].home.teamId === 15) {
+            var dataSet = res.data.schedule[j];
+            setMatchupData(dataSet)
+          }
+        }
       }
     })
     // we will eventually move this around to a conditional to first check database for stored data
@@ -51,11 +81,127 @@ function FantasyTrackerLP () {
     // })
   }, [])
 
-    // create all related components and render out table using map on the data received from api
-    return (
+  console.log(matchupData, matchupMetaData)
 
-      <Button></Button>
-    )
+    // create all related components and render out table using map on the data received from api
+    if (matchupData.home) {
+      return (
+        <Container>
+          <Row>
+            <Col style={{border: "solid 1px blue", textAlign: "center"}}>
+              My Team
+            </Col>
+            <Col style={{border: "solid 1px blue", textAlign: "center"}}>
+              Opposing team
+            </Col>
+          </Row>
+          <Row style={{border: "solid 1px blue"}}>
+            <Table>
+            <thead>
+              <tr>
+                <th>
+                  Team
+                </th>
+                <th>
+                  FG %
+                </th>
+                <th>
+                  FT %
+                </th>
+                <th>
+                  3PM
+                </th>
+                <th>
+                  REB
+                </th>
+                <th>
+                  AST
+                </th>
+                <th>
+                  STL
+                </th>
+                <th>
+                  BLK
+                </th>
+                <th>
+                  TO
+                </th>
+                <th>
+                  PTS
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th>
+                  {teamIds[matchupData.home.teamId]}
+                </th>
+                <th>
+                  {(matchupData.home.cumulativeScore.scoreByStat["20"].score * 100).toFixed(1)}%
+                </th>
+                <th>
+                  {(matchupData.home.cumulativeScore.scoreByStat["19"].score * 100).toFixed(1)}%
+                </th>
+                <th>
+                  {matchupData.home.cumulativeScore.scoreByStat["17"].score}
+                </th>
+                <th>
+                  {matchupData.home.cumulativeScore.scoreByStat["11"].score}
+                </th>
+                <th>
+                  {matchupData.home.cumulativeScore.scoreByStat["6"].score}
+                </th>
+                <th>
+                  {matchupData.home.cumulativeScore.scoreByStat["3"].score}
+                </th>
+                <th>
+                  {matchupData.home.cumulativeScore.scoreByStat["2"].score}
+                </th>
+                <th>
+                  {matchupData.home.cumulativeScore.scoreByStat["1"].score}
+                </th>
+                <th>
+                  {matchupData.home.cumulativeScore.scoreByStat["0"].score}
+                </th>
+              </tr>
+              <tr>
+                 <th>
+                  {teamIds[matchupData.away.teamId]}
+                </th>
+                <th>
+                  {(matchupData.away.cumulativeScore.scoreByStat["20"].score * 100).toFixed(1)}%
+                </th>
+                <th>
+                  {(matchupData.away.cumulativeScore.scoreByStat["19"].score * 100).toFixed(1)}%
+                </th>
+                <th>
+                  {matchupData.away.cumulativeScore.scoreByStat["17"].score}
+                </th>
+                <th>
+                  {matchupData.away.cumulativeScore.scoreByStat["11"].score}
+                </th>
+                <th>
+                  {matchupData.away.cumulativeScore.scoreByStat["6"].score}
+                </th>
+                <th>
+                  {matchupData.away.cumulativeScore.scoreByStat["3"].score}
+                </th>
+                <th>
+                  {matchupData.away.cumulativeScore.scoreByStat["2"].score}
+                </th>
+                <th>
+                  {matchupData.away.cumulativeScore.scoreByStat["1"].score}
+                </th>
+                <th>
+                  {matchupData.away.cumulativeScore.scoreByStat["0"].score}
+                </th>
+              </tr>
+            </tbody>
+            </Table>
+          </Row>
+        </Container>
+      )
+  }
 }
 
 export default FantasyTrackerLP;
