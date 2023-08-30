@@ -44,8 +44,8 @@ function PlayerRankingLP () {
       <Row style={{minHeight: "35%"}}>
         <Table style={{border: "solid 1px"}}>
           <thead>
-            <tr>
-              <th>
+            <tr style={{textAlign: "center"}}>
+              <th style={{textAlign: "left"}}>
                 Player
               </th>
               <th>
@@ -83,24 +83,24 @@ function PlayerRankingLP () {
               var ft = currentPlayer.ft_pct;
 
               if (!fg) {
-                fg = "0.00"
+                fg = "00.00"
               } else if (fg === 1) {
-                fg = "100"
+                fg = "100.0"
               } else {
-                fg = (currentPlayer.fg_pct * 100).toFixed(1)
+                fg = (currentPlayer.fg_pct * 100).toFixed(2)
               }
               if (!ft) {
-                ft = "0.00"
+                ft = "00.00"
               } else if (ft === 1) {
-                ft = "100"
+                ft = "100.0"
               } else {
-                ft = (currentPlayer.ft_pct * 100).toFixed(1)
+                ft = (currentPlayer.ft_pct * 100).toFixed(2)
               }
 
               if (index <= 10 * pageIndex && index >= ((pageIndex * 10) - 10)) {
                 return (
-                  <tr key={"table" + index}>
-                    <th>
+                  <tr style={{textAlign: "center"}} key={"table" + index}>
+                    <th style={{textAlign: "left"}}>
                     {currentPlayer.player.first_name} {currentPlayer.player.last_name}
                     </th>
                     <th>

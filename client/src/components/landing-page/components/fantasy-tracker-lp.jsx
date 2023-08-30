@@ -89,17 +89,41 @@ function FantasyTrackerLP () {
         <Container>
           <Row>
             <Col style={{border: "solid 1px blue", textAlign: "center"}}>
-              My Team
+              <h2>
+                Home
+              </h2>
             </Col>
             <Col style={{border: "solid 1px blue", textAlign: "center"}}>
-              Opposing team
+
+            </Col>
+            <Col style={{border: "solid 1px blue", textAlign: "center"}}>
+              <h2>
+                Away
+              </h2>
+            </Col>
+          </Row>
+          <Row style={{border: "solid 1px blue", textAlign: "center"}}>
+            <Col>
+              <h2>
+                {teamIds[matchupData.home.teamId]}
+              </h2>
+            </Col>
+            <Col style={{border: "solid 1px blue", textAlign: "center"}}>
+              <h2>
+                {matchupData.home.cumulativeScore.wins}-{matchupData.away.cumulativeScore.wins}-{matchupData.away.cumulativeScore.ties}
+              </h2>
+            </Col>
+            <Col>
+              <h2>
+                {teamIds[matchupData.away.teamId]}
+              </h2>
             </Col>
           </Row>
           <Row style={{border: "solid 1px blue"}}>
             <Table>
             <thead>
-              <tr>
-                <th>
+              <tr style={{textAlign: "center"}}>
+                <th style={{textAlign: "left"}}>
                   Team
                 </th>
                 <th>
@@ -132,15 +156,15 @@ function FantasyTrackerLP () {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th>
+              <tr style={{textAlign: "center"}}>
+                <th style={{textAlign: "left"}}>
                   {teamIds[matchupData.home.teamId]}
                 </th>
                 <th>
-                  {(matchupData.home.cumulativeScore.scoreByStat["20"].score * 100).toFixed(1)}%
+                  {(matchupData.home.cumulativeScore.scoreByStat["20"].score * 100).toFixed(2)}%
                 </th>
                 <th>
-                  {(matchupData.home.cumulativeScore.scoreByStat["19"].score * 100).toFixed(1)}%
+                  {(matchupData.home.cumulativeScore.scoreByStat["19"].score * 100).toFixed(2)}%
                 </th>
                 <th>
                   {matchupData.home.cumulativeScore.scoreByStat["17"].score}
@@ -164,15 +188,15 @@ function FantasyTrackerLP () {
                   {matchupData.home.cumulativeScore.scoreByStat["0"].score}
                 </th>
               </tr>
-              <tr>
-                 <th>
+              <tr style={{textAlign: "center"}}>
+                 <th style={{textAlign: "Left"}}>
                   {teamIds[matchupData.away.teamId]}
                 </th>
                 <th>
-                  {(matchupData.away.cumulativeScore.scoreByStat["20"].score * 100).toFixed(1)}%
+                  {(matchupData.away.cumulativeScore.scoreByStat["20"].score * 100).toFixed(2)}%
                 </th>
                 <th>
-                  {(matchupData.away.cumulativeScore.scoreByStat["19"].score * 100).toFixed(1)}%
+                  {(matchupData.away.cumulativeScore.scoreByStat["19"].score * 100).toFixed(2)}%
                 </th>
                 <th>
                   {matchupData.away.cumulativeScore.scoreByStat["17"].score}

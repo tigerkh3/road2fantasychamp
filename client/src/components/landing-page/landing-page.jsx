@@ -14,7 +14,7 @@ function LandingPage () {
 
   return (
     <Container style={{height: "100%"}}>
-      <Row>
+      <Row style={{marginBottom: "2.5%"}}>
         <FantasyTrackerLP/>
       </Row>
       <Row style={{height: "30%"}}>
