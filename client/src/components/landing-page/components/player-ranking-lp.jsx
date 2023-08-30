@@ -44,8 +44,8 @@ function PlayerRankingLP () {
       <Row style={{minHeight: "35%"}}>
         <Table style={{border: "solid 1px"}}>
           <thead>
-            <tr>
-              <th>
+            <tr style={{textAlign: "center"}}>
+              <th style={{textAlign: "left"}}>
                 Player
               </th>
               <th>
@@ -79,33 +79,28 @@ function PlayerRankingLP () {
           </thead>
           <tbody>
             {data.map( (currentPlayer, index) => {
-              var fg = (currentPlayer.fg_pct * 100)
-              if (fg === 100) {
-                fg = 100;
-              } else if (fg === 0) {
-                fg = "0.00"
-              } else {
-                fg = fg.toFixed(1)
-              }
-              var ft = (currentPlayer.ft_pct * 100)
-              if (ft === 100) {
-                ft = 100;
-              } else if (ft === 0) {
-                ft = "0.00"
-              } else {
-                ft = ft.toFixed(1)
-              }
+              var fg = currentPlayer.fg_pct;
+              var ft = currentPlayer.ft_pct;
+
               if (!fg) {
-                fg = "0.00"
+                fg = "00.00"
+              } else if (fg === 1) {
+                fg = "100.0"
+              } else {
+                fg = (currentPlayer.fg_pct * 100).toFixed(2)
               }
               if (!ft) {
-                fg = "0.00"
+                ft = "00.00"
+              } else if (ft === 1) {
+                ft = "100.0"
+              } else {
+                ft = (currentPlayer.ft_pct * 100).toFixed(2)
               }
 
               if (index <= 10 * pageIndex && index >= ((pageIndex * 10) - 10)) {
                 return (
-                  <tr>
-                    <th>
+                  <tr style={{textAlign: "center"}} key={"table" + index}>
+                    <th style={{textAlign: "left"}}>
                     {currentPlayer.player.first_name} {currentPlayer.player.last_name}
                     </th>
                     <th>

@@ -66,7 +66,7 @@ function WatchlistLP () {
                   if (index > imageIndex && index < imageIndex + 4 && index >= trueCount) {
 
                     return (
-                      <Col style={{border: "solid black 3px", margin: "20px"}}>
+                      <Col key={"wl-" + index} style={{border: "solid black 3px", margin: "20px"}}>
                         <Row style={{border: "solid orange 3px", height: "75%"}}>
                           <img style={{minWidth: "100%", minHeight: "100%", border: "solid black 3px", padding: "0"}} src={images.gray}></img>
                         </Row>
@@ -77,7 +77,7 @@ function WatchlistLP () {
                     )
                   } else if (index < imageIndex + 4 && index >= imageIndex) {
                       return (
-                        <Col style={{border: "solid black 3px", margin: "20px"}}>
+                        <Col key={"wl-" + index} style={{border: "solid black 3px", margin: "20px"}}>
                           <Row style={{border: "solid orange 3px", height: "75%"}}>
                             <img style={{minWidth: "100%", minHeight: "100%", border: "solid black 3px", padding: "0"}} src={images.image}></img>
                           </Row>
