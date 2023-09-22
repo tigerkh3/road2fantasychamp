@@ -9,7 +9,7 @@ const axios = require('axios');
 
 // also need my own swid and espn_s2 cookies to access private leagues
 // import dotenv variables for this section
-import {REACT_APP_SEASON, REACT_APP_LEAGUE, REACT_APP_SWID, REACT_APP_ESPN} from "@env"
+import {PROXY_URL, REACT_APP_SEASON, REACT_APP_LEAGUE, REACT_APP_SWID, REACT_APP_ESPN} from "@env"
 
 
 
@@ -23,7 +23,7 @@ function FantasyTrackerLP () {
   // need to start with a useEffect should ping the ESPN api for data
   useEffect( () => {
     // make a request to the cors proxy server which will return us API data!
-    axios.get("http://50.19.158.210/api")
+    axios.get(`${PROXY_URL}` + "/api")
     .then ((res, err) => {
       if (err) {
         console.log('error', err)
@@ -81,34 +81,32 @@ function FantasyTrackerLP () {
     // })
   }, [])
 
-  console.log(matchupData, matchupMetaData)
-
     // create all related components and render out table using map on the data received from api
     if (matchupData.home) {
       return (
         <Container>
           <Row>
-            <Col style={{border: "solid 1px blue", textAlign: "center"}}>
+            <Col style={{borderLeft: "solid 1px", borderTop: "solid 1px", borderRight: "solid 1px", textAlign: "center"}}>
               <h2>
                 Home
               </h2>
             </Col>
-            <Col style={{border: "solid 1px blue", textAlign: "center"}}>
+            <Col style={{borderTop: "solid 1px", textAlign: "center"}}>
 
             </Col>
-            <Col style={{border: "solid 1px blue", textAlign: "center"}}>
+            <Col style={{borderLeft: "solid 1px", borderTop: "solid 1px", borderRight: "solid 1px", textAlign: "center"}}>
               <h2>
                 Away
               </h2>
             </Col>
           </Row>
-          <Row style={{border: "solid 1px blue", textAlign: "center"}}>
-            <Col>
+          <Row style={{border: "solid 1px ", textAlign: "center"}}>
+            <Col style={{borderRight: "solid 1px", textAlign: "center"}}>
               <h2>
                 {teamIds[matchupData.home.teamId]}
               </h2>
             </Col>
-            <Col style={{border: "solid 1px blue", textAlign: "center"}}>
+            <Col style={{borderRight: "solid 1px ", textAlign: "center"}}>
               <h2>
                 {matchupData.home.cumulativeScore.wins}-{matchupData.away.cumulativeScore.wins}-{matchupData.away.cumulativeScore.ties}
               </h2>
@@ -119,7 +117,7 @@ function FantasyTrackerLP () {
               </h2>
             </Col>
           </Row>
-          <Row style={{border: "solid 1px blue"}}>
+          <Row style={{border: "solid 1px "}}>
             <Table>
             <thead>
               <tr style={{textAlign: "center"}}>
@@ -161,10 +159,10 @@ function FantasyTrackerLP () {
                   {teamIds[matchupData.home.teamId]}
                 </th>
                 <th>
-                  {(matchupData.home.cumulativeScore.scoreByStat["20"].score * 100).toFixed(2)}%
+                  {(matchupData.home.cumulativeScore.scoreByStat["20"].score * 100).toFixed(1)}%
                 </th>
                 <th>
-                  {(matchupData.home.cumulativeScore.scoreByStat["19"].score * 100).toFixed(2)}%
+                  {(matchupData.home.cumulativeScore.scoreByStat["19"].score * 100).toFixed(1)}%
                 </th>
                 <th>
                   {matchupData.home.cumulativeScore.scoreByStat["17"].score}
@@ -193,10 +191,10 @@ function FantasyTrackerLP () {
                   {teamIds[matchupData.away.teamId]}
                 </th>
                 <th>
-                  {(matchupData.away.cumulativeScore.scoreByStat["20"].score * 100).toFixed(2)}%
+                  {(matchupData.away.cumulativeScore.scoreByStat["20"].score * 100).toFixed(1)}%
                 </th>
                 <th>
-                  {(matchupData.away.cumulativeScore.scoreByStat["19"].score * 100).toFixed(2)}%
+                  {(matchupData.away.cumulativeScore.scoreByStat["19"].score * 100).toFixed(1)}%
                 </th>
                 <th>
                   {matchupData.away.cumulativeScore.scoreByStat["17"].score}

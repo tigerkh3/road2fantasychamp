@@ -17,6 +17,12 @@ import { data, images } from "./mock-data/lp-data.js"
 // should we pre-sort by categories to start?
 // could we do that in a database query to start with?
 
+
+// idea: we can filter out the players already on a roster
+// we ping for the player_kona_info and use the header x-fantasy-filter
+// this allows us to filter by fantasy leage and our value should be the JSON string of
+// {"players":{"filterStatus":{"value":["FREEAGENT","WAIVERS"]},"limit":2000,"sortPercOwned":{"sortAsc":false,"sortPriority":1}}}
+
 function PlayerRankingLP () {
 
   // useState here
@@ -83,18 +89,18 @@ function PlayerRankingLP () {
               var ft = currentPlayer.ft_pct;
 
               if (!fg) {
-                fg = "00.00"
+                fg = "0.00"
               } else if (fg === 1) {
-                fg = "100.0"
+                fg = "100"
               } else {
-                fg = (currentPlayer.fg_pct * 100).toFixed(2)
+                fg = (currentPlayer.fg_pct * 100).toFixed(1)
               }
               if (!ft) {
-                ft = "00.00"
+                ft = "0.00"
               } else if (ft === 1) {
-                ft = "100.0"
+                ft = "100"
               } else {
-                ft = (currentPlayer.ft_pct * 100).toFixed(2)
+                ft = (currentPlayer.ft_pct * 100).toFixed(1)
               }
 
               if (index <= 10 * pageIndex && index >= ((pageIndex * 10) - 10)) {
