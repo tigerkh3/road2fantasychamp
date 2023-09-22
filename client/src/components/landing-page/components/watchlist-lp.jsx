@@ -55,7 +55,7 @@ function WatchlistLP () {
         <h2 style={{border: "solid black 1px"}}>Player Watchlist</h2>
       </Row>
       <Row style={{height: "90%", border: "solid black 1px"}}>
-        <Col style={{padding: 0}} xs="1">
+        <Col style={{padding: "0"}} xs="1">
           <Button style={{marginLeft: "22.5%", marginTop: "122.5%"}} name="back" onClick={nextPlayers}> Left </Button>
         </Col>
         <Col style={{padding: "0"}} xs="10">
@@ -67,21 +67,21 @@ function WatchlistLP () {
 
                     return (
                       <Col key={"wl-" + index} style={{border: "solid black 3px", margin: "20px"}}>
-                        <Row style={{border: "solid orange 3px", height: "75%"}}>
-                          <img style={{minWidth: "100%", minHeight: "100%", border: "solid black 3px", padding: "0"}} src={images.gray}></img>
+                        <Row style={{border: "solid orange 3px", height: "80%", marginBottom: "1px"}}>
+                          <img style={{minWidth: "100%", maxHeight: "100%", border: "solid black 3px", padding: "0"}} src={images.gray}></img>
                         </Row>
-                        <Row style={{border: "solid orange 3px", height: "25%"}}>
+                        <Row style={{border: "solid orange 3px", maxHeight: "20%"}}>
                           <Col style={{border: "solid blue 3px", padding: "12", maxHeight: "99%"}}> Add Player </Col>
                         </Row>
-                    </Col>
+                      </Col>
                     )
                   } else if (index < imageIndex + 4 && index >= imageIndex) {
                       return (
                         <Col key={"wl-" + index} style={{border: "solid black 3px", margin: "20px"}}>
-                          <Row style={{border: "solid orange 3px", height: "75%"}}>
-                            <img style={{minWidth: "100%", minHeight: "100%", border: "solid black 3px", padding: "0"}} src={images.image}></img>
+                          <Row style={{border: "solid orange 3px", height: "80%", marginBottom: "1px"}}>
+                            <img style={{minWidth: "100%", maxHeight: "100%", border: "solid black 3px", padding: "0"}} src={images.image}></img>
                           </Row>
-                          <Row style={{border: "solid orange 3px", height: "25%"}}>
+                          <Row style={{border: "solid orange 3px", height: "20%"}}>
                             <Col style={{border: "solid blue 3px", padding: "12", maxHeight: "99%"}}> {data[index].player.first_name} {data[index].player.last_name} </Col>
                           </Row>
                       </Col>
@@ -93,7 +93,7 @@ function WatchlistLP () {
           </Row>
         </Col>
         <Col style={{padding: "0"}} xs="1">
-          <Button style={{marginLeft: "22.5%", marginTop: "122.5%"}} name="next" onClick={nextPlayers}> Right </Button>
+          <Button style={{marginLeft: "20%", marginTop: "122.5%"}} name="next" onClick={nextPlayers}> Right </Button>
         </Col>
       </Row>
     </Container>

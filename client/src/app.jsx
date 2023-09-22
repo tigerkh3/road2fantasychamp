@@ -16,11 +16,11 @@ function App () {
 
 
   return (
-    <Container style={{height: "100vh", width: "100vh"}}>
+    <Container style={{height: "100%", maxWidth: "90%"}}>
       <Row xs="12" md="12" lg="12">
         <NavigationBar/>
       </Row>
-      <Row xs="12"style={{height: "100%", margin: "2.5% 0"}}>
+      <Row xs="12"style={{height: "100%", margin: "0", width: "100%"}}>
         <LandingPage/>
       </Row>
     </Container>
