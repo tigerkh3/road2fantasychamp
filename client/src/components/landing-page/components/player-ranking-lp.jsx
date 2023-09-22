@@ -28,6 +28,10 @@ function PlayerRankingLP () {
   // useState here
   const [pageIndex, setPageIndex] = useState(1);
   // useEffect here
+  useEffect( () => {
+    // here we make a call to our cors-proxy api
+    // we want to get all our player infomation for the waiver wire
+  })
 
   // update pageIndex here
   function updatePageIndex (e) {
