@@ -27,7 +27,8 @@ import { data, images } from "./mock-data/lp-data.js"
 // investigation #2, the above gives us what we are looking for in terms of only waiver players and their averages
 // we need to find out our daily leaders for the current scoring period which can be found using
 // {"players":{"filterStatus":{"value":["FREEAGENT","WAIVERS"]},"filterSlotIds":{"value":[0,5,11,1,2,6,3,4]},"sortAppliedStatTotal":null,"sortAppliedStatTotalForScoringPeriodId":null,"sortStatId":{"additionalValue":"002022","sortAsc":false,"sortPriority":2,"value":0},"sortStatIdForScoringPeriodId":null,"sortPercOwned":{"sortPriority":3,"sortAsc":false},"limit":50,"filterStatsForTopScoringPeriodIds":{"value":5,"additionalValue":["002023","102023","002022","012023","022023","032023","042023"]}}}
-// I believe null for the scoring period gives the scoring period thats most recent? Need more investigation
+// I believe the filter for top scoring period ids gives us the 5 most recent scoring periods
+// need to do investigation on this
 
 
 function PlayerRankingLP () {
