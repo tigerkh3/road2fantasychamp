@@ -1,6 +1,8 @@
 // player ranking section for our landing-page
 // watch list carousel for our landing page.
-
+const axios = require('axios');
+// import dotenv variables for this section
+import {PROXY_URL, REACT_APP_SEASON, REACT_APP_LEAGUE, REACT_APP_SWID, REACT_APP_ESPN} from "@env"
 // react imports
 import React, { useState, useEffect } from "react";
 // global styles for bootstrap
@@ -17,11 +19,16 @@ import { data, images } from "./mock-data/lp-data.js"
 // should we pre-sort by categories to start?
 // could we do that in a database query to start with?
 
-
 // idea: we can filter out the players already on a roster
 // we ping for the player_kona_info and use the header x-fantasy-filter
 // this allows us to filter by fantasy leage and our value should be the JSON string of
 // {"players":{"filterStatus":{"value":["FREEAGENT","WAIVERS"]},"limit":2000,"sortPercOwned":{"sortAsc":false,"sortPriority":1}}}
+
+// investigation #2, the above gives us what we are looking for in terms of only waiver players and their averages
+// we need to find out our daily leaders for the current scoring period which can be found using
+// {"players":{"filterStatus":{"value":["FREEAGENT","WAIVERS"]},"filterSlotIds":{"value":[0,5,11,1,2,6,3,4]},"sortAppliedStatTotal":null,"sortAppliedStatTotalForScoringPeriodId":null,"sortStatId":{"additionalValue":"002022","sortAsc":false,"sortPriority":2,"value":0},"sortStatIdForScoringPeriodId":null,"sortPercOwned":{"sortPriority":3,"sortAsc":false},"limit":50,"filterStatsForTopScoringPeriodIds":{"value":5,"additionalValue":["002023","102023","002022","012023","022023","032023","042023"]}}}
+// I believe null for the scoring period gives the scoring period thats most recent? Need more investigation
+
 
 function PlayerRankingLP () {
 
@@ -31,6 +38,14 @@ function PlayerRankingLP () {
   useEffect( () => {
     // here we make a call to our cors-proxy api
     // we want to get all our player infomation for the waiver wire
+    axios.get(`${PROXY_URL}` )
+    .then( (result, err) => {
+      if (err) {
+        console.log('error', err)
+      } else {
+        console.log('result', result.data)
+      }
+    })
   })
 
   // update pageIndex here
