@@ -82,7 +82,9 @@ function WatchlistLP () {
                             <img style={{minWidth: "100%", maxHeight: "100%", border: "solid black 3px", padding: "0"}} src={images.image}></img>
                           </Row>
                           <Row style={{border: "solid orange 3px", height: "20%"}}>
-                            <Col style={{border: "solid blue 3px", padding: "12", maxHeight: "99%"}}> {data[index].player.first_name} {data[index].player.last_name} </Col>
+                            <Col style={{border: "solid blue 3px", padding: "12", maxHeight: "99%"}}>
+                              <div style={{overflowY: "scroll", maxHeight: "99%"}}> {data[index].player.first_name} {data[index].player.last_name} </div>
+                            </Col>
                           </Row>
                       </Col>
                       )
