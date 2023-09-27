@@ -62,6 +62,11 @@ function PlayerRankingLP () {
     }
   }
 
+  function addToWatchlist (e) {
+    var playerObject = JSON.parse(e.target.alt)
+    console.log('should be object', playerObject);
+  }
+
   return (
     <Container style={{height: "100%"}}>
       <Row style={{height: "5%"}}>
@@ -101,6 +106,9 @@ function PlayerRankingLP () {
               <th>
                 PTS
               </th>
+              <th>
+                ADD
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -129,32 +137,35 @@ function PlayerRankingLP () {
                     <th style={{textAlign: "left"}}>
                     {currentPlayer.player.first_name} {currentPlayer.player.last_name}
                     </th>
-                    <th>
+                    <th style={{height: "2%"}}>
                       {fg}%
                     </th>
-                    <th>
+                    <th style={{height: "2%"}}>
                       {ft}%
                     </th>
-                    <th>
+                    <th style={{height: "2%"}}>
                       {currentPlayer.fg3m}
                     </th>
-                    <th>
+                    <th style={{height: "2%"}}>
                       {currentPlayer.reb}
                     </th>
-                    <th>
+                    <th style={{height: "2%"}}>
                       {currentPlayer.ast}
                     </th>
-                    <th>
+                    <th style={{height: "2%"}}>
                       {currentPlayer.stl}
                     </th>
-                    <th>
+                    <th style={{height: "2%"}}>
                       {currentPlayer.blk}
                     </th>
-                    <th>
+                    <th style={{height: "2%"}}>
                       {currentPlayer.turnover}
                     </th>
-                    <th>
+                    <th style={{height: "2%"}}>
                       {currentPlayer.pts}
+                    </th>
+                    <th style={{height: "2%", width: "2%", paddingTop: "3px"}}>
+                      <img onClick={addToWatchlist} alt={JSON.stringify(currentPlayer)} style={{maxHeight: "95%", maxWidth: "99%"}} src={"https://www.svgrepo.com/show/326119/star-small.svg"}></img>
                     </th>
                   </tr>
                 )

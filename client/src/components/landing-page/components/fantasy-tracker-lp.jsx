@@ -151,6 +151,9 @@ function FantasyTrackerLP () {
                 <th>
                   PTS
                 </th>
+                <th>
+                  ADD
+                </th>
               </tr>
             </thead>
             <tbody>
