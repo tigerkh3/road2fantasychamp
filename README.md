@@ -36,7 +36,15 @@ For further information on the decision points regarding the design and the proc
 Now that we understand how what our application should be comprised of and how we should go about data retrieval on both the frontend and backend of the application. I then moved onto actually designing how the frontend of the 
 application would look and where the features would live on the application. 
 
-Using Figma, I came up with a super basic UI for where the application's features would live. 
+I first started off with good ole fashioned pen and paper to draw out what I wanted the app to look like. It felt easier for me
+to start off with something tangible such as a pen before moving to a web app to further flesh it out. 
+
+Here's what it initially looked like: 
+
+![IMG_1245 copy](https://github.com/tigerkh3/road2fantasychamp/assets/85322535/17e39a97-91bf-449b-afbe-7c7426b41ed7)
+
+
+Using Figma, I then mocked up the super basic UI for where the application's features would live. 
 
 ![image](https://github.com/tigerkh3/road2fantasychamp/assets/85322535/ab36cfa7-b087-4dbf-bcf2-21f9830164bb)
 
