@@ -63,8 +63,17 @@ function PlayerRankingLP () {
   }
 
   function addToWatchlist (e) {
+    e.preventDefault();
     var playerObject = JSON.parse(e.target.alt)
     console.log('should be object', playerObject);
+    axios.post('http://localhost:5000/addPlayer', playerObject)
+    .then ( (result, err) => {
+      if (err) {
+        console.log('error', err)
+      } else {
+        console.log('successful addition', result)
+      }
+    })
   }
 
   return (
