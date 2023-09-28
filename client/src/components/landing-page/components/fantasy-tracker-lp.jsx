@@ -28,7 +28,6 @@ function FantasyTrackerLP () {
       if (err) {
         console.log('error', err)
       } else {
-        console.log('fantasy tracker data', res.data);
         setMatchupMetaData(res.data);
         var ids = {};
         // create an object of key values pairs of id to name
@@ -150,6 +149,9 @@ function FantasyTrackerLP () {
                 </th>
                 <th>
                   PTS
+                </th>
+                <th>
+                  ADD
                 </th>
               </tr>
             </thead>
