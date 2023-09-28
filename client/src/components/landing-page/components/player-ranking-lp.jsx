@@ -174,7 +174,16 @@ function PlayerRankingLP () {
                       {currentPlayer.pts}
                     </th>
                     <th style={{height: "2%", width: "2%", paddingTop: "3px"}}>
-                      <img onClick={addToWatchlist} alt={JSON.stringify(currentPlayer)} style={{maxHeight: "95%", maxWidth: "99%"}} src={"https://www.svgrepo.com/show/326119/star-small.svg"}></img>
+                      <img onClick={(e) => {
+                                if(window.confirm('Add Player to Watchlist?')) {
+                                  addToWatchlist(e);
+                                }
+                              }}
+                            alt={JSON.stringify(currentPlayer)}
+                            style={{maxHeight: "95%", maxWidth: "99%"}}
+                            src={"https://www.svgrepo.com/show/326119/star-small.svg"}
+                      >
+                      </img>
                     </th>
                   </tr>
                 )
