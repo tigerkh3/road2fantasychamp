@@ -5,7 +5,7 @@ After losing in the finals this year, I am determined to finally win my 2024 fan
 As a brief overview, this application is built specifically for 9-category ESPN Fantasy Basketball leagues. The premise for this is because that is the style of fantasy basketball that I currently play.
 I decided to build a fullstack web/mobile application that uses ESPN's RESTful API to grab NBA player statistics live and display it in an interactive web application to help me make better informed decisions. 
 
-I highly recommend that anyone reading this README for the first time to check out the FAQ section. 
+I highly recommend that anyone reading this README for the first time check out the FAQ section. 
 
 # Table of Contents
 
@@ -92,7 +92,7 @@ or better Fantasy Sports in general, is a game where you as a player are acting 
 Fantasy Basketball specifically has two different types of game styles (scoring format) which are known as "head-to-head", "roto", and "season points." If you're curious about the differences, please do look it up [here](https://support.espn.com/hc/en-us/articles/360003913632-Scoring-Formats). The scoring format that my league uses is the head-to-head, 9 category format in which you go against a single manager per week in 9 statistical categories in basketball. Your objective is to beat the opposing manager
 by having a higher cumulative total in 8 categories (points, field goal %, free throw %, 3 pointers made, rebounds, assists, blocks, steals) and a lower cumulative total in 1 category (turnovers). 
 
-These cumulative totals are determined by how the real players perform in actual sports matches that they have lined up within the current week. Each team can have a maximum of 10 players playing at once and a total of 13 players on their team roster. Meaning that out of the 10 players active per day, 3 will be remaining on your bench. This makes sense due to the fact that though NBA games are almost daily, not every team is playing every day, and some players may have injures that restrict them. 
+These cumulative totals are determined by how the real players perform in actual sports matches that they have lined up within the current week. Each team can have a maximum of 10 players playing at once and a total of 13 players on their team roster. Meaning that out of the 10 players active per day, 3 will be remaining on your bench. This makes sense due to the fact that though NBA games are almost daily, not every team is playing every day, and some players may have injuries that restrict them. 
 
 ## Why is the above important? 
 
