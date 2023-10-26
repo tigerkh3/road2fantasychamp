@@ -30,6 +30,16 @@ import { data, images } from "./mock-data/lp-data.js"
 // I believe the filter for top scoring period ids gives us the 5 most recent scoring periods
 // need to do investigation on this
 
+// the information we want is this:
+
+// {"players":{"filterSlotIds":{"value":[0,5,11,1,2,6,3,4]},"filterStatsForCurrentSeasonScoringPeriodId":{"value":[2]},"sortAppliedStatTotal":null,"sortAppliedStatTotalForScoringPeriodId":null,"sortStatId":null,"sortStatIdForScoringPeriodId":{"additionalValue":2,"sortAsc":false,"sortPriority":2,"value":0},"sortPercOwned":{"sortPriority":3,"sortAsc":false},"filterStatus":{"value":["FREEAGENT","WAIVERS"]},"limit":50}}
+
+// the above header is exactly the request that we need to send over to the ESPN fantasy server
+// the only thing we need to make available for change would be the "filterStatsforcurrentSeasonScoringPeriodId"
+
+// this gives us a list of players that are free agents and their current scores
+// the stats breakdown are: '0' = PTS | '1' = STL | '2' = BLK | '3' = AST  | '6' = RBs | '11' = TOs| '17' = 3PM |'19' = FG%| | '20'  = FT%
+
 
 function PlayerRankingLP () {
 
