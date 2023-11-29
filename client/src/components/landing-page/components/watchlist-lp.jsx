@@ -17,26 +17,26 @@ function WatchlistLP () {
   const [dataSet, setDataSet] = useState(['filler', 'filler', 'filler', 'filler'])
 
   useEffect( () => {
-    axios.get('http://localhost:5000/watchlist')
-    .then ( (result, err) => {
-      if (err) {
-        console.log('watchlist database GET req denied', err)
-      } else {
-        console.log('raw data', result.data);
-        setTrueCount(result.data.length - 1)
-        var parsedData = [];
-        for (var i = 0; i < result.data.length; i++) {
-          var parse = JSON.parse(result.data[i].player_data)
-          parsedData.push(parse);
-        }
-        if (parsedData.length >= 1) {
-          while (parsedData.length % 4 !== 0) {
-            parsedData.push('filler')
-          }
-          setDataSet(parsedData);
-        }
-      }
-    })
+    // axios.get('http://localhost:6000/watchlist')
+    // .then ( (result, err) => {
+    //   if (err) {
+    //     console.log('watchlist database GET req denied', err)
+    //   } else {
+    //     console.log('raw data', result.data);
+    //     setTrueCount(result.data.length - 1)
+    //     var parsedData = [];
+    //     for (var i = 0; i < result.data.length; i++) {
+    //       var parse = JSON.parse(result.data[i].player_data)
+    //       parsedData.push(parse);
+    //     }
+    //     if (parsedData.length >= 1) {
+    //       while (parsedData.length % 4 !== 0) {
+    //         parsedData.push('filler')
+    //       }
+    //       setDataSet(parsedData);
+    //     }
+    //   }
+    // })
   }, [])
 
   // methods go here

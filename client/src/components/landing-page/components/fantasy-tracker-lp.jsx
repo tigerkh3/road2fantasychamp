@@ -38,25 +38,25 @@ function FantasyTrackerLP () {
 
         setTeamIds(ids);
 
-        //res.data.schedule is our array of games, each match up period is 6 objects
-        // we know this because we can take the number of teams and divide it by 2 to find the #
-        // of match ups per week which would be 6 aka 6 objects
-        var matchupPeriodSet = res.data.teams.length / 2;
-        // that gives us our ending index for the current week
-        var endingIndex = ((res.data.status.currentMatchupPeriod - 15) * matchupPeriodSet);
-        // to find our starting index we subtract that by the matchup period set and minus
-        // the matchupPeriod set since our ending index is inclusive in slice minus one after
-        var startingIndex = endingIndex - (matchupPeriodSet);
-        // we can iterate over the starting index until the ending index and if either the home
-        // or the away team has an id of 15 then we set out matchupData to that because
-        // our id is 15, whether we are home or away is irrelevant
-        for (var j = startingIndex; j <= endingIndex; j++) {
+        // //res.data.schedule is our array of games, each match up period is 6 objects
+        // // we know this because we can take the number of teams and divide it by 2 to find the #
+        // // of match ups per week which would be 6 aka 6 objects
+        // var matchupPeriodSet = res.data.teams.length / 2;
+        // // that gives us our ending index for the current week
+        // var endingIndex = ((res.data.status.currentMatchupPeriod - 15) * matchupPeriodSet);
+        // // to find our starting index we subtract that by the matchup period set and minus
+        // // the matchupPeriod set since our ending index is inclusive in slice minus one after
+        // var startingIndex = endingIndex - (matchupPeriodSet);
+        // // we can iterate over the starting index until the ending index and if either the home
+        // // or the away team has an id of 15 then we set out matchupData to that because
+        // // our id is 15, whether we are home or away is irrelevant
+        // for (var j = startingIndex; j <= endingIndex; j++) {
 
-          if (res.data.schedule[j].away.teamId === 15 || res.data.schedule[j].home.teamId === 15) {
-            var dataSet = res.data.schedule[j];
-            setMatchupData(dataSet)
-          }
-        }
+        //   if (res.data.schedule[j].away.teamId === 15 || res.data.schedule[j].home.teamId === 15) {
+        //     var dataSet = res.data.schedule[j];
+        //     setMatchupData(dataSet)
+        //   }
+        // }
       }
     })
     // we will eventually move this around to a conditional to first check database for stored data
