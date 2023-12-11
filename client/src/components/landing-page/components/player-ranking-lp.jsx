@@ -35,7 +35,10 @@ import { data, images } from "./mock-data/lp-data.js"
 // {"players":{"filterSlotIds":{"value":[0,5,11,1,2,6,3,4]},"filterStatsForCurrentSeasonScoringPeriodId":{"value":[2]},"sortAppliedStatTotal":null,"sortAppliedStatTotalForScoringPeriodId":null,"sortStatId":null,"sortStatIdForScoringPeriodId":{"additionalValue":2,"sortAsc":false,"sortPriority":2,"value":0},"sortPercOwned":{"sortPriority":3,"sortAsc":false},"filterStatus":{"value":["FREEAGENT","WAIVERS"]},"limit":50}}
 
 // the above header is exactly the request that we need to send over to the ESPN fantasy server
-// the only thing we need to make available for change would be the "filterStatsforcurrentSeasonScoringPeriodId"
+// the only thing we need to make available for change would be the "filterStatsforcurrentSeasonScoringPeriodId" and "sortStatIdForScoringPeriodId":{"additionalValue":46,"}"
+
+// as soon as our app loads we can grab the current scoring periodid
+// this wille be located in our landing page section
 
 // this gives us a list of players that are free agents and their current scores
 // the stats breakdown are: '0' = PTS | '1' = STL | '2' = BLK | '3' = AST  | '6' = RBs | '11' = TOs| '17' = 3PM |'19' = FG%| | '20'  = FT%
@@ -45,19 +48,23 @@ function PlayerRankingLP () {
 
   // useState here
   const [pageIndex, setPageIndex] = useState(1);
+  const [playerData, setPlayerData] = useState([])
   // useEffect here
   useEffect( () => {
     // here we make a call to our cors-proxy api
     // we want to get all our player infomation for the waiver wire
-    axios.get(`${PROXY_URL}` )
+    axios.get(`${PROXY_URL}/playerData` )
     .then( (result, err) => {
       if (err) {
         console.log('error', err)
       } else {
         console.log('result', result.data)
+
+        setPlayerData(result.data.players)
+
       }
     })
-  })
+  }, [])
 
   // update pageIndex here
   function updatePageIndex (e) {
@@ -131,57 +138,40 @@ function PlayerRankingLP () {
             </tr>
           </thead>
           <tbody>
-            {data.map( (currentPlayer, index) => {
-              var fg = currentPlayer.fg_pct;
-              var ft = currentPlayer.ft_pct;
-
-              if (!fg) {
-                fg = "0.00"
-              } else if (fg === 1) {
-                fg = "100"
-              } else {
-                fg = (currentPlayer.fg_pct * 100).toFixed(1)
-              }
-              if (!ft) {
-                ft = "0.00"
-              } else if (ft === 1) {
-                ft = "100"
-              } else {
-                ft = (currentPlayer.ft_pct * 100).toFixed(1)
-              }
+            {playerData.map( (currentPlayer, index) => {
 
               if (index <= 10 * pageIndex && index >= ((pageIndex * 10) - 10)) {
                 return (
                   <tr style={{textAlign: "center"}} key={"table" + index}>
                     <th style={{textAlign: "left"}}>
-                    {currentPlayer.player.first_name} {currentPlayer.player.last_name}
+                    {currentPlayer.player.fullName}
                     </th>
                     <th style={{height: "2%"}}>
-                      {fg}%
+                      {(currentPlayer.player.stats[0].stats[19] * 100).toFixed(1)}%
                     </th>
                     <th style={{height: "2%"}}>
-                      {ft}%
+                      {(currentPlayer.player.stats[0].stats[20] * 100).toFixed(1)}%
                     </th>
                     <th style={{height: "2%"}}>
-                      {currentPlayer.fg3m}
+                      {currentPlayer.player.stats[0].stats[17]}
                     </th>
                     <th style={{height: "2%"}}>
-                      {currentPlayer.reb}
+                      {currentPlayer.player.stats[0].stats[6]}
                     </th>
                     <th style={{height: "2%"}}>
-                      {currentPlayer.ast}
+                      {currentPlayer.player.stats[0].stats[3]}
                     </th>
                     <th style={{height: "2%"}}>
-                      {currentPlayer.stl}
+                      {currentPlayer.player.stats[0].stats[1]}
                     </th>
                     <th style={{height: "2%"}}>
-                      {currentPlayer.blk}
+                      {currentPlayer.player.stats[0].stats[2]}
                     </th>
                     <th style={{height: "2%"}}>
-                      {currentPlayer.turnover}
+                      {currentPlayer.player.stats[0].stats[11]}
                     </th>
                     <th style={{height: "2%"}}>
-                      {currentPlayer.pts}
+                      {currentPlayer.player.stats[0].stats[0]}
                     </th>
                     <th style={{height: "2%", width: "2%", paddingTop: "3px"}}>
                       <img onClick={(e) => {
