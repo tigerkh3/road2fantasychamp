@@ -23,20 +23,20 @@ function FantasyTrackerLP () {
   // need to start with a useEffect should ping the ESPN api for data
   useEffect( () => {
     // make a request to the cors proxy server which will return us API data!
-    axios.get(`${PROXY_URL}` + "/api")
+    axios.get(`${PROXY_URL}` + "/matchupData")
     .then ((res, err) => {
       if (err) {
         console.log('error', err)
       } else {
-        setMatchupMetaData(res.data);
-        var ids = {};
-        // create an object of key values pairs of id to name
-        for (var i = 0; i < res.data.teams.length; i++) {
-          var currentTeam = res.data.teams[i];
-          ids[currentTeam.id] = currentTeam.abbrev + " " + currentTeam.location;
-        }
+        // setMatchupMetaData(res.data);
+        // var ids = {};
+        // // create an object of key values pairs of id to name
+        // for (var i = 0; i < res.data.teams.length; i++) {
+        //   var currentTeam = res.data.teams[i];
+        //   ids[currentTeam.id] = currentTeam.abbrev + " " + currentTeam.location;
+        // }
 
-        setTeamIds(ids);
+        // setTeamIds(ids);
 
         // //res.data.schedule is our array of games, each match up period is 6 objects
         // // we know this because we can take the number of teams and divide it by 2 to find the #
