@@ -20,7 +20,7 @@ import { data, images } from "./mock-data/lp-data.js"
 // could we do that in a database query to start with?
 
 // idea: we can filter out the players already on a roster
-// we ping for the player_kona_info and use the header x-fantasy-filter
+// we ping for the player_kona_info and u se the header x-fantasy-filter
 // this allows us to filter by fantasy leage and our value should be the JSON string of
 // {"players":{"filterStatus":{"value":["FREEAGENT","WAIVERS"]},"limit":2000,"sortPercOwned":{"sortAsc":false,"sortPriority":1}}}
 
@@ -53,17 +53,17 @@ function PlayerRankingLP () {
   useEffect( () => {
     // here we make a call to our cors-proxy api
     // we want to get all our player infomation for the waiver wire
-    axios.get(`${PROXY_URL}/playerData` )
-    .then( (result, err) => {
-      if (err) {
-        console.log('error', err)
-      } else {
-        console.log('result', result.data)
+    // axios.get(`${PROXY_URL}/playerData` )
+    // .then( (result, err) => {
+    //   if (err) {
+    //     console.log('error', err)
+    //   } else {
+    //     console.log('result', result.data)
 
-        setPlayerData(result.data.players)
+    //     setPlayerData(result.data.players)
 
-      }
-    })
+    //   }
+    // })
   }, [])
 
   // update pageIndex here
