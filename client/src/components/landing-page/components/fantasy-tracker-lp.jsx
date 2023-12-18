@@ -16,68 +16,43 @@ import {PROXY_URL, REACT_APP_SEASON, REACT_APP_LEAGUE, REACT_APP_SWID, REACT_APP
 function FantasyTrackerLP () {
 
   // useStates
-  const [matchupMetaData, setMatchupMetaData] = useState({});
   const [matchupData, setMatchupData] = useState({})
-  const [teamIds, setTeamIds] = useState({})
+  const [leagueTeams, setLeagueTeams] = useState({})
 
   // need to start with a useEffect should ping the ESPN api for data
   useEffect( () => {
-    // make a request to the cors proxy server which will return us API data!
-    axios.get(`${PROXY_URL}` + "/matchupData")
+    // make a request to our proxy server
+    // we want a basic request to ESPN API to return to us our list of teams
+
+    axios.get(`${PROXY_URL}/leagueData`)
     .then ((res, err) => {
       if (err) {
         console.log('error', err)
       } else {
-        // setMatchupMetaData(res.data);
-        // var ids = {};
-        // // create an object of key values pairs of id to name
-        // for (var i = 0; i < res.data.teams.length; i++) {
-        //   var currentTeam = res.data.teams[i];
-        //   ids[currentTeam.id] = currentTeam.abbrev + " " + currentTeam.location;
-        // }
+        var leagueIds = {};
+        for (var i = 0; i < res.data.teams.length; i++) {
+          leagueIds[res.data.teams[i].id] = res.data.teams[i].abbrev;
+        }
+        setLeagueTeams(leagueIds)
 
-        // setTeamIds(ids);
-
-        // //res.data.schedule is our array of games, each match up period is 6 objects
-        // // we know this because we can take the number of teams and divide it by 2 to find the #
-        // // of match ups per week which would be 6 aka 6 objects
-        // var matchupPeriodSet = res.data.teams.length / 2;
-        // // that gives us our ending index for the current week
-        // var endingIndex = ((res.data.status.currentMatchupPeriod - 15) * matchupPeriodSet);
-        // // to find our starting index we subtract that by the matchup period set and minus
-        // // the matchupPeriod set since our ending index is inclusive in slice minus one after
-        // var startingIndex = endingIndex - (matchupPeriodSet);
-        // // we can iterate over the starting index until the ending index and if either the home
-        // // or the away team has an id of 15 then we set out matchupData to that because
-        // // our id is 15, whether we are home or away is irrelevant
-        // for (var j = startingIndex; j <= endingIndex; j++) {
-
-        //   if (res.data.schedule[j].away.teamId === 15 || res.data.schedule[j].home.teamId === 15) {
-        //     var dataSet = res.data.schedule[j];
-        //     setMatchupData(dataSet)
-        //   }
-        // }
+        // send our request for our specific match up here
+        var options = {
+          'url': `${PROXY_URL}/matchupData`,
+          'params': {
+            matchupPeriod: res.data.status.currentMatchupPeriod
+          }
+        }
+        axios.default.request(options)
+        .then (result => {
+          for (var i = 0; i < result.data.schedule.length; i++) {
+            if (result.data.schedule[i].away.teamId === 15 || result.data.schedule[i].home.teamId === 15) {
+              setMatchupData(result.data.schedule[i])
+              console.log(result.data.schedule[i])
+            }
+          }
+        })
       }
     })
-    // we will eventually move this around to a conditional to first check database for stored data
-    // this can reduce overall website transmission and calls to the API since the data set is so large
-    // can parse the data into the parts we need instead
-
-    // it will also include a request to the API in the case that our database does not have the current
-    // date's information we will run an axios call to our imported env variables
-    // const API_URL = "https://fantasy.espn.com/apis/v3/games/fba/seasons/" + REACT_APP_SEASON + "/segments/0/leagues/" + REACT_APP_LEAGUE // Replace this URL with your own
-    // var options = {
-    //   'url': `${API_URL}`,
-    //   'method': "get",
-    //   'headers': {
-    //     'Cookie': `SWID={${process.env.REACT_APP_SWID}}; espn_s2=${process.env.REACT_APP_ESPN};`
-    //   },
-    //   'withCredentials': 'true'
-    // }
-    // axios.get(API_URL, options)
-    // .then ( (response, error) => {
-      // setMatchupData(response.data)
-    // })
   }, [])
 
     // create all related components and render out table using map on the data received from api
@@ -102,7 +77,7 @@ function FantasyTrackerLP () {
           <Row style={{border: "solid 1px ", textAlign: "center"}}>
             <Col style={{borderRight: "solid 1px", textAlign: "center"}}>
               <h2>
-                {teamIds[matchupData.home.teamId]}
+                {leagueTeams[matchupData.home.teamId]}
               </h2>
             </Col>
             <Col style={{borderRight: "solid 1px ", textAlign: "center"}}>
@@ -112,7 +87,7 @@ function FantasyTrackerLP () {
             </Col>
             <Col>
               <h2>
-                {teamIds[matchupData.away.teamId]}
+                {leagueTeams[matchupData.away.teamId]}
               </h2>
             </Col>
           </Row>
@@ -155,22 +130,19 @@ function FantasyTrackerLP () {
             <tbody>
               <tr style={{textAlign: "center"}}>
                 <th style={{textAlign: "left"}}>
-                  {teamIds[matchupData.home.teamId]}
-                </th>
-                <th>
-                  {(matchupData.home.cumulativeScore.scoreByStat["20"].score * 100).toFixed(1)}%
+                  {leagueTeams[matchupData.home.teamId]}
                 </th>
                 <th>
                   {(matchupData.home.cumulativeScore.scoreByStat["19"].score * 100).toFixed(1)}%
                 </th>
                 <th>
+                  {(matchupData.home.cumulativeScore.scoreByStat["20"].score * 100).toFixed(1)}%
+                </th>
+                <th>
                   {matchupData.home.cumulativeScore.scoreByStat["17"].score}
                 </th>
                 <th>
-                  {matchupData.home.cumulativeScore.scoreByStat["11"].score}
-                </th>
-                <th>
-                  {matchupData.home.cumulativeScore.scoreByStat["6"].score}
+                  {matchupData.home.cumulativeScore.scoreByStat["13"].score}
                 </th>
                 <th>
                   {matchupData.home.cumulativeScore.scoreByStat["3"].score}
@@ -182,27 +154,27 @@ function FantasyTrackerLP () {
                   {matchupData.home.cumulativeScore.scoreByStat["1"].score}
                 </th>
                 <th>
+                  {matchupData.home.cumulativeScore.scoreByStat["11"].score}
+                </th>
+                <th>
                   {matchupData.home.cumulativeScore.scoreByStat["0"].score}
                 </th>
               </tr>
               <tr style={{textAlign: "center"}}>
                  <th style={{textAlign: "Left"}}>
-                  {teamIds[matchupData.away.teamId]}
-                </th>
-                <th>
-                  {(matchupData.away.cumulativeScore.scoreByStat["20"].score * 100).toFixed(1)}%
+                  {leagueTeams[matchupData.away.teamId]}
                 </th>
                 <th>
                   {(matchupData.away.cumulativeScore.scoreByStat["19"].score * 100).toFixed(1)}%
                 </th>
                 <th>
+                  {(matchupData.away.cumulativeScore.scoreByStat["20"].score * 100).toFixed(1)}%
+                </th>
+                <th>
                   {matchupData.away.cumulativeScore.scoreByStat["17"].score}
                 </th>
                 <th>
-                  {matchupData.away.cumulativeScore.scoreByStat["11"].score}
-                </th>
-                <th>
-                  {matchupData.away.cumulativeScore.scoreByStat["6"].score}
+                  {matchupData.away.cumulativeScore.scoreByStat["13"].score}
                 </th>
                 <th>
                   {matchupData.away.cumulativeScore.scoreByStat["3"].score}
@@ -212,6 +184,9 @@ function FantasyTrackerLP () {
                 </th>
                 <th>
                   {matchupData.away.cumulativeScore.scoreByStat["1"].score}
+                </th>
+                <th>
+                  {matchupData.away.cumulativeScore.scoreByStat["11"].score}
                 </th>
                 <th>
                   {matchupData.away.cumulativeScore.scoreByStat["0"].score}
