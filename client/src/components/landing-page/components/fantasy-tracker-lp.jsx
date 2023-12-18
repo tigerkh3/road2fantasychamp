@@ -47,6 +47,7 @@ function FantasyTrackerLP () {
           for (var i = 0; i < result.data.schedule.length; i++) {
             if (result.data.schedule[i].away.teamId === 15 || result.data.schedule[i].home.teamId === 15) {
               setMatchupData(result.data.schedule[i])
+              console.log(result.data.schedule[i])
             }
           }
         })
@@ -132,19 +133,16 @@ function FantasyTrackerLP () {
                   {leagueTeams[matchupData.home.teamId]}
                 </th>
                 <th>
-                  {(matchupData.home.cumulativeScore.scoreByStat["20"].score * 100).toFixed(1)}%
+                  {(matchupData.home.cumulativeScore.scoreByStat["19"].score * 100).toFixed(1)}%
                 </th>
                 <th>
-                  {(matchupData.home.cumulativeScore.scoreByStat["19"].score * 100).toFixed(1)}%
+                  {(matchupData.home.cumulativeScore.scoreByStat["20"].score * 100).toFixed(1)}%
                 </th>
                 <th>
                   {matchupData.home.cumulativeScore.scoreByStat["17"].score}
                 </th>
                 <th>
-                  {matchupData.home.cumulativeScore.scoreByStat["11"].score}
-                </th>
-                <th>
-                  {matchupData.home.cumulativeScore.scoreByStat["6"].score}
+                  {matchupData.home.cumulativeScore.scoreByStat["13"].score}
                 </th>
                 <th>
                   {matchupData.home.cumulativeScore.scoreByStat["3"].score}
@@ -156,6 +154,9 @@ function FantasyTrackerLP () {
                   {matchupData.home.cumulativeScore.scoreByStat["1"].score}
                 </th>
                 <th>
+                  {matchupData.home.cumulativeScore.scoreByStat["11"].score}
+                </th>
+                <th>
                   {matchupData.home.cumulativeScore.scoreByStat["0"].score}
                 </th>
               </tr>
@@ -164,19 +165,16 @@ function FantasyTrackerLP () {
                   {leagueTeams[matchupData.away.teamId]}
                 </th>
                 <th>
-                  {(matchupData.away.cumulativeScore.scoreByStat["20"].score * 100).toFixed(1)}%
+                  {(matchupData.away.cumulativeScore.scoreByStat["19"].score * 100).toFixed(1)}%
                 </th>
                 <th>
-                  {(matchupData.away.cumulativeScore.scoreByStat["19"].score * 100).toFixed(1)}%
+                  {(matchupData.away.cumulativeScore.scoreByStat["20"].score * 100).toFixed(1)}%
                 </th>
                 <th>
                   {matchupData.away.cumulativeScore.scoreByStat["17"].score}
                 </th>
                 <th>
-                  {matchupData.away.cumulativeScore.scoreByStat["11"].score}
-                </th>
-                <th>
-                  {matchupData.away.cumulativeScore.scoreByStat["6"].score}
+                  {matchupData.away.cumulativeScore.scoreByStat["13"].score}
                 </th>
                 <th>
                   {matchupData.away.cumulativeScore.scoreByStat["3"].score}
@@ -186,6 +184,9 @@ function FantasyTrackerLP () {
                 </th>
                 <th>
                   {matchupData.away.cumulativeScore.scoreByStat["1"].score}
+                </th>
+                <th>
+                  {matchupData.away.cumulativeScore.scoreByStat["11"].score}
                 </th>
                 <th>
                   {matchupData.away.cumulativeScore.scoreByStat["0"].score}
