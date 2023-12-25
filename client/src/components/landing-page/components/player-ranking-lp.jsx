@@ -49,21 +49,31 @@ function PlayerRankingLP () {
   // useState here
   const [pageIndex, setPageIndex] = useState(1);
   const [playerData, setPlayerData] = useState([])
+  const [scoringPeriodId, setScoringPeriodId] = useState()
   // useEffect here
   useEffect( () => {
-    // here we make a call to our cors-proxy api
-    // we want to get all our player infomation for the waiver wire
-    // axios.get(`${PROXY_URL}/playerData` )
-    // .then( (result, err) => {
-    //   if (err) {
-    //     console.log('error', err)
-    //   } else {
-    //     console.log('result', result.data)
+    axios.get(`${PROXY_URL}/leagueData`)
+    .then ((res, err) => {
+      if (err) {
+        console.log('error', err)
+      } else {
+        console.log('league data', res.data)
+        setScoringPeriodId(res.data.scoringPeriodId);
 
-    //     setPlayerData(result.data.players)
+        var options = {
+          'url': `${PROXY_URL}/playerData`,
+          'params': {
+            scoringPeriod: res.data.scoringPeriodId
+          }
+        }
 
-    //   }
-    // })
+        axios.default.request(options)
+        .then ( (res) => {
+          console.log(res.data);
+          setPlayerData(res.data.players)
+        })
+      }
+    })
   }, [])
 
   // update pageIndex here
@@ -139,54 +149,104 @@ function PlayerRankingLP () {
           </thead>
           <tbody>
             {playerData.map( (currentPlayer, index) => {
-
-              if (index <= 10 * pageIndex && index >= ((pageIndex * 10) - 10)) {
-                return (
-                  <tr style={{textAlign: "center"}} key={"table" + index}>
-                    <th style={{textAlign: "left"}}>
-                    {currentPlayer.player.fullName}
-                    </th>
-                    <th style={{height: "2%"}}>
-                      {(currentPlayer.player.stats[0].stats[19] * 100).toFixed(1)}%
-                    </th>
-                    <th style={{height: "2%"}}>
-                      {(currentPlayer.player.stats[0].stats[20] * 100).toFixed(1)}%
-                    </th>
-                    <th style={{height: "2%"}}>
-                      {currentPlayer.player.stats[0].stats[17]}
-                    </th>
-                    <th style={{height: "2%"}}>
-                      {currentPlayer.player.stats[0].stats[6]}
-                    </th>
-                    <th style={{height: "2%"}}>
-                      {currentPlayer.player.stats[0].stats[3]}
-                    </th>
-                    <th style={{height: "2%"}}>
-                      {currentPlayer.player.stats[0].stats[1]}
-                    </th>
-                    <th style={{height: "2%"}}>
-                      {currentPlayer.player.stats[0].stats[2]}
-                    </th>
-                    <th style={{height: "2%"}}>
-                      {currentPlayer.player.stats[0].stats[11]}
-                    </th>
-                    <th style={{height: "2%"}}>
-                      {currentPlayer.player.stats[0].stats[0]}
-                    </th>
-                    <th style={{height: "2%", width: "2%", paddingTop: "3px"}}>
-                      <img onClick={(e) => {
-                                if(window.confirm('Add Player to Watchlist?')) {
-                                  addToWatchlist(e);
-                                }
-                              }}
-                            alt={JSON.stringify(currentPlayer)}
-                            style={{maxHeight: "95%", maxWidth: "99%"}}
-                            src={"https://www.svgrepo.com/show/326119/star-small.svg"}
-                      >
-                      </img>
-                    </th>
-                  </tr>
-                )
+              if (currentPlayer.player.stats.length > 0) {
+                if (index <= 10 * pageIndex && index >= ((pageIndex * 10) - 10)) {
+                  return (
+                    <tr style={{textAlign: "center"}} key={"table" + index}>
+                      <th style={{textAlign: "left"}}>
+                      {currentPlayer.player.fullName}
+                      </th>
+                      <th style={{height: "2%"}}>
+                        {(currentPlayer.player.stats[0].stats[19] * 100).toFixed(1)}%
+                      </th>
+                      <th style={{height: "2%"}}>
+                        {(currentPlayer.player.stats[0].stats[20] * 100).toFixed(1)}%
+                      </th>
+                      <th style={{height: "2%"}}>
+                        {currentPlayer.player.stats[0].stats[17]}
+                      </th>
+                      <th style={{height: "2%"}}>
+                        {currentPlayer.player.stats[0].stats[6]}
+                      </th>
+                      <th style={{height: "2%"}}>
+                        {currentPlayer.player.stats[0].stats[3]}
+                      </th>
+                      <th style={{height: "2%"}}>
+                        {currentPlayer.player.stats[0].stats[1]}
+                      </th>
+                      <th style={{height: "2%"}}>
+                        {currentPlayer.player.stats[0].stats[2]}
+                      </th>
+                      <th style={{height: "2%"}}>
+                        {currentPlayer.player.stats[0].stats[11]}
+                      </th>
+                      <th style={{height: "2%"}}>
+                        {currentPlayer.player.stats[0].stats[0]}
+                      </th>
+                      <th style={{height: "2%", width: "2%", paddingTop: "3px"}}>
+                        <img onClick={(e) => {
+                                  if(window.confirm('Add Player to Watchlist?')) {
+                                    addToWatchlist(e);
+                                  }
+                                }}
+                              alt={JSON.stringify(currentPlayer)}
+                              style={{maxHeight: "95%", maxWidth: "99%"}}
+                              src={"https://www.svgrepo.com/show/326119/star-small.svg"}
+                        >
+                        </img>
+                      </th>
+                    </tr>
+                  )
+                }
+              } else {
+                if (index <= 10 * pageIndex && index >= ((pageIndex * 10) - 10)) {
+                  return (
+                    <tr style={{textAlign: "center"}} key={"table" + index}>
+                      <th style={{textAlign: "left"}}>
+                      {currentPlayer.player.fullName}
+                      </th>
+                      <th style={{height: "2%"}}>
+                        {'-'}
+                      </th>
+                      <th style={{height: "2%"}}>
+                        {'-'}
+                      </th>
+                      <th style={{height: "2%"}}>
+                        {'-'}
+                      </th>
+                      <th style={{height: "2%"}}>
+                        {'-'}
+                      </th>
+                      <th style={{height: "2%"}}>
+                        {'-'}
+                      </th>
+                      <th style={{height: "2%"}}>
+                        {'-'}
+                      </th>
+                      <th style={{height: "2%"}}>
+                        {'-'}
+                      </th>
+                      <th style={{height: "2%"}}>
+                        {'-'}
+                      </th>
+                      <th style={{height: "2%"}}>
+                        {'-'}
+                      </th>
+                      <th style={{height: "2%", width: "2%", paddingTop: "3px"}}>
+                        <img onClick={(e) => {
+                                  if(window.confirm('Add Player to Watchlist?')) {
+                                    addToWatchlist(e);
+                                  }
+                                }}
+                              alt={JSON.stringify(currentPlayer)}
+                              style={{maxHeight: "95%", maxWidth: "99%"}}
+                              src={"https://www.svgrepo.com/show/326119/star-small.svg"}
+                        >
+                        </img>
+                      </th>
+                    </tr>
+                  )
+                }
               }
             })}
           </tbody>
