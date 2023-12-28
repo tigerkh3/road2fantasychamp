@@ -8,7 +8,7 @@ import React, { useState, useEffect } from "react";
 // global styles for bootstrap
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Button, Table, Container, Row, Col, Media, Card } from "reactstrap"
-import { data, images } from "./mock-data/lp-data.js"
+import { data, images } from "../mock-data/lp-data.js"
 
 // we need to look into the following questions:
 // how many pings can we make to the api in an hour?
@@ -44,7 +44,7 @@ import { data, images } from "./mock-data/lp-data.js"
 // the stats breakdown are: '0' = PTS | '1' = STL | '2' = BLK | '3' = AST  | '6' = RBs | '11' = TOs| '17' = 3PM |'19' = FG%| | '20'  = FT%
 
 
-function PlayerRankingLP () {
+function PlayerRankingLP (prop) {
 
   // useState here
   const [pageIndex, setPageIndex] = useState(1);
@@ -57,7 +57,6 @@ function PlayerRankingLP () {
       if (err) {
         console.log('error', err)
       } else {
-        console.log('league data', res.data)
         setScoringPeriodId(res.data.scoringPeriodId);
 
         var options = {
@@ -69,7 +68,6 @@ function PlayerRankingLP () {
 
         axios.default.request(options)
         .then ( (res) => {
-          console.log(res.data);
           setPlayerData(res.data.players)
         })
       }
@@ -87,20 +85,6 @@ function PlayerRankingLP () {
       var newIndex = pageIndex + 1
       setPageIndex(newIndex)
     }
-  }
-
-  function addToWatchlist (e) {
-    e.preventDefault();
-    var playerObject = JSON.parse(e.target.alt)
-    console.log('should be object', playerObject);
-    axios.post('http://localhost:6000/addPlayer', playerObject)
-    .then ( (result, err) => {
-      if (err) {
-        console.log('error', err)
-      } else {
-        console.log('successful addition', result)
-      }
-    })
   }
 
   return (
@@ -186,7 +170,7 @@ function PlayerRankingLP () {
                       <th style={{height: "2%", width: "2%", paddingTop: "3px"}}>
                         <img onClick={(e) => {
                                   if(window.confirm('Add Player to Watchlist?')) {
-                                    addToWatchlist(e);
+                                    prop.addMethod(e)
                                   }
                                 }}
                               alt={JSON.stringify(currentPlayer)}
@@ -235,7 +219,7 @@ function PlayerRankingLP () {
                       <th style={{height: "2%", width: "2%", paddingTop: "3px"}}>
                         <img onClick={(e) => {
                                   if(window.confirm('Add Player to Watchlist?')) {
-                                    addToWatchlist(e);
+                                    prop.addMethod(e)
                                   }
                                 }}
                               alt={JSON.stringify(currentPlayer)}

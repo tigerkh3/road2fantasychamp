@@ -47,7 +47,6 @@ function FantasyTrackerLP () {
           for (var i = 0; i < result.data.schedule.length; i++) {
             if (result.data.schedule[i].away.teamId === 15 || result.data.schedule[i].home.teamId === 15) {
               setMatchupData(result.data.schedule[i])
-              console.log(result.data.schedule[i])
             }
           }
         })

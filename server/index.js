@@ -27,7 +27,6 @@ app.get('/watchlist', (req, res) => {
     if (err) {
       console.log('watchlist database function error', err)
     } else {
-      console.log('result')
       res.send(result)
     }
   })

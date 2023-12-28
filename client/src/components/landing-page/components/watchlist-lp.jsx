@@ -6,6 +6,7 @@ import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Button, Container, Row, Col, Media, Card } from "reactstrap"
 import { data, images } from "./mock-data/lp-data.js"
+import PlayerRankingLP from "./player-rankings/player-ranking-lp.jsx";
 
 function WatchlistLP () {
 
@@ -15,31 +16,33 @@ function WatchlistLP () {
   const [imageIndex, setImageIndex] = useState(0);
   const [trueCount, setTrueCount] = useState(0)
   const [dataSet, setDataSet] = useState(['filler', 'filler', 'filler', 'filler'])
+  const [watchlist, setWatchlist] = useState(0);
 
   useEffect( () => {
-    // axios.get('http://localhost:6000/watchlist')
-    // .then ( (result, err) => {
-    //   if (err) {
-    //     console.log('watchlist database GET req denied', err)
-    //   } else {
-    //     console.log('raw data', result.data);
-    //     setTrueCount(result.data.length - 1)
-    //     var parsedData = [];
-    //     for (var i = 0; i < result.data.length; i++) {
-    //       var parse = JSON.parse(result.data[i].player_data)
-    //       parsedData.push(parse);
-    //     }
-    //     if (parsedData.length >= 1) {
-    //       while (parsedData.length % 4 !== 0) {
-    //         parsedData.push('filler')
-    //       }
-    //       setDataSet(parsedData);
-    //     }
-    //   }
-    // })
-  }, [])
+    axios.get('http://localhost:6001/watchlist')
+    .then ( (result, err) => {
+      if (err) {
+        console.log('watchlist database GET req denied', err)
+      } else {
+        setTrueCount(result.data.length - 1)
+        var parsedData = [];
+        for (var i = 0; i < result.data.length; i++) {
+          var parse = JSON.parse(result.data[i].player_data)
+          parsedData.push(parse);
+        }
+        if (parsedData.length >= 1) {
+          while (parsedData.length % 4 !== 0) {
+            parsedData.push('filler')
+          }
+        }
+        setDataSet(parsedData);
+      }
+    })
+  }, [watchlist])
 
   // methods go here
+
+  // method #1
   function nextPlayers (e) {
     // we want to get the next 4 players in the data
     // we map over all of them but we can choose our starting/stopping point?
@@ -60,10 +63,26 @@ function WatchlistLP () {
     }
   }
 
-  return (
-    <Container style={{height: "100%"}}>
-      <Row style={{height: "10%"}}>
-        <h2 style={{border: "solid black 1px"}}>Player Watchlist</h2>
+  // method #2
+  function addToWatchlist (e) {
+    e.preventDefault();
+    var playerObject = JSON.parse(e.target.alt)
+    console.log('should be object', playerObject);
+    axios.post('http://localhost:6001/addPlayer', playerObject)
+    .then ( (result, err) => {
+      if (err) {
+        console.log('error', err)
+      } else {
+        console.log('successful addition', result)
+        setWatchlist(watchlist + 1)
+      }
+    })
+  }
+
+  return ([
+    <Container key='watchlist' style={{height: "30%", marginBottom: "2.5%"}}>
+      <Row style={{height: "10%", border: "solid black 1px"}}>
+        <h2>Player Watchlist</h2>
       </Row>
       <Row style={{height: "90%", border: "solid black 1px"}}>
         <Col style={{padding: "0"}} xs="1">
@@ -82,7 +101,7 @@ function WatchlistLP () {
                             <img style={{minWidth: "100%", maxHeight: "100%", border: "solid black 3px", padding: "0"}} src={images.gray}></img>
                           </Row>
                           <Row style={{border: "solid orange 3px", height: "20%"}}>
-                            <Col style={{border: "solid blue 3px", padding: "12", maxHeight: "99%"}}> Add Player </Col>
+                            <Col style={{border: "solid blue 3px", padding: "12", overflowY: "scroll", maxHeight: "99%"}}> Add Player </Col>
                           </Row>
                         </Col>
                       )
@@ -94,7 +113,7 @@ function WatchlistLP () {
                             </Row>
                             <Row style={{border: "solid orange 3px", height: "20%"}}>
                               <Col style={{border: "solid blue 3px", padding: "12", maxHeight: "99%"}}>
-                                <div style={{overflowY: "scroll", maxHeight: "99%"}}> {dataSet[index].player.first_name} {dataSet[index].player.last_name} </div>
+                                <div style={{overflowY: "scroll", maxHeight: "99%"}}> {dataSet[index].player.fullName} </div>
                               </Col>
                             </Row>
                         </Col>
@@ -110,8 +129,13 @@ function WatchlistLP () {
           <Button style={{marginLeft: "20%", marginTop: "122.5%"}} name="next" onClick={nextPlayers}> Right </Button>
         </Col>
       </Row>
+    </Container>,
+    <Container key='ranking' style={{border: "solid pink 1px", height: "65%"}}>
+      <Row>
+        <PlayerRankingLP addMethod={addToWatchlist}/>
+      </Row>
     </Container>
-  )
+  ])
 }
 
 export default WatchlistLP;
