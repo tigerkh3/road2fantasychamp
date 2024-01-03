@@ -80,18 +80,18 @@ function WatchlistLP () {
   }
 
   return ([
-    <Container key='watchlist' style={{height: "30%", marginBottom: "2.5%"}}>
-      <Row style={{height: "10%", border: "solid black 1px"}}>
+    <Container key='watchlist' style={{marginBottom: "2.5%", border: "solid green 15px"}}>
+      <Row style={{border: "solid black 1px"}}>
         <h2>Player Watchlist</h2>
       </Row>
-      <Row style={{height: "90%", border: "solid black 1px"}}>
-        <Col style={{padding: "0"}} xs="1">
-          <Button style={{marginLeft: "22.5%", marginTop: "122.5%"}} name="back" onClick={nextPlayers}> Left </Button>
+      <Row style={{maxHeight: "100%", border: "solid black 1px"}}>
+        <Col style={{padding: "0", maxHeight: "100%"}}>
+          <Button style={{}} name="back" onClick={nextPlayers}> Left </Button>
         </Col>
-        <Col style={{padding: "0"}} xs="10">
-          <Row style={{height: "100%"}}>
+        <Col style={{padding: "0"}}>
+          <Row style={{height: "200px", overflowX: "scroll"}}>
             <Container>
-              <Row style={{border: "solid green 1px", height: "100%", margin: "0"}} xs="12">
+              <Row style={{border: "solid green 1px", margin: "0", overflowY: "scroll"}}>
                 {dataSet.map( (currentPlayer, index) => {
                   if (index < imageIndex + 4 && index >= imageIndex) {
                     if (currentPlayer === 'filler') {
@@ -125,12 +125,12 @@ function WatchlistLP () {
             </Container>
           </Row>
         </Col>
-        <Col style={{padding: "0"}} xs="1">
-          <Button style={{marginLeft: "20%", marginTop: "122.5%"}} name="next" onClick={nextPlayers}> Right </Button>
+        <Col style={{padding: "0", display: "inline"}}>
+          <Button style={{display: "inline"}} name="next" onClick={nextPlayers}> Right </Button>
         </Col>
       </Row>
     </Container>,
-    <Container key='ranking' style={{border: "solid pink 1px", height: "65%"}}>
+    <Container key='ranking' style={{height: "65%"}}>
       <Row>
         <PlayerRankingLP addMethod={addToWatchlist}/>
       </Row>

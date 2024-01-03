@@ -15,15 +15,6 @@ function NavigationBar () {
         <NavbarToggler onClick={() => { setIsOpen(!isOpen) }} />
         <Collapse isOpen={isOpen} navbar>
         <Nav className="mr-auto" navbar>
-          <NavItem>
-              <NavLink href="#">Dashboard</NavLink>
-          </NavItem>
-          <NavItem>
-              <NavLink href="#">Player Rankings</NavLink>
-          </NavItem>
-          <NavItem>
-              <NavLink href="#">Watchlist</NavLink>
-          </NavItem>
         </Nav>
         </Collapse>
       </Navbar>

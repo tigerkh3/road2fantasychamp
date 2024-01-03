@@ -57,7 +57,10 @@ function FantasyTrackerLP () {
     // create all related components and render out table using map on the data received from api
     if (matchupData.home) {
       return (
-        <Container>
+        <Container style={{height: "100%"}}>
+          <Row style={{height: "15%", border: "solid black 1px"}}>
+            <h2>Live Matchupscore</h2>
+          </Row>
           <Row>
             <Col style={{borderLeft: "solid 1px", borderTop: "solid 1px", borderRight: "solid 1px", textAlign: "center"}}>
               <h2>
@@ -90,108 +93,108 @@ function FantasyTrackerLP () {
               </h2>
             </Col>
           </Row>
-          <Row style={{border: "solid 1px "}}>
+          <Row style={{border: "solid 1px", overflowY: "scroll"}}>
             <Table>
-            <thead>
-              <tr style={{textAlign: "center"}}>
-                <th style={{textAlign: "left"}}>
-                  Team
-                </th>
-                <th>
-                  FG %
-                </th>
-                <th>
-                  FT %
-                </th>
-                <th>
-                  3PM
-                </th>
-                <th>
-                  REB
-                </th>
-                <th>
-                  AST
-                </th>
-                <th>
-                  STL
-                </th>
-                <th>
-                  BLK
-                </th>
-                <th>
-                  TO
-                </th>
-                <th>
-                  PTS
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr style={{textAlign: "center"}}>
-                <th style={{textAlign: "left"}}>
-                  {leagueTeams[matchupData.home.teamId]}
-                </th>
-                <th>
-                  {(matchupData.home.cumulativeScore.scoreByStat["19"].score * 100).toFixed(1)}%
-                </th>
-                <th>
-                  {(matchupData.home.cumulativeScore.scoreByStat["20"].score * 100).toFixed(1)}%
-                </th>
-                <th>
-                  {matchupData.home.cumulativeScore.scoreByStat["17"].score}
-                </th>
-                <th>
-                  {matchupData.home.cumulativeScore.scoreByStat["13"].score}
-                </th>
-                <th>
-                  {matchupData.home.cumulativeScore.scoreByStat["3"].score}
-                </th>
-                <th>
-                  {matchupData.home.cumulativeScore.scoreByStat["2"].score}
-                </th>
-                <th>
-                  {matchupData.home.cumulativeScore.scoreByStat["1"].score}
-                </th>
-                <th>
-                  {matchupData.home.cumulativeScore.scoreByStat["11"].score}
-                </th>
-                <th>
-                  {matchupData.home.cumulativeScore.scoreByStat["0"].score}
-                </th>
-              </tr>
-              <tr style={{textAlign: "center"}}>
-                 <th style={{textAlign: "Left"}}>
-                  {leagueTeams[matchupData.away.teamId]}
-                </th>
-                <th>
-                  {(matchupData.away.cumulativeScore.scoreByStat["19"].score * 100).toFixed(1)}%
-                </th>
-                <th>
-                  {(matchupData.away.cumulativeScore.scoreByStat["20"].score * 100).toFixed(1)}%
-                </th>
-                <th>
-                  {matchupData.away.cumulativeScore.scoreByStat["17"].score}
-                </th>
-                <th>
-                  {matchupData.away.cumulativeScore.scoreByStat["13"].score}
-                </th>
-                <th>
-                  {matchupData.away.cumulativeScore.scoreByStat["3"].score}
-                </th>
-                <th>
-                  {matchupData.away.cumulativeScore.scoreByStat["2"].score}
-                </th>
-                <th>
-                  {matchupData.away.cumulativeScore.scoreByStat["1"].score}
-                </th>
-                <th>
-                  {matchupData.away.cumulativeScore.scoreByStat["11"].score}
-                </th>
-                <th>
-                  {matchupData.away.cumulativeScore.scoreByStat["0"].score}
-                </th>
-              </tr>
-            </tbody>
+              <thead style={{maxWidth: "100%"}}>
+                <tr style={{textAlign: "center"}}>
+                  <th style={{textAlign: "left"}}>
+                    Team
+                  </th>
+                  <th>
+                    FG %
+                  </th>
+                  <th>
+                    FT %
+                  </th>
+                  <th>
+                    3PM
+                  </th>
+                  <th>
+                    REB
+                  </th>
+                  <th>
+                    AST
+                  </th>
+                  <th>
+                    STL
+                  </th>
+                  <th>
+                    BLK
+                  </th>
+                  <th>
+                    TO
+                  </th>
+                  <th>
+                    PTS
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style={{textAlign: "center"}}>
+                  <th style={{textAlign: "left"}}>
+                    {leagueTeams[matchupData.home.teamId]}
+                  </th>
+                  <th>
+                    {(matchupData.home.cumulativeScore.scoreByStat["19"].score * 100).toFixed(1)}%
+                  </th>
+                  <th>
+                    {(matchupData.home.cumulativeScore.scoreByStat["20"].score * 100).toFixed(1)}%
+                  </th>
+                  <th>
+                    {matchupData.home.cumulativeScore.scoreByStat["17"].score}
+                  </th>
+                  <th>
+                    {matchupData.home.cumulativeScore.scoreByStat["13"].score}
+                  </th>
+                  <th>
+                    {matchupData.home.cumulativeScore.scoreByStat["3"].score}
+                  </th>
+                  <th>
+                    {matchupData.home.cumulativeScore.scoreByStat["2"].score}
+                  </th>
+                  <th>
+                    {matchupData.home.cumulativeScore.scoreByStat["1"].score}
+                  </th>
+                  <th>
+                    {matchupData.home.cumulativeScore.scoreByStat["11"].score}
+                  </th>
+                  <th>
+                    {matchupData.home.cumulativeScore.scoreByStat["0"].score}
+                  </th>
+                </tr>
+                <tr style={{textAlign: "center"}}>
+                  <th style={{textAlign: "Left"}}>
+                    {leagueTeams[matchupData.away.teamId]}
+                  </th>
+                  <th>
+                    {(matchupData.away.cumulativeScore.scoreByStat["19"].score * 100).toFixed(1)}%
+                  </th>
+                  <th>
+                    {(matchupData.away.cumulativeScore.scoreByStat["20"].score * 100).toFixed(1)}%
+                  </th>
+                  <th>
+                    {matchupData.away.cumulativeScore.scoreByStat["17"].score}
+                  </th>
+                  <th>
+                    {matchupData.away.cumulativeScore.scoreByStat["13"].score}
+                  </th>
+                  <th>
+                    {matchupData.away.cumulativeScore.scoreByStat["3"].score}
+                  </th>
+                  <th>
+                    {matchupData.away.cumulativeScore.scoreByStat["2"].score}
+                  </th>
+                  <th>
+                    {matchupData.away.cumulativeScore.scoreByStat["1"].score}
+                  </th>
+                  <th>
+                    {matchupData.away.cumulativeScore.scoreByStat["11"].score}
+                  </th>
+                  <th>
+                    {matchupData.away.cumulativeScore.scoreByStat["0"].score}
+                  </th>
+                </tr>
+              </tbody>
             </Table>
           </Row>
         </Container>
