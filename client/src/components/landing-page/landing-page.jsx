@@ -12,12 +12,12 @@ function LandingPage () {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <Container style={{height: "100%"}}>
-      <Row style={{height: "30vh", margin: 0}}>
-        <FantasyTrackerLP style={{height: "90%"}}/>
+    <Container>
+      <Row style={{marginBottom: "2.5%"}}>
+        <FantasyTrackerLP/>
       </Row>
-      <Row style={{height: "65vh"}}>
-        <WatchlistLP style={{height: "90%"}}/>
+      <Row>
+        <WatchlistLP/>
       </Row>
 
     </Container>

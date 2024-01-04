@@ -9,8 +9,8 @@ function NavigationBar () {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <Container fluid>
-      <Navbar color="dark" dark expand="lg">
+    <Container>
+      <Navbar color="dark" dark>
         <NavbarBrand href="/">KingMaker.io</NavbarBrand>
         <NavbarToggler onClick={() => { setIsOpen(!isOpen) }} />
         <Collapse isOpen={isOpen} navbar>

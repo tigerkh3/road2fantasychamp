@@ -18,6 +18,7 @@ function FantasyTrackerLP () {
   // useStates
   const [matchupData, setMatchupData] = useState({})
   const [leagueTeams, setLeagueTeams] = useState({})
+  const [matchupPeriod, setMatchupPeriod] = useState(0)
 
   // need to start with a useEffect should ping the ESPN api for data
   useEffect( () => {
@@ -34,6 +35,7 @@ function FantasyTrackerLP () {
           leagueIds[res.data.teams[i].id] = res.data.teams[i].abbrev;
         }
         setLeagueTeams(leagueIds)
+        setMatchupPeriod(res.data.status.currentMatchupPeriod)
 
         // send our request for our specific match up here
         var options = {
@@ -57,39 +59,36 @@ function FantasyTrackerLP () {
     // create all related components and render out table using map on the data received from api
     if (matchupData.home) {
       return (
-        <Container style={{height: "100%"}}>
-          <Row style={{height: "15%", border: "solid black 1px"}}>
-            <h2>Live Matchupscore</h2>
+        <Container>
+          <Row style={{border: "solid black 1px", textAlign: "center"}}>
+            <Col style={{padding: "0"}}>
+              <Container>
+                <h2>Week {matchupPeriod}</h2>
+              </Container>
+            </Col>
           </Row>
           <Row>
-            <Col style={{borderLeft: "solid 1px", borderTop: "solid 1px", borderRight: "solid 1px", textAlign: "center"}}>
-              <h2>
-                Home
-              </h2>
-            </Col>
-            <Col style={{borderTop: "solid 1px", textAlign: "center"}}>
-
-            </Col>
-            <Col style={{borderLeft: "solid 1px", borderTop: "solid 1px", borderRight: "solid 1px", textAlign: "center"}}>
-              <h2>
-                Away
-              </h2>
-            </Col>
-          </Row>
-          <Row style={{border: "solid 1px ", textAlign: "center"}}>
-            <Col style={{borderRight: "solid 1px", textAlign: "center"}}>
+            <Col xs="4" sm="4" md="4" style={{borderLeft: "solid 1px", borderTop: "solid 1px", textAlign: "center"}}>
               <h2>
                 {leagueTeams[matchupData.home.teamId]}
               </h2>
-            </Col>
-            <Col style={{borderRight: "solid 1px ", textAlign: "center"}}>
               <h2>
                 {matchupData.home.cumulativeScore.wins}-{matchupData.away.cumulativeScore.wins}-{matchupData.away.cumulativeScore.ties}
               </h2>
             </Col>
-            <Col>
+            <Col xs="4" sm="4" md="4" style={{borderTop: "solid 1px", textAlign: "center"}}>
+              <Container style={{height: "100%", width: "100%", position: "relative", padding: "0"}}>
+                <h2 style={{margin: "0", height: "50%", width: "50%", position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)"}}>
+                  VS
+                </h2>
+              </Container>
+            </Col>
+            <Col xs="4" sm="4" md="4" style={{borderTop: "solid 1px", borderRight: "solid 1px", textAlign: "center"}}>
               <h2>
                 {leagueTeams[matchupData.away.teamId]}
+              </h2>
+              <h2>
+                {matchupData.away.cumulativeScore.wins}-{matchupData.home.cumulativeScore.wins}-{matchupData.away.cumulativeScore.ties}
               </h2>
             </Col>
           </Row>
@@ -97,7 +96,7 @@ function FantasyTrackerLP () {
             <Table>
               <thead style={{maxWidth: "100%"}}>
                 <tr style={{textAlign: "center"}}>
-                  <th style={{textAlign: "left"}}>
+                  <th>
                     Team
                   </th>
                   <th>
@@ -131,7 +130,7 @@ function FantasyTrackerLP () {
               </thead>
               <tbody>
                 <tr style={{textAlign: "center"}}>
-                  <th style={{textAlign: "left"}}>
+                  <th>
                     {leagueTeams[matchupData.home.teamId]}
                   </th>
                   <th>
@@ -163,7 +162,7 @@ function FantasyTrackerLP () {
                   </th>
                 </tr>
                 <tr style={{textAlign: "center"}}>
-                  <th style={{textAlign: "Left"}}>
+                  <th>
                     {leagueTeams[matchupData.away.teamId]}
                   </th>
                   <th>
