@@ -222,7 +222,7 @@ function PlayerRankingLP (prop) {
                                     prop.addMethod(e)
                                   }
                                 }}
-                              alt={JSON.stringify(currentPlayer)}
+                              alt={currentPlayer.player.fullName}
                               style={{maxHeight: "95%", maxWidth: "99%"}}
                               src={"https://www.svgrepo.com/show/326119/star-small.svg"}
                         >
