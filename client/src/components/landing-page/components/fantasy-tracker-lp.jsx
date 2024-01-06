@@ -59,11 +59,11 @@ function FantasyTrackerLP () {
     // create all related components and render out table using map on the data received from api
     if (matchupData.home) {
       return (
-        <Container>
+        <Container style={{marginBottom: "2.5%"}}>
           <Row style={{border: "solid black 1px", textAlign: "center"}}>
             <Col style={{padding: "0"}}>
               <Container>
-                <h2>Week {matchupPeriod}</h2>
+                <h2 style={{padding: "15px"}}>Week {matchupPeriod}</h2>
               </Container>
             </Col>
           </Row>

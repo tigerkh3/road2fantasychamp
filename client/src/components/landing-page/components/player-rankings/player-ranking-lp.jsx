@@ -68,6 +68,7 @@ function PlayerRankingLP (prop) {
 
         axios.default.request(options)
         .then ( (res) => {
+          console.log(res.data.players)
           setPlayerData(res.data.players)
         })
       }
@@ -75,26 +76,26 @@ function PlayerRankingLP (prop) {
   }, [])
 
   // update pageIndex here
-  function updatePageIndex (e) {
-    console.log(e.target.name);
-    e.preventDefault();
-    if (e.target.name === "previousPage" && pageIndex > 1) {
-      var newIndex = pageIndex - 1
-      setPageIndex(newIndex)
-    } else if (e.target.name === "nextPage" && pageIndex < (data.length / 10)) {
-      var newIndex = pageIndex + 1
-      setPageIndex(newIndex)
-    }
-  }
+  // function updatePageIndex (e) {
+  //   console.log(e.target.name);
+  //   e.preventDefault();
+  //   if (e.target.name === "previousPage" && pageIndex > 1) {
+  //     var newIndex = pageIndex - 1
+  //     setPageIndex(newIndex)
+  //   } else if (e.target.name === "nextPage" && pageIndex < (data.length / 10)) {
+  //     var newIndex = pageIndex + 1
+  //     setPageIndex(newIndex)
+  //   }
+  // }
 
   return (
-    <Container style={{height: "100%"}}>
-      <Row style={{height: "5%"}}>
-        <h2 style={{border: "solid black 1px", marginBottom: "0"}}>Player Rankings</h2>
+    <Container style={{maxHeight: "50vh", border: "solid black 1px", marginBottom: "5%"}}>
+      <Row style={{maxHeight: "15vh", textAlign: "center"}}>
+        <h2 style={{marginBottom: "0", padding: "15px"}}>Player Rankings</h2>
       </Row>
-      <Row style={{minHeight: "35%"}}>
-        <Table style={{border: "solid 1px"}}>
-          <thead>
+      <Row style={{overflow: "auto", maxHeight: "37.5vh", padding: " 0px 20px 10px 10px"}}>
+        <Table>
+          <thead style={{position: "sticky", top: "0", zIndex: "1", background: "#f0f0f0", boxShadow: "inset 0px 1px black, 0px 1px black"}}>
             <tr style={{textAlign: "center"}}>
               <th style={{textAlign: "left"}}>
                 Player
@@ -134,109 +135,105 @@ function PlayerRankingLP (prop) {
           <tbody>
             {playerData.map( (currentPlayer, index) => {
               if (currentPlayer.player.stats.length > 0) {
-                if (index <= 10 * pageIndex && index >= ((pageIndex * 10) - 10)) {
-                  return (
-                    <tr style={{textAlign: "center"}} key={"table" + index}>
-                      <th style={{textAlign: "left"}}>
-                      {currentPlayer.player.fullName}
-                      </th>
-                      <th style={{height: "2%"}}>
-                        {(currentPlayer.player.stats[0].stats[19] * 100).toFixed(1)}%
-                      </th>
-                      <th style={{height: "2%"}}>
-                        {(currentPlayer.player.stats[0].stats[20] * 100).toFixed(1)}%
-                      </th>
-                      <th style={{height: "2%"}}>
-                        {currentPlayer.player.stats[0].stats[17]}
-                      </th>
-                      <th style={{height: "2%"}}>
-                        {currentPlayer.player.stats[0].stats[6]}
-                      </th>
-                      <th style={{height: "2%"}}>
-                        {currentPlayer.player.stats[0].stats[3]}
-                      </th>
-                      <th style={{height: "2%"}}>
-                        {currentPlayer.player.stats[0].stats[1]}
-                      </th>
-                      <th style={{height: "2%"}}>
-                        {currentPlayer.player.stats[0].stats[2]}
-                      </th>
-                      <th style={{height: "2%"}}>
-                        {currentPlayer.player.stats[0].stats[11]}
-                      </th>
-                      <th style={{height: "2%"}}>
-                        {currentPlayer.player.stats[0].stats[0]}
-                      </th>
-                      <th style={{height: "2%", width: "2%", paddingTop: "3px"}}>
-                        <img onClick={(e) => {
-                                  if(window.confirm('Add Player to Watchlist?')) {
-                                    prop.addMethod(e)
-                                  }
-                                }}
-                              alt={JSON.stringify(currentPlayer)}
-                              style={{maxHeight: "95%", maxWidth: "99%"}}
-                              src={"https://www.svgrepo.com/show/326119/star-small.svg"}
-                        >
-                        </img>
-                      </th>
-                    </tr>
-                  )
-                }
+                return (
+                  <tr style={{textAlign: "center"}} key={"table" + index}>
+                    <th style={{textAlign: "left"}}>
+                    {currentPlayer.player.fullName}
+                    </th>
+                    <th style={{height: "2%"}}>
+                      {(currentPlayer.player.stats[0].stats[19] * 100).toFixed(1)}%
+                    </th>
+                    <th style={{height: "2%"}}>
+                      {(currentPlayer.player.stats[0].stats[20] * 100).toFixed(1)}%
+                    </th>
+                    <th style={{height: "2%"}}>
+                      {currentPlayer.player.stats[0].stats[17]}
+                    </th>
+                    <th style={{height: "2%"}}>
+                      {currentPlayer.player.stats[0].stats[6]}
+                    </th>
+                    <th style={{height: "2%"}}>
+                      {currentPlayer.player.stats[0].stats[3]}
+                    </th>
+                    <th style={{height: "2%"}}>
+                      {currentPlayer.player.stats[0].stats[1]}
+                    </th>
+                    <th style={{height: "2%"}}>
+                      {currentPlayer.player.stats[0].stats[2]}
+                    </th>
+                    <th style={{height: "2%"}}>
+                      {currentPlayer.player.stats[0].stats[11]}
+                    </th>
+                    <th style={{height: "2%"}}>
+                      {currentPlayer.player.stats[0].stats[0]}
+                    </th>
+                    <th style={{height: "2%", width: "2%", paddingTop: "3px"}}>
+                      <img onClick={(e) => {
+                                if(window.confirm('Add Player to Watchlist?')) {
+                                  prop.addMethod(e)
+                                }
+                              }}
+                            alt={JSON.stringify(currentPlayer)}
+                            style={{maxHeight: "95%", maxWidth: "99%"}}
+                            src={"https://www.svgrepo.com/show/326119/star-small.svg"}
+                      >
+                      </img>
+                    </th>
+                  </tr>
+                )
               } else {
-                if (index <= 10 * pageIndex && index >= ((pageIndex * 10) - 10)) {
-                  return (
-                    <tr style={{textAlign: "center"}} key={"table" + index}>
-                      <th style={{textAlign: "left"}}>
-                      {currentPlayer.player.fullName}
-                      </th>
-                      <th style={{height: "2%"}}>
-                        {'-'}
-                      </th>
-                      <th style={{height: "2%"}}>
-                        {'-'}
-                      </th>
-                      <th style={{height: "2%"}}>
-                        {'-'}
-                      </th>
-                      <th style={{height: "2%"}}>
-                        {'-'}
-                      </th>
-                      <th style={{height: "2%"}}>
-                        {'-'}
-                      </th>
-                      <th style={{height: "2%"}}>
-                        {'-'}
-                      </th>
-                      <th style={{height: "2%"}}>
-                        {'-'}
-                      </th>
-                      <th style={{height: "2%"}}>
-                        {'-'}
-                      </th>
-                      <th style={{height: "2%"}}>
-                        {'-'}
-                      </th>
-                      <th style={{height: "2%", width: "2%", paddingTop: "3px"}}>
-                        <img onClick={(e) => {
-                                  if(window.confirm('Add Player to Watchlist?')) {
-                                    prop.addMethod(e)
-                                  }
-                                }}
-                              alt={currentPlayer.player.fullName}
-                              style={{maxHeight: "95%", maxWidth: "99%"}}
-                              src={"https://www.svgrepo.com/show/326119/star-small.svg"}
-                        >
-                        </img>
-                      </th>
-                    </tr>
-                  )
-                }
+                return (
+                  <tr style={{textAlign: "center"}} key={"table" + index}>
+                    <th style={{textAlign: "left"}}>
+                    {currentPlayer.player.firstName}
+                    </th>
+                    <th style={{height: "2%"}}>
+                      {'-'}
+                    </th>
+                    <th style={{height: "2%"}}>
+                      {'-'}
+                    </th>
+                    <th style={{height: "2%"}}>
+                      {'-'}
+                    </th>
+                    <th style={{height: "2%"}}>
+                      {'-'}
+                    </th>
+                    <th style={{height: "2%"}}>
+                      {'-'}
+                    </th>
+                    <th style={{height: "2%"}}>
+                      {'-'}
+                    </th>
+                    <th style={{height: "2%"}}>
+                      {'-'}
+                    </th>
+                    <th style={{height: "2%"}}>
+                      {'-'}
+                    </th>
+                    <th style={{height: "2%"}}>
+                      {'-'}
+                    </th>
+                    <th style={{height: "2%", width: "2%", paddingTop: "3px"}}>
+                      <img onClick={(e) => {
+                                if(window.confirm('Add Player to Watchlist?')) {
+                                  prop.addMethod(e)
+                                }
+                              }}
+                            alt={currentPlayer.player.fullName}
+                            style={{maxHeight: "95%", maxWidth: "99%"}}
+                            src={"https://www.svgrepo.com/show/326119/star-small.svg"}
+                      >
+                      </img>
+                    </th>
+                  </tr>
+                )
               }
             })}
           </tbody>
         </Table>
       </Row>
-      <Row xs={12} style={{textAlign: "center", width: "100%", marginBottom: "5%"}}>
+      {/* <Row xs={12} style={{textAlign: "center", width: "100%", marginBottom: "5%"}}>
         <Col>
          <Button name={"previousPage"} onClick={updatePageIndex} style={{marginRight: "0.5%"}}>
           Prev
@@ -248,9 +245,12 @@ function PlayerRankingLP (prop) {
             Next
          </Button>
         </Col>
-      </Row>
+      </Row> */}
     </Container>
   )
 }
+
+// 10 players max if logic
+// if (index <= 9 * pageIndex && index >= ((pageIndex * 9) - 9)) {}
 
 export default PlayerRankingLP;

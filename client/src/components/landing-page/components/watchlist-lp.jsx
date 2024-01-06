@@ -78,19 +78,16 @@ function WatchlistLP () {
   return ([
     <Container key='watchlist' style={{marginBottom: "2.5%"}}>
       <Row style={{border: "solid black 1px", textAlign: "center"}}>
-        <h2>Player Watchlist</h2>
+        <h2 style={{padding: "15px"}}>Player Watchlist</h2>
       </Row>
       <Row style={{border: "solid black 1px"}}>
-        <Col xs="4" sm="3" md="2" lg="2" xl="2">
-          <Button name="back" onClick={nextPlayers}> Left </Button>
-        </Col>
-        <Col style={{overflowY: "scroll"}} xs="4" sm="6" md="8" lg="8" xl="8">
-          <Container style={{padding: "0"}}>
+        <Col style={{overflowY: "scroll"}}>
+          <Container style={{width: "100%", padding: "0"}}>
             {dataSet.map( (currentPlayer, index) => {
               if (index < imageIndex + 4 && index >= imageIndex) {
                 if (currentPlayer === 'filler') {
                   return (
-                    <div key={"wl-" + index} style={{height: "100%", width: "20%", display: "inline-block", border: "solid black 3px", margin: "2%"}}>
+                    <div key={"wl-" + index} style={{height: "100%", width: "20%", display: "inline-block", border: "solid black 3px", margin: "2.5% 2.5%"}}>
                       <div style={{border: "solid orange 3px", marginBottom: "1px"}}>
                         <img style={{height: "100%", width: "100%", border: "solid black 3px"}} src={images.image}></img>
                       </div>
@@ -103,7 +100,7 @@ function WatchlistLP () {
                   )
                 } else {
                     return (
-                      <div key={"wl-" + index} style={{height: "100%", width: "20%", display: "inline-block", border: "solid black 3px", margin: "2%"}}>
+                      <div key={"wl-" + index} style={{height: "100%", width: "20%", display: "inline-block", border: "solid black 3px", margin: "2.5% 2.5%"}}>
                         <div style={{border: "solid orange 3px", marginBottom: "1px"}}>
                           <img style={{height: "100%", width: "100%", border: "solid black 3px"}} src={images.image}></img>
                         </div>
@@ -119,10 +116,15 @@ function WatchlistLP () {
             })}
           </Container>
         </Col>
-        <Col xs="4" sm="3" md="2" lg="2" xl="2">
+      </Row>
+      {/* <Row style={{border: "solid black 1px"}}>
+        <Col style={{padding: "0"}}>
+          <Button name="back" onClick={nextPlayers}> Left </Button>
+        </Col>
+        <Col style={{padding: "0"}}>
           <Button style={{display: "inline"}} name="next" onClick={nextPlayers}> Right </Button>
         </Col>
-      </Row>
+      </Row> */}
     </Container>,
     <Container key='ranking'>
       <Row>
