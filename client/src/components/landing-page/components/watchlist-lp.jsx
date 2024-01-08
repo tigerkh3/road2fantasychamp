@@ -81,37 +81,35 @@ function WatchlistLP () {
         <h2 style={{padding: "15px"}}>Player Watchlist</h2>
       </Row>
       <Row style={{border: "solid black 1px"}}>
-        <Col style={{overflowY: "scroll"}}>
-          <Container style={{width: "100%", padding: "0"}}>
+        <Col style={{maxHeight: "35vh", overflow: "scroll"}}>
+          <Container style={{padding: "0"}} >
             {dataSet.map( (currentPlayer, index) => {
-              if (index < imageIndex + 4 && index >= imageIndex) {
-                if (currentPlayer === 'filler') {
+              if (currentPlayer === 'filler') {
+                return (
+                  <div key={"wl-" + index} style={{height: "100%", width: "20%", display: "inline-block", border: "solid black 3px", margin: "2.5% 2.5%"}}>
+                    <div style={{padding: "3px", marginBottom: "1px"}}>
+                      <img style={{height: "100%", width: "100%", border: "solid black 1px"}} src={images.image}></img>
+                    </div>
+                    <div style={{maxHeight: "20%", overflow: "scroll", padding: "3px"}}>
+                      <div style={{height: "4vh", border: "solid black 1px", padding: "12"}}>
+                        <div style={{overflowX: "scroll", maxHeight: "99%"}}> Add Player</div>
+                      </div>
+                    </div>
+                  </div>
+                )
+              } else {
                   return (
                     <div key={"wl-" + index} style={{height: "100%", width: "20%", display: "inline-block", border: "solid black 3px", margin: "2.5% 2.5%"}}>
-                      <div style={{border: "solid orange 3px", marginBottom: "1px"}}>
-                        <img style={{height: "100%", width: "100%", border: "solid black 3px"}} src={images.image}></img>
+                      <div style={{padding: "3px", marginBottom: "1px"}}>
+                        <img style={{height: "100%", width: "100%", border: "solid black 1px"}} src={images.image}></img>
                       </div>
-                      <div style={{maxHeight: "20%", overflow: "scroll", border: "solid orange 3px"}}>
-                        <div style={{height: "4vh", border: "solid blue 3px", padding: "12"}}>
-                          <div style={{overflowY: "scroll", maxHeight: "99%"}}> Add Player</div>
+                      <div style={{maxHeight: "20%", overflow: "scroll", padding: "3px"}}>
+                        <div style={{height: "4vh", border: "solid black 1px", padding: "12"}}>
+                          <div style={{overflowY: "scroll", maxHeight: "99%"}}> {dataSet[index].player_data} </div>
                         </div>
                       </div>
                     </div>
                   )
-                } else {
-                    return (
-                      <div key={"wl-" + index} style={{height: "100%", width: "20%", display: "inline-block", border: "solid black 3px", margin: "2.5% 2.5%"}}>
-                        <div style={{border: "solid orange 3px", marginBottom: "1px"}}>
-                          <img style={{height: "100%", width: "100%", border: "solid black 3px"}} src={images.image}></img>
-                        </div>
-                        <div style={{maxHeight: "20%", overflow: "scroll", border: "solid orange 3px"}}>
-                          <div style={{height: "4vh", border: "solid blue 3px", padding: "12"}}>
-                            <div style={{overflowY: "scroll", maxHeight: "99%"}}> {dataSet[index].player_data} </div>
-                          </div>
-                        </div>
-                      </div>
-                    )
-                }
               }
             })}
           </Container>
@@ -133,5 +131,8 @@ function WatchlistLP () {
     </Container>
   ])
 }
+
+// move to left and right
+// if (index < imageIndex + 4 && index >= imageIndex) {}
 
 export default WatchlistLP;
