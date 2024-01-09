@@ -5,6 +5,7 @@ import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Button, Table, Container, Row, Col, Media, Card } from "reactstrap"
 import { data, images } from "./mock-data/lp-data.js"
+import "../../../dist/style.css";
 const axios = require('axios');
 
 // also need my own swid and espn_s2 cookies to access private leagues
@@ -59,51 +60,52 @@ function FantasyTrackerLP () {
     // create all related components and render out table using map on the data received from api
     if (matchupData.home) {
       return (
-        <Container style={{marginBottom: "2.5%"}}>
-          <Row style={{border: "solid black 1px", textAlign: "center"}}>
+        <Container style={{background: "#424242", marginBottom: "2.5%", borderRadius: "12.5px"}}>
+          <Row style={{background: "#313131", borderBottom: "solid black 1px", textAlign: "center", borderTopLeftRadius: "12.5px", borderTopRightRadius: "12.5px"}}>
             <Col style={{padding: "0"}}>
               <Container>
-                <h2 style={{padding: "15px"}}>Week {matchupPeriod}</h2>
+                <h1 style={{color: "white", padding: "10px"}}>Week {matchupPeriod}
+                </h1>
               </Container>
             </Col>
           </Row>
-          <Row>
-            <Col xs="4" sm="4" md="4" style={{borderLeft: "solid 1px", borderTop: "solid 1px", textAlign: "center"}}>
-              <h2>
+          <Row style={{borderBottom: "solid black 1px"}}>
+            <Col xs="4" sm="4" md="4" style={{padding: "2.5% 0%", borderTop: "solid 1px", textAlign: "center"}}>
+              <h2 style={{color: "white"}}>
                 {leagueTeams[matchupData.home.teamId]}
               </h2>
-              <h2>
+              <h4 style={{color: "white"}}>
                 {matchupData.home.cumulativeScore.wins}-{matchupData.away.cumulativeScore.wins}-{matchupData.away.cumulativeScore.ties}
-              </h2>
+              </h4>
             </Col>
-            <Col xs="4" sm="4" md="4" style={{borderTop: "solid 1px", textAlign: "center"}}>
+            <Col xs="4" sm="4" md="4" style={{padding: "2.5% 0%", borderTop: "solid 1px", textAlign: "center"}}>
               <Container style={{height: "100%", width: "100%", position: "relative", padding: "0"}}>
-                <h2 style={{margin: "0", height: "50%", width: "50%", position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)"}}>
+                <h2 style={{color: "white", margin: "0", height: "50%", width: "50%", position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)"}}>
                   VS
                 </h2>
               </Container>
             </Col>
-            <Col xs="4" sm="4" md="4" style={{borderTop: "solid 1px", borderRight: "solid 1px", textAlign: "center"}}>
-              <h2>
+            <Col xs="4" sm="4" md="4" style={{padding: "2.5% 0%", borderTop: "solid 1px", textAlign: "center"}}>
+              <h3 style={{color: "white"}}>
                 {leagueTeams[matchupData.away.teamId]}
-              </h2>
-              <h2>
+              </h3>
+              <h4 style={{color: "white"}}>
                 {matchupData.away.cumulativeScore.wins}-{matchupData.home.cumulativeScore.wins}-{matchupData.away.cumulativeScore.ties}
-              </h2>
+              </h4>
             </Col>
           </Row>
-          <Row style={{border: "solid 1px", overflowY: "scroll"}}>
-            <Table>
-              <thead style={{maxWidth: "100%"}}>
+          <Row style={{overflowY: "scroll", borderBottomLeftRadius: "12.5px", borderBottomRightRadius: "12.5px"}}>
+            <Table style={{margin: "0"}}>
+              <thead style={{maxWidth: "100%", background: "#313131"}}>
                 <tr style={{textAlign: "center"}}>
                   <th>
                     Team
                   </th>
                   <th>
-                    FG %
+                    FG%
                   </th>
                   <th>
-                    FT %
+                    FT%
                   </th>
                   <th>
                     3PM

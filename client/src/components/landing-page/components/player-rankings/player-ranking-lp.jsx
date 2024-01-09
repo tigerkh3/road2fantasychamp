@@ -7,8 +7,13 @@ import {PROXY_URL, REACT_APP_SEASON, REACT_APP_LEAGUE, REACT_APP_SWID, REACT_APP
 import React, { useState, useEffect } from "react";
 // global styles for bootstrap
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Button, Table, Container, Row, Col, Media, Card } from "reactstrap"
-import { data, images } from "../mock-data/lp-data.js"
+import { Button, Table, Container, Row, Col, Media, Card } from "reactstrap";
+import { data, images } from "../mock-data/lp-data.js";
+import "../../../../dist/style.css";
+import icon from "../../../../dist/icons/star.png"
+
+
+
 
 // we need to look into the following questions:
 // how many pings can we make to the api in an hour?
@@ -45,9 +50,11 @@ import { data, images } from "../mock-data/lp-data.js"
 
 
 function PlayerRankingLP (prop) {
+  const date = new Date();
+
 
   // useState here
-  const [pageIndex, setPageIndex] = useState(1);
+  const [currentDate, setCurrentDate] = useState(getDate());
   const [playerData, setPlayerData] = useState([])
   const [scoringPeriodId, setScoringPeriodId] = useState()
   // useEffect here
@@ -68,43 +75,42 @@ function PlayerRankingLP (prop) {
 
         axios.default.request(options)
         .then ( (res) => {
-          console.log(res.data.players)
           setPlayerData(res.data.players)
         })
       }
     })
   }, [])
 
-  // update pageIndex here
-  // function updatePageIndex (e) {
-  //   console.log(e.target.name);
-  //   e.preventDefault();
-  //   if (e.target.name === "previousPage" && pageIndex > 1) {
-  //     var newIndex = pageIndex - 1
-  //     setPageIndex(newIndex)
-  //   } else if (e.target.name === "nextPage" && pageIndex < (data.length / 10)) {
-  //     var newIndex = pageIndex + 1
-  //     setPageIndex(newIndex)
-  //   }
-  // }
+  // currentDate
+  function getDate() {
+    const today = new Date().toString().split(' ');
+    const day = today[0]
+    const month = today[1]
+    const numDay = today[2]
+    const year = today[3]
+    return month + " " +  numDay + ", " + year + " "
+  }
 
   return (
-    <Container style={{maxHeight: "50vh", border: "solid black 1px", marginBottom: "5%"}}>
-      <Row style={{maxHeight: "15vh", textAlign: "center"}}>
-        <h2 style={{marginBottom: "0", padding: "15px"}}>Player Rankings</h2>
+    <Container style={{background: "#424242", maxHeight: "50vh", borderRadius: "12.5px", marginBottom: "5%"}}>
+      <Row style={{background: "#313131", maxHeight: "15vh", textAlign: "center", borderTopLeftRadius: "12.5px", borderTopRightRadius: "12.5px"}}>
+        <h1 style={{marginBottom: "0", padding: "15px", color: "white"}}>Player Rankings</h1>
       </Row>
-      <Row style={{overflow: "auto", maxHeight: "37.5vh", padding: " 0px 20px 10px 10px"}}>
+      <Row style={{textAlign: "center", color: "white", padding: "1% 0%"}}>
+        <h4> {currentDate} </h4>
+      </Row>
+      <Row style={{overflow: "auto", maxHeight: "38vh", padding: "0% 1.5% 1% 0%"}}>
         <Table>
-          <thead style={{position: "sticky", top: "0", zIndex: "1", background: "#f0f0f0", boxShadow: "inset 0px 1px black, 0px 1px black"}}>
+          <thead style={{position: "sticky", top: "0", zIndex: "1", background: "#313131", boxShadow: "inset 0px 1px black, 0px 1px black"}}>
             <tr style={{textAlign: "center"}}>
               <th style={{textAlign: "left"}}>
                 Player
               </th>
               <th>
-                FG %
+                FG%
               </th>
               <th>
-                FT %
+                FT%
               </th>
               <th>
                 3PM
@@ -134,7 +140,7 @@ function PlayerRankingLP (prop) {
           </thead>
           <tbody>
             {playerData.map( (currentPlayer, index) => {
-              if (currentPlayer.player.stats.length > 0) {
+              if (Object.keys(currentPlayer.player.stats[0].stats).length > 0) {
                 return (
                   <tr style={{textAlign: "center"}} key={"table" + index}>
                     <th style={{textAlign: "left"}}>
@@ -174,8 +180,8 @@ function PlayerRankingLP (prop) {
                                 }
                               }}
                             alt={currentPlayer.player.fullName}
-                            style={{maxHeight: "95%", maxWidth: "99%"}}
-                            src={"https://www.svgrepo.com/show/326119/star-small.svg"}
+                            style={{maxHeight: "50%", maxWidth: "50%"}}
+                            src={icon}
                       >
                       </img>
                     </th>
@@ -185,7 +191,7 @@ function PlayerRankingLP (prop) {
                 return (
                   <tr style={{textAlign: "center"}} key={"table" + index}>
                     <th style={{textAlign: "left"}}>
-                    {currentPlayer.player.firstName}
+                    {currentPlayer.player.fullName}
                     </th>
                     <th style={{height: "2%"}}>
                       {'-'}
@@ -221,8 +227,8 @@ function PlayerRankingLP (prop) {
                                 }
                               }}
                             alt={currentPlayer.player.fullName}
-                            style={{maxHeight: "95%", maxWidth: "99%"}}
-                            src={"https://www.svgrepo.com/show/326119/star-small.svg"}
+                            style={{maxHeight: "50%", maxWidth: "50%"}}
+                            src={icon}
                       >
                       </img>
                     </th>

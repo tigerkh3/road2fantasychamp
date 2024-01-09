@@ -10,7 +10,7 @@ function NavigationBar () {
 
   return (
     <Container>
-      <Navbar color="dark" dark>
+      <Navbar color="black" dark>
         <NavbarBrand href="/">KingMaker.io</NavbarBrand>
         <NavbarToggler onClick={() => { setIsOpen(!isOpen) }} />
         <Collapse isOpen={isOpen} navbar>

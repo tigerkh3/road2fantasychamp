@@ -14,7 +14,7 @@ function LandingPage () {
   return (
     <Container>
       <Row>
-        <FantasyTrackerLP/>
+        <FantasyTrackerLP />
       </Row>
       <Row>
         <WatchlistLP />

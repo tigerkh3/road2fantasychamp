@@ -7,6 +7,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Button, Container, Row, Col, Media, Card } from "reactstrap"
 import { data, images } from "./mock-data/lp-data.js"
 import PlayerRankingLP from "./player-rankings/player-ranking-lp.jsx";
+import "../../../dist/style.css";
 
 function WatchlistLP () {
 
@@ -25,14 +26,12 @@ function WatchlistLP () {
         console.log('watchlist database GET req denied', err)
       } else {
         console.log(result.data)
-        if (result.data.length > 0) {
-          setTrueCount(result.data.length - 1)
-          if (result.data.length >= 1) {
+        if (result.data.length !== 0) {
+          setDataSet(result.data);
+        } else {
             while (result.data.length % 4 !== 0) {
               result.data.push('filler')
             }
-          }
-          setDataSet(result.data);
         }
       }
     })
@@ -76,36 +75,36 @@ function WatchlistLP () {
   }
 
   return ([
-    <Container key='watchlist' style={{marginBottom: "2.5%"}}>
-      <Row style={{border: "solid black 1px", textAlign: "center"}}>
-        <h2 style={{padding: "15px"}}>Player Watchlist</h2>
+    <Container key='watchlist' style={{background: "#424242", marginBottom: "2.5%", color: "white", borderRadius: "12.5px"}}>
+      <Row style={{background: "#313131", borderBottom: "solid black 1px", textAlign: "center", borderTopLeftRadius: "12.5px", borderTopRightRadius: "12.5px"}}>
+        <h1 style={{padding: "15px"}}>Player Watchlist</h1>
       </Row>
-      <Row style={{border: "solid black 1px"}}>
+      <Row>
         <Col style={{maxHeight: "35vh", overflow: "scroll"}}>
           <Container style={{padding: "0"}} >
             {dataSet.map( (currentPlayer, index) => {
               if (currentPlayer === 'filler') {
                 return (
-                  <div key={"wl-" + index} style={{height: "100%", width: "20%", display: "inline-block", border: "solid black 3px", margin: "2.5% 2.5%"}}>
+                  <div key={"wl-" + index} style={{height: "100%", width: "20%", display: "inline-block", border: "solid black 1px", margin: "2.5% 2.5%"}}>
                     <div style={{padding: "3px", marginBottom: "1px"}}>
-                      <img style={{height: "100%", width: "100%", border: "solid black 1px"}} src={images.image}></img>
+                      <img style={{height: "100%", width: "100%"}} src={images.image}></img>
                     </div>
-                    <div style={{maxHeight: "20%", overflow: "scroll", padding: "3px"}}>
-                      <div style={{height: "4vh", border: "solid black 1px", padding: "12"}}>
-                        <div style={{overflowX: "scroll", maxHeight: "99%"}}> Add Player</div>
+                    <div style={{maxHeight: "20%", overflow: "scroll", padding: "0% 2% 2% 2%"}}>
+                      <div style={{height: "5vh", padding: "12"}}>
+                        <div style={{maxHeight: "99%"}}> Add Player </div>
                       </div>
                     </div>
                   </div>
                 )
               } else {
                   return (
-                    <div key={"wl-" + index} style={{height: "100%", width: "20%", display: "inline-block", border: "solid black 3px", margin: "2.5% 2.5%"}}>
-                      <div style={{padding: "3px", marginBottom: "1px"}}>
-                        <img style={{height: "100%", width: "100%", border: "solid black 1px"}} src={images.image}></img>
+                    <div key={"wl-" + index} style={{height: "100%", width: "20%", display: "inline-block", margin: "2.5% 2.5%"}}>
+                      <div style={{padding: "2%"}}>
+                        <img style={{height: "100%", width: "100%"}} src={images.image}></img>
                       </div>
-                      <div style={{maxHeight: "20%", overflow: "scroll", padding: "3px"}}>
-                        <div style={{height: "4vh", border: "solid black 1px", padding: "12"}}>
-                          <div style={{overflowY: "scroll", maxHeight: "99%"}}> {dataSet[index].player_data} </div>
+                      <div style={{maxHeight: "20%", overflow: "scroll", padding: "0% 2% 2% 2%"}}>
+                        <div style={{height: "5vh", textAlign: "center"}}>
+                          <h7> {dataSet[index].player_data} </h7>
                         </div>
                       </div>
                     </div>

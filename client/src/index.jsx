@@ -5,4 +5,5 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 const container = document.getElementById('root');
 const root = createRoot(container);
-root.render(<App />);
+container.style.backgroundColor="#212121"
+root.render(<App/>);
