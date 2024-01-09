@@ -15,16 +15,18 @@ import NavigationBar from "./components/navigation-bar/navigation-bar.jsx"
 function App () {
 
 
-  return (
-    <Container style={{height: "100%", maxWidth: "90%"}}>
-      <Row xs="12" md="12" lg="12">
+  return ([
+    <Container style={{height: "100%", maxWidth: "100%", padding: "0"}}>
+      <Row>
         <NavigationBar/>
       </Row>
-      <Row xs="12"style={{height: "100%", margin: "0", width: "100%"}}>
+    </Container>,
+    <Container>
+      <Row style={{height: "100%", margin: "2% 10% 0% 10%"}}>
         <LandingPage/>
       </Row>
     </Container>
-  )
+  ])
 }
 
 export default App;

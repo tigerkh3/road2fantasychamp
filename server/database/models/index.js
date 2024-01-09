@@ -5,11 +5,10 @@ const db = require("../config/index.js")
 
 // database query here in the form of insert
 let addPlayer = (data, callback) => {
-  var insertData = JSON.stringify(data);
-  db.query(`INSERT into watchlist (player_data) VALUES ('${insertData}')`, (err, res) => {
+  db.query(`INSERT into watchlist (player_data) VALUES ('${data.playerName}')`, (err, res) => {
     if (err) {
       console.log('watchlist insertion error', err)
-      callback(null, 'failed')
+      callback(null, err)
     } else {
       callback('success')
     }

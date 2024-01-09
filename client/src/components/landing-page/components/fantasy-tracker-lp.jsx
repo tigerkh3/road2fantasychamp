@@ -5,6 +5,7 @@ import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Button, Table, Container, Row, Col, Media, Card } from "reactstrap"
 import { data, images } from "./mock-data/lp-data.js"
+import "../../../dist/style.css";
 const axios = require('axios');
 
 // also need my own swid and espn_s2 cookies to access private leagues
@@ -18,6 +19,7 @@ function FantasyTrackerLP () {
   // useStates
   const [matchupData, setMatchupData] = useState({})
   const [leagueTeams, setLeagueTeams] = useState({})
+  const [matchupPeriod, setMatchupPeriod] = useState(0)
 
   // need to start with a useEffect should ping the ESPN api for data
   useEffect( () => {
@@ -34,6 +36,7 @@ function FantasyTrackerLP () {
           leagueIds[res.data.teams[i].id] = res.data.teams[i].abbrev;
         }
         setLeagueTeams(leagueIds)
+        setMatchupPeriod(res.data.status.currentMatchupPeriod)
 
         // send our request for our specific match up here
         var options = {
@@ -57,141 +60,142 @@ function FantasyTrackerLP () {
     // create all related components and render out table using map on the data received from api
     if (matchupData.home) {
       return (
-        <Container>
-          <Row>
-            <Col style={{borderLeft: "solid 1px", borderTop: "solid 1px", borderRight: "solid 1px", textAlign: "center"}}>
-              <h2>
-                Home
-              </h2>
-            </Col>
-            <Col style={{borderTop: "solid 1px", textAlign: "center"}}>
-
-            </Col>
-            <Col style={{borderLeft: "solid 1px", borderTop: "solid 1px", borderRight: "solid 1px", textAlign: "center"}}>
-              <h2>
-                Away
-              </h2>
+        <Container style={{background: "#424242", marginBottom: "2.5%", borderRadius: "12.5px"}}>
+          <Row style={{background: "#313131", borderBottom: "solid black 1px", textAlign: "center", borderTopLeftRadius: "12.5px", borderTopRightRadius: "12.5px"}}>
+            <Col style={{padding: "0"}}>
+              <Container>
+                <h1 style={{color: "white", padding: "2%"}}>Week {matchupPeriod}
+                </h1>
+              </Container>
             </Col>
           </Row>
-          <Row style={{border: "solid 1px ", textAlign: "center"}}>
-            <Col style={{borderRight: "solid 1px", textAlign: "center"}}>
-              <h2>
+          <Row style={{borderBottom: "solid black 1px"}}>
+            <Col xs="4" sm="4" md="4" style={{padding: "2.5% 0%", borderTop: "solid 1px", textAlign: "center"}}>
+              <h2 style={{color: "white"}}>
                 {leagueTeams[matchupData.home.teamId]}
               </h2>
-            </Col>
-            <Col style={{borderRight: "solid 1px ", textAlign: "center"}}>
-              <h2>
+              <h4 style={{color: "white"}}>
                 {matchupData.home.cumulativeScore.wins}-{matchupData.away.cumulativeScore.wins}-{matchupData.away.cumulativeScore.ties}
-              </h2>
+              </h4>
             </Col>
-            <Col>
-              <h2>
+            <Col xs="4" sm="4" md="4" style={{padding: "2.5% 0%", borderTop: "solid 1px", textAlign: "center"}}>
+              <Container style={{height: "100%", width: "100%", position: "relative", padding: "0"}}>
+                <h2 style={{color: "white", margin: "0", height: "50%", width: "50%", position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)"}}>
+                  VS
+                </h2>
+              </Container>
+            </Col>
+            <Col xs="4" sm="4" md="4" style={{padding: "2.5% 0%", borderTop: "solid 1px", textAlign: "center"}}>
+              <h3 style={{color: "white"}}>
                 {leagueTeams[matchupData.away.teamId]}
-              </h2>
+              </h3>
+              <h4 style={{color: "white"}}>
+                {matchupData.away.cumulativeScore.wins}-{matchupData.home.cumulativeScore.wins}-{matchupData.away.cumulativeScore.ties}
+              </h4>
             </Col>
           </Row>
-          <Row style={{border: "solid 1px "}}>
-            <Table>
-            <thead>
-              <tr style={{textAlign: "center"}}>
-                <th style={{textAlign: "left"}}>
-                  Team
-                </th>
-                <th>
-                  FG %
-                </th>
-                <th>
-                  FT %
-                </th>
-                <th>
-                  3PM
-                </th>
-                <th>
-                  REB
-                </th>
-                <th>
-                  AST
-                </th>
-                <th>
-                  STL
-                </th>
-                <th>
-                  BLK
-                </th>
-                <th>
-                  TO
-                </th>
-                <th>
-                  PTS
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr style={{textAlign: "center"}}>
-                <th style={{textAlign: "left"}}>
-                  {leagueTeams[matchupData.home.teamId]}
-                </th>
-                <th>
-                  {(matchupData.home.cumulativeScore.scoreByStat["19"].score * 100).toFixed(1)}%
-                </th>
-                <th>
-                  {(matchupData.home.cumulativeScore.scoreByStat["20"].score * 100).toFixed(1)}%
-                </th>
-                <th>
-                  {matchupData.home.cumulativeScore.scoreByStat["17"].score}
-                </th>
-                <th>
-                  {matchupData.home.cumulativeScore.scoreByStat["13"].score}
-                </th>
-                <th>
-                  {matchupData.home.cumulativeScore.scoreByStat["3"].score}
-                </th>
-                <th>
-                  {matchupData.home.cumulativeScore.scoreByStat["2"].score}
-                </th>
-                <th>
-                  {matchupData.home.cumulativeScore.scoreByStat["1"].score}
-                </th>
-                <th>
-                  {matchupData.home.cumulativeScore.scoreByStat["11"].score}
-                </th>
-                <th>
-                  {matchupData.home.cumulativeScore.scoreByStat["0"].score}
-                </th>
-              </tr>
-              <tr style={{textAlign: "center"}}>
-                 <th style={{textAlign: "Left"}}>
-                  {leagueTeams[matchupData.away.teamId]}
-                </th>
-                <th>
-                  {(matchupData.away.cumulativeScore.scoreByStat["19"].score * 100).toFixed(1)}%
-                </th>
-                <th>
-                  {(matchupData.away.cumulativeScore.scoreByStat["20"].score * 100).toFixed(1)}%
-                </th>
-                <th>
-                  {matchupData.away.cumulativeScore.scoreByStat["17"].score}
-                </th>
-                <th>
-                  {matchupData.away.cumulativeScore.scoreByStat["13"].score}
-                </th>
-                <th>
-                  {matchupData.away.cumulativeScore.scoreByStat["3"].score}
-                </th>
-                <th>
-                  {matchupData.away.cumulativeScore.scoreByStat["2"].score}
-                </th>
-                <th>
-                  {matchupData.away.cumulativeScore.scoreByStat["1"].score}
-                </th>
-                <th>
-                  {matchupData.away.cumulativeScore.scoreByStat["11"].score}
-                </th>
-                <th>
-                  {matchupData.away.cumulativeScore.scoreByStat["0"].score}
-                </th>
-              </tr>
-            </tbody>
+          <Row style={{overflowY: "scroll", borderBottomLeftRadius: "12.5px", borderBottomRightRadius: "12.5px"}}>
+            <Table style={{margin: "0"}}>
+              <thead style={{maxWidth: "100%", background: "#313131"}}>
+                <tr style={{textAlign: "center"}}>
+                  <th>
+                    Team
+                  </th>
+                  <th>
+                    FG%
+                  </th>
+                  <th>
+                    FT%
+                  </th>
+                  <th>
+                    3PM
+                  </th>
+                  <th>
+                    REB
+                  </th>
+                  <th>
+                    AST
+                  </th>
+                  <th>
+                    STL
+                  </th>
+                  <th>
+                    BLK
+                  </th>
+                  <th>
+                    TO
+                  </th>
+                  <th>
+                    PTS
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style={{textAlign: "center"}}>
+                  <th>
+                    {leagueTeams[matchupData.home.teamId]}
+                  </th>
+                  <th>
+                    {(matchupData.home.cumulativeScore.scoreByStat["19"].score * 100).toFixed(1)}%
+                  </th>
+                  <th>
+                    {(matchupData.home.cumulativeScore.scoreByStat["20"].score * 100).toFixed(1)}%
+                  </th>
+                  <th>
+                    {matchupData.home.cumulativeScore.scoreByStat["17"].score}
+                  </th>
+                  <th>
+                    {matchupData.home.cumulativeScore.scoreByStat["13"].score}
+                  </th>
+                  <th>
+                    {matchupData.home.cumulativeScore.scoreByStat["3"].score}
+                  </th>
+                  <th>
+                    {matchupData.home.cumulativeScore.scoreByStat["2"].score}
+                  </th>
+                  <th>
+                    {matchupData.home.cumulativeScore.scoreByStat["1"].score}
+                  </th>
+                  <th>
+                    {matchupData.home.cumulativeScore.scoreByStat["11"].score}
+                  </th>
+                  <th>
+                    {matchupData.home.cumulativeScore.scoreByStat["0"].score}
+                  </th>
+                </tr>
+                <tr style={{textAlign: "center"}}>
+                  <th>
+                    {leagueTeams[matchupData.away.teamId]}
+                  </th>
+                  <th>
+                    {(matchupData.away.cumulativeScore.scoreByStat["19"].score * 100).toFixed(1)}%
+                  </th>
+                  <th>
+                    {(matchupData.away.cumulativeScore.scoreByStat["20"].score * 100).toFixed(1)}%
+                  </th>
+                  <th>
+                    {matchupData.away.cumulativeScore.scoreByStat["17"].score}
+                  </th>
+                  <th>
+                    {matchupData.away.cumulativeScore.scoreByStat["13"].score}
+                  </th>
+                  <th>
+                    {matchupData.away.cumulativeScore.scoreByStat["3"].score}
+                  </th>
+                  <th>
+                    {matchupData.away.cumulativeScore.scoreByStat["2"].score}
+                  </th>
+                  <th>
+                    {matchupData.away.cumulativeScore.scoreByStat["1"].score}
+                  </th>
+                  <th>
+                    {matchupData.away.cumulativeScore.scoreByStat["11"].score}
+                  </th>
+                  <th>
+                    {matchupData.away.cumulativeScore.scoreByStat["0"].score}
+                  </th>
+                </tr>
+              </tbody>
             </Table>
           </Row>
         </Container>
