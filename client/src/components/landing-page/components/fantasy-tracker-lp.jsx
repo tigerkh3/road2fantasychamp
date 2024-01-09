@@ -64,7 +64,7 @@ function FantasyTrackerLP () {
           <Row style={{background: "#313131", borderBottom: "solid black 1px", textAlign: "center", borderTopLeftRadius: "12.5px", borderTopRightRadius: "12.5px"}}>
             <Col style={{padding: "0"}}>
               <Container>
-                <h1 style={{color: "white", padding: "10px"}}>Week {matchupPeriod}
+                <h1 style={{color: "white", padding: "2%"}}>Week {matchupPeriod}
                 </h1>
               </Container>
             </Col>

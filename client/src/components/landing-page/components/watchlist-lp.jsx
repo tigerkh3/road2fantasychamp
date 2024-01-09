@@ -77,7 +77,7 @@ function WatchlistLP () {
   return ([
     <Container key='watchlist' style={{background: "#424242", marginBottom: "2.5%", color: "white", borderRadius: "12.5px"}}>
       <Row style={{background: "#313131", borderBottom: "solid black 1px", textAlign: "center", borderTopLeftRadius: "12.5px", borderTopRightRadius: "12.5px"}}>
-        <h1 style={{padding: "15px"}}>Player Watchlist</h1>
+        <h1 style={{padding: "2%"}}>Player Watchlist</h1>
       </Row>
       <Row>
         <Col style={{maxHeight: "35vh", overflow: "scroll"}}>

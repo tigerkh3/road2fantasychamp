@@ -92,14 +92,14 @@ function PlayerRankingLP (prop) {
   }
 
   return (
-    <Container style={{background: "#424242", maxHeight: "50vh", borderRadius: "12.5px", marginBottom: "5%"}}>
-      <Row style={{background: "#313131", maxHeight: "15vh", textAlign: "center", borderTopLeftRadius: "12.5px", borderTopRightRadius: "12.5px"}}>
-        <h1 style={{marginBottom: "0", padding: "15px", color: "white"}}>Player Rankings</h1>
+    <Container style={{background: "#424242", maxHeight: "50%", borderRadius: "12.5px", marginBottom: "5%"}}>
+      <Row style={{background: "#313131",textAlign: "center", borderTopLeftRadius: "12.5px", borderTopRightRadius: "12.5px"}}>
+        <h1 style={{marginBottom: "0", padding: "2%", color: "white"}}>Player Rankings</h1>
       </Row>
       <Row style={{textAlign: "center", color: "white", padding: "1% 0%"}}>
         <h4> {currentDate} </h4>
       </Row>
-      <Row style={{overflow: "auto", maxHeight: "38vh", padding: "0% 1.5% 1% 0%"}}>
+      <Row style={{overflow: "auto", maxHeight: "35vh", padding: "0% 1.5% 2% 0%"}}>
         <Table>
           <thead style={{position: "sticky", top: "0", zIndex: "1", background: "#313131", boxShadow: "inset 0px 1px black, 0px 1px black"}}>
             <tr style={{textAlign: "center"}}>
