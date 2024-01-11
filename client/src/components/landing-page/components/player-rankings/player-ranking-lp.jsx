@@ -10,8 +10,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Button, Table, Container, Row, Col, Media, Card } from "reactstrap";
 import { data, images } from "../mock-data/lp-data.js";
 import "../../../../dist/style.css";
-import favorite from "../../../../dist/icons/star.png"
-import unfavorite from "../../../../dist/icons/yelstar.png"
+import unfavorited from "../../../../dist/icons/plus.png"
+import favorited from "../../../../dist/icons/check.png"
 
 
 
@@ -108,6 +108,9 @@ function PlayerRankingLP (props) {
                 Player
               </th>
               <th>
+                PWL
+              </th>
+              <th>
                 FG%
               </th>
               <th>
@@ -134,9 +137,6 @@ function PlayerRankingLP (props) {
               <th>
                 PTS
               </th>
-              <th>
-                ADD
-              </th>
             </tr>
           </thead>
           <tbody>
@@ -145,8 +145,20 @@ function PlayerRankingLP (props) {
                 if ((currentPlayer.player.stats[0] !== undefined) && (Object.keys(currentPlayer.player.stats[0].stats).length > 0)) {
                   return (
                     <tr style={{textAlign: "center"}} key={"table`" + index}>
-                      <th style={{textAlign: "left"}}>
+                      <th style={{textAlign: "left", width: "15%"}}>
                       {currentPlayer.player.fullName}
+                      </th>
+                      <th style={{height: "2%", width: "2%", paddingTop: "3px"}}>
+                        <img onClick={(e) => {
+                                  if(window.confirm('Remove Player from Watchlist?')) {
+                                    props.removeMethod(e)
+                                  }
+                                }}
+                              alt={currentPlayer.player.fullName}
+                              style={{maxHeight: "50%", maxWidth: "50%", margin: "25%"}}
+                              src={favorited}
+                        >
+                        </img>
                       </th>
                       <th style={{height: "2%"}}>
                         {(currentPlayer.player.stats[0].stats[19] * 100).toFixed(1)}%
@@ -175,52 +187,13 @@ function PlayerRankingLP (props) {
                       <th style={{height: "2%"}}>
                         {currentPlayer.player.stats[0].stats[0]}
                       </th>
-                      <th style={{height: "2%", width: "2%", paddingTop: "3px"}}>
-                        <img onClick={(e) => {
-                                  if(window.confirm('Remove Player from Watchlist?')) {
-                                    props.removeMethod(e)
-                                  }
-                                }}
-                              alt={currentPlayer.player.fullName}
-                              style={{maxHeight: "50%", maxWidth: "50%"}}
-                              src={unfavorite}
-                        >
-                        </img>
-                      </th>
                     </tr>
                   )
                 } else {
                   return (
                     <tr style={{textAlign: "center"}} key={"table1" + index}>
-                      <th style={{textAlign: "left"}}>
+                      <th style={{textAlign: "left", width: "15%"}}>
                       {currentPlayer.player.fullName}
-                      </th>
-                      <th style={{height: "2%"}}>
-                        {'-'}
-                      </th>
-                      <th style={{height: "2%"}}>
-                        {'-'}
-                      </th>
-                      <th style={{height: "2%"}}>
-                        {'-'}
-                      </th>
-                      <th style={{height: "2%"}}>
-                        {'-'}
-                      </th>
-                      <th style={{height: "2%"}}>
-                        {'-'}
-                      </th>
-                      <th style={{height: "2%"}}>
-                        {'-'}
-                      </th>
-                      <th style={{height: "2%"}}>
-                        {'-'}
-                      </th>
-                      <th style={{height: "2%"}}>
-                        {'-'}
-                      </th>
-                      <th style={{height: "2%"}}>
-                        {'-'}
                       </th>
                       <th style={{height: "2%", width: "2%", paddingTop: "3px"}}>
                         <img onClick={(e) => {
@@ -229,10 +202,37 @@ function PlayerRankingLP (props) {
                                   }
                                 }}
                               alt={currentPlayer.player.fullName}
-                              style={{maxHeight: "50%", maxWidth: "50%"}}
-                              src={favorite}
+                              style={{maxHeight: "50%", maxWidth: "50%", margin: "25%"}}
+                              src={favorited}
                         >
                         </img>
+                      </th>
+                      <th style={{height: "2%",}}>
+                        {'-'}
+                      </th>
+                      <th style={{height: "2%"}}>
+                        {'-'}
+                      </th>
+                      <th style={{height: "2%"}}>
+                        {'-'}
+                      </th>
+                      <th style={{height: "2%"}}>
+                        {'-'}
+                      </th>
+                      <th style={{height: "2%"}}>
+                        {'-'}
+                      </th>
+                      <th style={{height: "2%"}}>
+                        {'-'}
+                      </th>
+                      <th style={{height: "2%"}}>
+                        {'-'}
+                      </th>
+                      <th style={{height: "2%"}}>
+                        {'-'}
+                      </th>
+                      <th style={{height: "2%"}}>
+                        {'-'}
                       </th>
                     </tr>
                   )
@@ -241,8 +241,20 @@ function PlayerRankingLP (props) {
                 if ((currentPlayer.player.stats[0] !== undefined) && (Object.keys(currentPlayer.player.stats[0].stats).length > 0)) {
                   return (
                     <tr style={{textAlign: "center"}} key={"table`" + index}>
-                      <th style={{textAlign: "left"}}>
+                      <th style={{textAlign: "left", width: "15%"}}>
                       {currentPlayer.player.fullName}
+                      </th>
+                      <th style={{height: "2%", width: "2%", paddingTop: "3px"}}>
+                        <img onClick={(e) => {
+                                  if(window.confirm('Add Player to Watchlist?')) {
+                                    props.addMethod(e)
+                                  }
+                                }}
+                              alt={currentPlayer.player.fullName}
+                              style={{maxHeight: "50%", maxWidth: "50%", margin: "25%"}}
+                              src={unfavorited}
+                        >
+                        </img>
                       </th>
                       <th style={{height: "2%"}}>
                         {(currentPlayer.player.stats[0].stats[19] * 100).toFixed(1)}%
@@ -271,52 +283,13 @@ function PlayerRankingLP (props) {
                       <th style={{height: "2%"}}>
                         {currentPlayer.player.stats[0].stats[0]}
                       </th>
-                      <th style={{height: "2%", width: "2%", paddingTop: "3px"}}>
-                        <img onClick={(e) => {
-                                  if(window.confirm('Add Player to Watchlist?')) {
-                                    props.addMethod(e)
-                                  }
-                                }}
-                              alt={currentPlayer.player.fullName}
-                              style={{maxHeight: "50%", maxWidth: "50%"}}
-                              src={favorite}
-                        >
-                        </img>
-                      </th>
                     </tr>
                   )
                 } else {
                   return (
                     <tr style={{textAlign: "center"}} key={"table1" + index}>
-                      <th style={{textAlign: "left"}}>
+                      <th style={{textAlign: "left", width: "15%"}}>
                       {currentPlayer.player.fullName}
-                      </th>
-                      <th style={{height: "2%"}}>
-                        {'-'}
-                      </th>
-                      <th style={{height: "2%"}}>
-                        {'-'}
-                      </th>
-                      <th style={{height: "2%"}}>
-                        {'-'}
-                      </th>
-                      <th style={{height: "2%"}}>
-                        {'-'}
-                      </th>
-                      <th style={{height: "2%"}}>
-                        {'-'}
-                      </th>
-                      <th style={{height: "2%"}}>
-                        {'-'}
-                      </th>
-                      <th style={{height: "2%"}}>
-                        {'-'}
-                      </th>
-                      <th style={{height: "2%"}}>
-                        {'-'}
-                      </th>
-                      <th style={{height: "2%"}}>
-                        {'-'}
                       </th>
                       <th style={{height: "2%", width: "2%", paddingTop: "3px"}}>
                         <img onClick={(e) => {
@@ -325,10 +298,37 @@ function PlayerRankingLP (props) {
                                   }
                                 }}
                               alt={currentPlayer.player.fullName}
-                              style={{maxHeight: "50%", maxWidth: "50%"}}
-                              src={favorite}
+                              style={{maxHeight: "50%", maxWidth: "50%", margin: "25%"}}
+                              src={unfavorited}
                         >
                         </img>
+                      </th>
+                      <th style={{height: "2%"}}>
+                        {'-'}
+                      </th>
+                      <th style={{height: "2%"}}>
+                        {'-'}
+                      </th>
+                      <th style={{height: "2%"}}>
+                        {'-'}
+                      </th>
+                      <th style={{height: "2%"}}>
+                        {'-'}
+                      </th>
+                      <th style={{height: "2%"}}>
+                        {'-'}
+                      </th>
+                      <th style={{height: "2%"}}>
+                        {'-'}
+                      </th>
+                      <th style={{height: "2%"}}>
+                        {'-'}
+                      </th>
+                      <th style={{height: "2%"}}>
+                        {'-'}
+                      </th>
+                      <th style={{height: "2%"}}>
+                        {'-'}
                       </th>
                     </tr>
                   )

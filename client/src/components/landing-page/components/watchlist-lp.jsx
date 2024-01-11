@@ -28,7 +28,6 @@ function WatchlistLP () {
       } else {
         if (result.data.length !== 0) {
           setWatchedPlayers(result.data);
-          console.log(result.data)
           var watchlistObj = {}
           for (var i = 0; i < result.data.length; i++) {
             watchlistObj[result.data[i].player_data] = true;
@@ -65,14 +64,14 @@ function WatchlistLP () {
   // method #2
   function addToWatchlist (e) {
     e.preventDefault();
-    axios.post('http://localhost:6001/addPlayer', {playerName: e.target.alt})
-    .then ( (result, err) => {
-      if (err) {
-        console.log('failed to add to watchlist database client res', err)
-      } else {
-        setWatchlist(watchlist + 1)
-      }
-    })
+      axios.post('http://localhost:6001/addPlayer', {playerName: e.target.alt})
+      .then ( (result, err) => {
+        if (err) {
+          console.log('failed to add to watchlist database client res', err)
+        } else {
+          setWatchlist(watchlist + 1)
+        }
+      })
   }
 
   function removeFromWatchlist (e) {
@@ -82,6 +81,7 @@ function WatchlistLP () {
       if (err) {
         console.log('failed to remove from watchlist database client res', err)
       } else {
+        setWatchedPlayers(['filler'])
         setWatchlist(watchlist - 1)
       }
     })
