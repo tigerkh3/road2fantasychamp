@@ -16,6 +16,18 @@ let addPlayer = (data, callback) => {
 
 }
 
+let removePlayer = (data, callback) => {
+
+  db.query(`DELETE from watchlist WHERE player_data='${data.playerName}'`, (err, res) => {
+    if (err) {
+      console.log('watchlist insertion error', err)
+      callback(null, err)
+    } else {
+      callback('success')
+    }
+  })
+}
+
 let watchlist = (request, callback) => {
   db.query('SELECT * FROM watchlist', (err, res) => {
     if (err) {
@@ -27,5 +39,8 @@ let watchlist = (request, callback) => {
 }
 
 
+
+
 module.exports.addPlayer = addPlayer;
 module.exports.watchlist = watchlist;
+module.exports.removePlayer = removePlayer;
