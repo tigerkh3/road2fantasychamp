@@ -94,7 +94,7 @@ function FantasyTrackerLP () {
               </h4>
             </Col>
           </Row>
-          <Row style={{overflowY: "scroll", borderBottomLeftRadius: "12.5px", borderBottomRightRadius: "12.5px"}}>
+          <Row style={{overflowY: "auto", borderBottomLeftRadius: "12.5px", borderBottomRightRadius: "12.5px"}}>
             <Table style={{margin: "0"}}>
               <thead style={{maxWidth: "100%", background: "#313131"}}>
                 <tr style={{textAlign: "center"}}>

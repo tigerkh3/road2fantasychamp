@@ -3,7 +3,7 @@ const express = require('express');
 const axios = require('axios');
 require("dotenv").config();
 // db methods
-const { addPlayer, watchlist } = require('./database/models/index.js');
+const { addPlayer, removePlayer, watchlist } = require('./database/models/index.js');
 
 const app = express();
 app.use(express.json());
@@ -43,6 +43,16 @@ app.post('/addPlayer', (req, res) => {
   })
 
 });
+
+app.post('/removePlayer', (req, res) =>{
+  removePlayer(req.body, (result, err) => {
+    if (err) {
+      console.log('error', err)
+    } else {
+      res.sendStatus(200)
+    }
+  })
+})
 
 
 const PORT = process.env.SERVER_PORT || 6000;

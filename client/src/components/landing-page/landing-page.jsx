@@ -12,7 +12,7 @@ function LandingPage () {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <Container>
+    <Container style={{zoom: "70%"}}>
       <Row>
         <FantasyTrackerLP />
       </Row>

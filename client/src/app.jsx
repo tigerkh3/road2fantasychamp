@@ -16,12 +16,12 @@ function App () {
 
 
   return ([
-    <Container style={{height: "100%", maxWidth: "100%", padding: "0"}}>
+    <Container key="navBar"style={{height: "100%", maxWidth: "100%", padding: "0", zoom: "70%"}}>
       <Row>
         <NavigationBar/>
       </Row>
     </Container>,
-    <Container>
+    <Container key="landingPage">
       <Row style={{height: "100%", margin: "2% 10% 0% 10%"}}>
         <LandingPage/>
       </Row>

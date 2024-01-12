@@ -10,7 +10,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Button, Table, Container, Row, Col, Media, Card } from "reactstrap";
 import { data, images } from "../mock-data/lp-data.js";
 import "../../../../dist/style.css";
-import icon from "../../../../dist/icons/star.png"
+import unfavorited from "../../../../dist/icons/plus.png"
+import favorited from "../../../../dist/icons/check.png"
 
 
 
@@ -49,7 +50,7 @@ import icon from "../../../../dist/icons/star.png"
 // the stats breakdown are: '0' = PTS | '1' = STL | '2' = BLK | '3' = AST  | '6' = RBs | '11' = TOs| '17' = 3PM |'19' = FG%| | '20'  = FT%
 
 
-function PlayerRankingLP (prop) {
+function PlayerRankingLP (props) {
   const date = new Date();
 
 
@@ -69,7 +70,7 @@ function PlayerRankingLP (prop) {
         var options = {
           'url': `${PROXY_URL}/playerData`,
           'params': {
-            scoringPeriod: res.data.scoringPeriodId
+            scoringPeriod: res.data.scoringPeriodId-1
           }
         }
 
@@ -107,6 +108,9 @@ function PlayerRankingLP (prop) {
                 Player
               </th>
               <th>
+                PWL
+              </th>
+              <th>
                 FG%
               </th>
               <th>
@@ -133,125 +137,208 @@ function PlayerRankingLP (prop) {
               <th>
                 PTS
               </th>
-              <th>
-                ADD
-              </th>
             </tr>
           </thead>
           <tbody>
             {playerData.map( (currentPlayer, index) => {
-              if (Object.keys(currentPlayer.player.stats[0].stats).length > 0) {
-                return (
-                  <tr style={{textAlign: "center"}} key={"table" + index}>
-                    <th style={{textAlign: "left"}}>
-                    {currentPlayer.player.fullName}
-                    </th>
-                    <th style={{height: "2%"}}>
-                      {(currentPlayer.player.stats[0].stats[19] * 100).toFixed(1)}%
-                    </th>
-                    <th style={{height: "2%"}}>
-                      {(currentPlayer.player.stats[0].stats[20] * 100).toFixed(1)}%
-                    </th>
-                    <th style={{height: "2%"}}>
-                      {currentPlayer.player.stats[0].stats[17]}
-                    </th>
-                    <th style={{height: "2%"}}>
-                      {currentPlayer.player.stats[0].stats[6]}
-                    </th>
-                    <th style={{height: "2%"}}>
-                      {currentPlayer.player.stats[0].stats[3]}
-                    </th>
-                    <th style={{height: "2%"}}>
-                      {currentPlayer.player.stats[0].stats[1]}
-                    </th>
-                    <th style={{height: "2%"}}>
-                      {currentPlayer.player.stats[0].stats[2]}
-                    </th>
-                    <th style={{height: "2%"}}>
-                      {currentPlayer.player.stats[0].stats[11]}
-                    </th>
-                    <th style={{height: "2%"}}>
-                      {currentPlayer.player.stats[0].stats[0]}
-                    </th>
-                    <th style={{height: "2%", width: "2%", paddingTop: "3px"}}>
-                      <img onClick={(e) => {
-                                if(window.confirm('Add Player to Watchlist?')) {
-                                  prop.addMethod(e)
-                                }
-                              }}
-                            alt={currentPlayer.player.fullName}
-                            style={{maxHeight: "50%", maxWidth: "50%"}}
-                            src={icon}
-                      >
-                      </img>
-                    </th>
-                  </tr>
-                )
+              if (props.watchlist[currentPlayer.player.fullName]) {
+                if ((currentPlayer.player.stats[0] !== undefined) && (Object.keys(currentPlayer.player.stats[0].stats).length > 0)) {
+                  return (
+                    <tr style={{textAlign: "center"}} key={"table`" + index}>
+                      <th style={{textAlign: "left", width: "15%"}}>
+                      {currentPlayer.player.fullName}
+                      </th>
+                      <th style={{height: "2%", width: "2%", paddingTop: "3px"}}>
+                        <img onClick={(e) => {
+                                  if(window.confirm('Remove Player from Watchlist?')) {
+                                    props.removeMethod(e)
+                                  }
+                                }}
+                              alt={`${currentPlayer.player.fullName}, ${currentPlayer.id}`}
+                              style={{maxHeight: "50%", maxWidth: "50%", margin: "25%"}}
+                              src={favorited}
+                        >
+                        </img>
+                      </th>
+                      <th style={{height: "2%"}}>
+                        {(currentPlayer.player.stats[0].stats[19] * 100).toFixed(1)}%
+                      </th>
+                      <th style={{height: "2%"}}>
+                        {(currentPlayer.player.stats[0].stats[20] * 100).toFixed(1)}%
+                      </th>
+                      <th style={{height: "2%"}}>
+                        {currentPlayer.player.stats[0].stats[17]}
+                      </th>
+                      <th style={{height: "2%"}}>
+                        {currentPlayer.player.stats[0].stats[6]}
+                      </th>
+                      <th style={{height: "2%"}}>
+                        {currentPlayer.player.stats[0].stats[3]}
+                      </th>
+                      <th style={{height: "2%"}}>
+                        {currentPlayer.player.stats[0].stats[1]}
+                      </th>
+                      <th style={{height: "2%"}}>
+                        {currentPlayer.player.stats[0].stats[2]}
+                      </th>
+                      <th style={{height: "2%"}}>
+                        {currentPlayer.player.stats[0].stats[11]}
+                      </th>
+                      <th style={{height: "2%"}}>
+                        {currentPlayer.player.stats[0].stats[0]}
+                      </th>
+                    </tr>
+                  )
+                } else {
+                  return (
+                    <tr style={{textAlign: "center"}} key={"table1" + index}>
+                      <th style={{textAlign: "left", width: "15%"}}>
+                      {currentPlayer.player.fullName}
+                      </th>
+                      <th style={{height: "2%", width: "2%", paddingTop: "3px"}}>
+                        <img onClick={(e) => {
+                                  if(window.confirm('Remove Player from Watchlist?')) {
+                                    props.removeMethod(e)
+                                  }
+                                }}
+                              alt={`${currentPlayer.player.fullName}, ${currentPlayer.id}`}
+                              style={{maxHeight: "50%", maxWidth: "50%", margin: "25%"}}
+                              src={favorited}
+                        >
+                        </img>
+                      </th>
+                      <th style={{height: "2%",}}>
+                        {'-'}
+                      </th>
+                      <th style={{height: "2%"}}>
+                        {'-'}
+                      </th>
+                      <th style={{height: "2%"}}>
+                        {'-'}
+                      </th>
+                      <th style={{height: "2%"}}>
+                        {'-'}
+                      </th>
+                      <th style={{height: "2%"}}>
+                        {'-'}
+                      </th>
+                      <th style={{height: "2%"}}>
+                        {'-'}
+                      </th>
+                      <th style={{height: "2%"}}>
+                        {'-'}
+                      </th>
+                      <th style={{height: "2%"}}>
+                        {'-'}
+                      </th>
+                      <th style={{height: "2%"}}>
+                        {'-'}
+                      </th>
+                    </tr>
+                  )
+                }
               } else {
-                return (
-                  <tr style={{textAlign: "center"}} key={"table" + index}>
-                    <th style={{textAlign: "left"}}>
-                    {currentPlayer.player.fullName}
-                    </th>
-                    <th style={{height: "2%"}}>
-                      {'-'}
-                    </th>
-                    <th style={{height: "2%"}}>
-                      {'-'}
-                    </th>
-                    <th style={{height: "2%"}}>
-                      {'-'}
-                    </th>
-                    <th style={{height: "2%"}}>
-                      {'-'}
-                    </th>
-                    <th style={{height: "2%"}}>
-                      {'-'}
-                    </th>
-                    <th style={{height: "2%"}}>
-                      {'-'}
-                    </th>
-                    <th style={{height: "2%"}}>
-                      {'-'}
-                    </th>
-                    <th style={{height: "2%"}}>
-                      {'-'}
-                    </th>
-                    <th style={{height: "2%"}}>
-                      {'-'}
-                    </th>
-                    <th style={{height: "2%", width: "2%", paddingTop: "3px"}}>
-                      <img onClick={(e) => {
-                                if(window.confirm('Add Player to Watchlist?')) {
-                                  prop.addMethod(e)
-                                }
-                              }}
-                            alt={currentPlayer.player.fullName}
-                            style={{maxHeight: "50%", maxWidth: "50%"}}
-                            src={icon}
-                      >
-                      </img>
-                    </th>
-                  </tr>
-                )
+                if ((currentPlayer.player.stats[0] !== undefined) && (Object.keys(currentPlayer.player.stats[0].stats).length > 0)) {
+                  return (
+                    <tr style={{textAlign: "center"}} key={"table`" + index}>
+                      <th style={{textAlign: "left", width: "15%"}}>
+                      {currentPlayer.player.fullName}
+                      </th>
+                      <th style={{height: "2%", width: "2%", paddingTop: "3px"}}>
+                        <img onClick={(e) => {
+                                  if(window.confirm('Add Player to Watchlist?')) {
+                                    props.addMethod(e)
+                                  }
+                                }}
+                              alt={`${currentPlayer.player.fullName}, ${currentPlayer.id}`}
+                              style={{maxHeight: "50%", maxWidth: "50%", margin: "25%"}}
+                              src={unfavorited}
+                        >
+                        </img>
+                      </th>
+                      <th style={{height: "2%"}}>
+                        {(currentPlayer.player.stats[0].stats[19] * 100).toFixed(1)}%
+                      </th>
+                      <th style={{height: "2%"}}>
+                        {(currentPlayer.player.stats[0].stats[20] * 100).toFixed(1)}%
+                      </th>
+                      <th style={{height: "2%"}}>
+                        {currentPlayer.player.stats[0].stats[17]}
+                      </th>
+                      <th style={{height: "2%"}}>
+                        {currentPlayer.player.stats[0].stats[6]}
+                      </th>
+                      <th style={{height: "2%"}}>
+                        {currentPlayer.player.stats[0].stats[3]}
+                      </th>
+                      <th style={{height: "2%"}}>
+                        {currentPlayer.player.stats[0].stats[1]}
+                      </th>
+                      <th style={{height: "2%"}}>
+                        {currentPlayer.player.stats[0].stats[2]}
+                      </th>
+                      <th style={{height: "2%"}}>
+                        {currentPlayer.player.stats[0].stats[11]}
+                      </th>
+                      <th style={{height: "2%"}}>
+                        {currentPlayer.player.stats[0].stats[0]}
+                      </th>
+                    </tr>
+                  )
+                } else {
+                  return (
+                    <tr style={{textAlign: "center"}} key={"table1" + index}>
+                      <th style={{textAlign: "left", width: "15%"}}>
+                      {currentPlayer.player.fullName}
+                      </th>
+                      <th style={{height: "2%", width: "2%", paddingTop: "3px"}}>
+                        <img onClick={(e) => {
+                                  if(window.confirm('Add Player to Watchlist?')) {
+                                    props.addMethod(e)
+                                  }
+                                }}
+                              alt={`${currentPlayer.player.fullName}, ${currentPlayer.id}`}
+                              style={{maxHeight: "50%", maxWidth: "50%", margin: "25%"}}
+                              src={unfavorited}
+                        >
+                        </img>
+                      </th>
+                      <th style={{height: "2%"}}>
+                        {'-'}
+                      </th>
+                      <th style={{height: "2%"}}>
+                        {'-'}
+                      </th>
+                      <th style={{height: "2%"}}>
+                        {'-'}
+                      </th>
+                      <th style={{height: "2%"}}>
+                        {'-'}
+                      </th>
+                      <th style={{height: "2%"}}>
+                        {'-'}
+                      </th>
+                      <th style={{height: "2%"}}>
+                        {'-'}
+                      </th>
+                      <th style={{height: "2%"}}>
+                        {'-'}
+                      </th>
+                      <th style={{height: "2%"}}>
+                        {'-'}
+                      </th>
+                      <th style={{height: "2%"}}>
+                        {'-'}
+                      </th>
+                    </tr>
+                  )
+                }
               }
+
             })}
           </tbody>
         </Table>
       </Row>
-      {/* <Row xs={12} style={{textAlign: "center", width: "100%", marginBottom: "5%"}}>
-        <Col>
-         <Button name={"previousPage"} onClick={updatePageIndex} style={{marginRight: "0.5%"}}>
-          Prev
-         </Button>
-
-          Page {pageIndex}
-
-          <Button name={"nextPage"} onClick={updatePageIndex} style={{marginLeft: "0.5%"}}>
-            Next
-         </Button>
-        </Col>
-      </Row> */}
     </Container>
   )
 }
