@@ -30,7 +30,7 @@ function WatchlistLP () {
           setWatchedPlayers(result.data);
           var watchlistObj = {}
           for (var i = 0; i < result.data.length; i++) {
-            watchlistObj[result.data[i].player_data] = true;
+            watchlistObj[result.data[i].player_name] = true;
           }
           setWatchListObj(watchlistObj);
         }
@@ -64,19 +64,21 @@ function WatchlistLP () {
   // method #2
   function addToWatchlist (e) {
     e.preventDefault();
-      axios.post('http://localhost:6001/addPlayer', {playerName: e.target.alt})
-      .then ( (result, err) => {
-        if (err) {
-          console.log('failed to add to watchlist database client res', err)
-        } else {
-          setWatchlist(watchlist + 1)
-        }
-      })
+    var playerInfo = e.target.alt.split(", ")
+    axios.post('http://localhost:6001/addPlayer', {playerName: playerInfo[0], playerId: playerInfo[1]})
+    .then ( (result, err) => {
+      if (err) {
+        console.log('failed to add to watchlist database client res', err)
+      } else {
+        setWatchlist(watchlist + 1)
+      }
+    })
   }
 
   function removeFromWatchlist (e) {
     e.preventDefault();
-    axios.post('http://localhost:6001/removePlayer', {playerName: e.target.alt})
+    var playerInfo = e.target.alt.split(", ")
+    axios.post('http://localhost:6001/removePlayer', {playerName: playerInfo[0], playerId: playerInfo[1]})
     .then ( (result, err) => {
       if (err) {
         console.log('failed to remove from watchlist database client res', err)
@@ -117,12 +119,12 @@ function WatchlistLP () {
               {watchedPlayers.map( (currentPlayer, index) => {
                     return (
                       <div key={"wl-" + index} style={{height: "100%", width: "20%", display: "inline-block", margin: "2.5% 2.5%"}}>
-                        <div style={{padding: "2%"}}>
-                          <img style={{height: "100%", width: "100%"}} src={images.image}></img>
+                        <div style={{padding: "2%", borderRadius: "12.5px"}}>
+                          <img style={{background: "#313131", height: "100%", width: "100%", borderRadius: "12.5px"}} src={`https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/${watchedPlayers[index].player_id}.png&w=184&h=134&cb=1`}></img>
                         </div>
-                        <div style={{maxHeight: "20%", overflow: "auto", padding: "0% 2% 2% 2%"}}>
+                        <div style={{maxHeight: "20%", overflow: "auto", padding: "5% 2% 2% 2%"}}>
                           <div style={{height: "5vh", textAlign: "center"}}>
-                            <h6> {watchedPlayers[index].player_data} </h6>
+                            <h6> {watchedPlayers[index].player_name} </h6>
                           </div>
                         </div>
                       </div>

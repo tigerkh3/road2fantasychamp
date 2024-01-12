@@ -70,12 +70,13 @@ function PlayerRankingLP (props) {
         var options = {
           'url': `${PROXY_URL}/playerData`,
           'params': {
-            scoringPeriod: res.data.scoringPeriodId
+            scoringPeriod: res.data.scoringPeriodId-1
           }
         }
 
         axios.default.request(options)
         .then ( (res) => {
+          console.log(res.data.players)
           setPlayerData(res.data.players)
         })
       }
@@ -154,7 +155,7 @@ function PlayerRankingLP (props) {
                                     props.removeMethod(e)
                                   }
                                 }}
-                              alt={currentPlayer.player.fullName}
+                              alt={`${currentPlayer.player.fullName}, ${currentPlayer.id}`}
                               style={{maxHeight: "50%", maxWidth: "50%", margin: "25%"}}
                               src={favorited}
                         >
@@ -201,7 +202,7 @@ function PlayerRankingLP (props) {
                                     props.removeMethod(e)
                                   }
                                 }}
-                              alt={currentPlayer.player.fullName}
+                              alt={`${currentPlayer.player.fullName}, ${currentPlayer.id}`}
                               style={{maxHeight: "50%", maxWidth: "50%", margin: "25%"}}
                               src={favorited}
                         >
@@ -250,7 +251,7 @@ function PlayerRankingLP (props) {
                                     props.addMethod(e)
                                   }
                                 }}
-                              alt={currentPlayer.player.fullName}
+                              alt={`${currentPlayer.player.fullName}, ${currentPlayer.id}`}
                               style={{maxHeight: "50%", maxWidth: "50%", margin: "25%"}}
                               src={unfavorited}
                         >
@@ -297,7 +298,7 @@ function PlayerRankingLP (props) {
                                     props.addMethod(e)
                                   }
                                 }}
-                              alt={currentPlayer.player.fullName}
+                              alt={`${currentPlayer.player.fullName}, ${currentPlayer.id}`}
                               style={{maxHeight: "50%", maxWidth: "50%", margin: "25%"}}
                               src={unfavorited}
                         >
