@@ -94,7 +94,7 @@ function WatchlistLP () {
           <h1 style={{padding: "2%"}}>Player Watchlist</h1>
         </Row>
         <Row>
-          <h2 style={{textAlign: "center", padding: "15% 0%"}}>
+          <h2 style={{textAlign: "center", padding: "15% 0%", background: "#313131"}}>
             Watchlist Empty!
           </h2>
         </Row>
@@ -112,7 +112,7 @@ function WatchlistLP () {
           <h1 style={{padding: "2%"}}>Player Watchlist</h1>
         </Row>
         <Row>
-          <Col style={{maxHeight: "35vh", overflow: "scroll"}}>
+          <Col style={{maxHeight: "35vh", overflow: "auto"}}>
             <Container style={{padding: "0"}} >
               {watchedPlayers.map( (currentPlayer, index) => {
                     return (
@@ -120,7 +120,7 @@ function WatchlistLP () {
                         <div style={{padding: "2%"}}>
                           <img style={{height: "100%", width: "100%"}} src={images.image}></img>
                         </div>
-                        <div style={{maxHeight: "20%", overflow: "scroll", padding: "0% 2% 2% 2%"}}>
+                        <div style={{maxHeight: "20%", overflow: "auto", padding: "0% 2% 2% 2%"}}>
                           <div style={{height: "5vh", textAlign: "center"}}>
                             <h6> {watchedPlayers[index].player_data} </h6>
                           </div>
