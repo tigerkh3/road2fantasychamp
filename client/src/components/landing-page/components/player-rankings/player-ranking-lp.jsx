@@ -76,7 +76,6 @@ function PlayerRankingLP (props) {
 
         axios.default.request(options)
         .then ( (res) => {
-          console.log(res.data.players)
           setPlayerData(res.data.players)
         })
       }

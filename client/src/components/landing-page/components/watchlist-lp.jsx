@@ -8,6 +8,7 @@ import { Button, Container, Row, Col, Media, Card } from "reactstrap"
 import { data, images } from "./mock-data/lp-data.js"
 import PlayerRankingLP from "./player-rankings/player-ranking-lp.jsx";
 import "../../../dist/style.css";
+import remove from "../../../dist/icons/remove.png";
 
 function WatchlistLP () {
 
@@ -118,14 +119,21 @@ function WatchlistLP () {
             <Container style={{padding: "0"}} >
               {watchedPlayers.map( (currentPlayer, index) => {
                     return (
-                      <div key={"wl-" + index} style={{height: "100%", width: "20%", display: "inline-block", margin: "2.5% 2.5%"}}>
+                      <div key={"wl-" + index} style={{position: "relative", width: "20%", display: "inline-block", margin: "2.5% 2.5%"}}>
                         <div style={{padding: "2%", borderRadius: "12.5px"}}>
                           <img style={{background: "#313131", height: "100%", width: "100%", borderRadius: "12.5px"}} src={`https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/${watchedPlayers[index].player_id}.png&w=184&h=134&cb=1`}></img>
                         </div>
-                        <div style={{maxHeight: "20%", overflow: "auto", padding: "5% 2% 2% 2%"}}>
+                        <div style={{maxHeight: "20%", overflow: "auto", padding: "5% 2% 0% 2%"}}>
                           <div style={{height: "5vh", textAlign: "center"}}>
                             <h6> {watchedPlayers[index].player_name} </h6>
                           </div>
+                        </div>
+                        <div style={{width: "15%", height: "15%",display: "inline-block", position: "absolute", margin: "0", left: "82.5%", top: "02.5%"}}>
+                          <img style={{height: "100%", width: "100%", padding: "25%"}}src={remove} alt={`${watchedPlayers[index].player_name}, ${watchedPlayers[index].player_id}`} onClick={(e) => {
+                                  if(window.confirm('Remove Player from Watchlist?')) {
+                                    removeFromWatchlist(e)
+                                  }
+                                }}></img>
                         </div>
                       </div>
                     )
