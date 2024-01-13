@@ -10,6 +10,7 @@ import PlayerRankingLP from "./player-rankings/player-ranking-lp.jsx";
 import "../../../dist/style.css";
 import remove from "../../../dist/icons/remove.png";
 
+
 function WatchlistLP () {
 
   // do i want to retrieve my data from DB here?
@@ -110,21 +111,21 @@ function WatchlistLP () {
     ])
   } else {
     return ([
-      <Container key='watchlist' style={{background: "#424242", marginBottom: "2.5%", color: "white", borderRadius: "12.5px"}}>
-        <Row style={{background: "#313131", borderBottom: "solid black 1px", textAlign: "center", borderTopLeftRadius: "12.5px", borderTopRightRadius: "12.5px"}}>
+      <Container key='watchlist' style={{background: "#313131", marginBottom: "2.5%", color: "white", borderRadius: "12.5px"}}>
+        <Row style={{background: "#212121", borderBottom: "solid black 1px", textAlign: "center", borderTopLeftRadius: "12.5px", borderTopRightRadius: "12.5px"}}>
           <h1 style={{padding: "2%"}}>Player Watchlist</h1>
         </Row>
-        <Row>
+        <Row style={{marginBottom: "5%"}}>
           <Col style={{maxHeight: "35vh", overflow: "auto"}}>
             <Container style={{padding: "0"}} >
               {watchedPlayers.map( (currentPlayer, index) => {
                     return (
-                      <div key={"wl-" + index} style={{position: "relative", width: "20%", display: "inline-block", margin: "2.5% 2.5%"}}>
+                      <div key={"wl-" + index} style={{position: "relative", width: "20%", display: "inline-block", margin: "2.5% 2.5% 0% 2.5%"}}>
                         <div style={{padding: "2%", borderRadius: "12.5px"}}>
-                          <img style={{background: "#313131", height: "100%", width: "100%", borderRadius: "12.5px"}} src={`https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/${watchedPlayers[index].player_id}.png&w=184&h=134&cb=1`}></img>
+                          <img style={{background: "#212121", height: "100%", width: "100%", borderRadius: "12.5px"}} src={`https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/${watchedPlayers[index].player_id}.png&w=184&h=134&cb=1`}></img>
                         </div>
                         <div style={{maxHeight: "20%", overflow: "auto", padding: "5% 2% 0% 2%"}}>
-                          <div style={{height: "5vh", textAlign: "center"}}>
+                          <div style={{textAlign: "center"}}>
                             <h6> {watchedPlayers[index].player_name} </h6>
                           </div>
                         </div>

@@ -12,6 +12,9 @@ import { data, images } from "../mock-data/lp-data.js";
 import "../../../../dist/style.css";
 import unfavorited from "../../../../dist/icons/plus.png"
 import favorited from "../../../../dist/icons/check.png"
+import left from "../../../../dist/icons/left.png"
+import right from "../../../../dist/icons/right.png"
+import reload from "../../../../dist/icons/reload.png"
 
 
 
@@ -51,60 +54,161 @@ import favorited from "../../../../dist/icons/check.png"
 
 
 function PlayerRankingLP (props) {
-  const date = new Date();
-
 
   // useState here
-  const [currentDate, setCurrentDate] = useState(getDate());
+  const [currentDate, setCurrentDate] = useState();
   const [playerData, setPlayerData] = useState([])
   const [scoringPeriodId, setScoringPeriodId] = useState()
+  const [currentScoringPeriod, setCurrentScoringPeriod] = useState();
   // useEffect here
   useEffect( () => {
-    axios.get(`${PROXY_URL}/leagueData`)
-    .then ((res, err) => {
-      if (err) {
-        console.log('error', err)
-      } else {
-        setScoringPeriodId(res.data.scoringPeriodId);
 
-        var options = {
-          'url': `${PROXY_URL}/playerData`,
-          'params': {
-            scoringPeriod: res.data.scoringPeriodId-1
+    if (!scoringPeriodId) {
+      getDate();
+      axios.get(`${PROXY_URL}/leagueData`)
+      .then ((res, err) => {
+        if (err) {
+          console.log('error', err)
+        } else {
+          setCurrentScoringPeriod(res.data.scoringPeriodId)
+          setScoringPeriodId(res.data.scoringPeriodId);
+
+          var options = {
+            'url': `${PROXY_URL}/playerData`,
+            'params': {
+              scoringPeriod: res.data.scoringPeriodId
+            }
           }
+
+          axios.default.request(options)
+          .then ( (res) => {
+            setPlayerData(res.data.players)
+          })
         }
-
-        axios.default.request(options)
-        .then ( (res) => {
-          setPlayerData(res.data.players)
-        })
+      })
+    } else {
+      var options = {
+        'url': `${PROXY_URL}/playerData`,
+        'params': {
+          scoringPeriod: scoringPeriodId
+        }
       }
-    })
-  }, [])
 
-  // currentDate
-  function getDate() {
-    const today = new Date().toString().split(' ');
-    const day = today[0]
-    const month = today[1]
-    const numDay = today[2]
-    const year = today[3]
-    return month + " " +  numDay + ", " + year + " "
+      axios.default.request(options)
+      .then ( (res) => {
+        setPlayerData(res.data.players)
+      })
+    }
+  }, [scoringPeriodId])
+
+  // previous day's or next day's player rankings
+  function rankingInfo (e) {
+    e.preventDefault();
+    if (e.target.getAttribute("data") === "previousDay") {
+      setScoringPeriodId(scoringPeriodId - 1)
+    } else if (e.target.getAttribute("data") === "nextDay") {
+      setScoringPeriodId(scoringPeriodId + 1)
+    }
+  }
+
+  // currentDate function
+  function getDate(e) {
+    if (e) {
+      if (e.target.getAttribute("data") === "previousDay") {
+        var oldDate = currentDate.split(" ");
+        var newDay = (Number.parseInt(oldDate[1]) - 1).toString();
+        setCurrentDate(oldDate[0] + " " + newDay + ", " + oldDate[2])
+      } else if (e.target.getAttribute("data") === "nextDay") {
+        var oldDate = currentDate.split(" ");
+        var newDay = (Number.parseInt(oldDate[1]) + 1).toString();
+        setCurrentDate(oldDate[0] + " " + newDay + ", " + oldDate[2])
+      }
+    } else {
+      const today = new Date().toString().split(' ');
+      const day = today[0]
+      const month = today[1]
+      const numDay = today[2]
+      const year = today[3]
+      setCurrentDate(month + " " + numDay + ", " + year)
+    }
+  }
+
+  // refresh ranking function
+  function refreshRanking (e) {
+    e.preventDefault();
+    setScoringPeriodId(currentScoringPeriod);
   }
 
   return (
-    <Container style={{background: "#424242", maxHeight: "50%", borderRadius: "12.5px", marginBottom: "5%"}}>
-      <Row style={{background: "#313131",textAlign: "center", borderTopLeftRadius: "12.5px", borderTopRightRadius: "12.5px"}}>
-        <h1 style={{marginBottom: "0", padding: "2%", color: "white"}}>Player Rankings</h1>
+    <Container style={{background: "#313131", maxHeight: "50%", borderRadius: "12.5px", marginBottom: "5%"}}>
+      <Row style={{background: "#212121",textAlign: "center", borderTopLeftRadius: "12.5px", borderTopRightRadius: "12.5px"}}>
+        <div style={{position: "relative"}}>
+          <h1 style={{marginBottom: "0", padding: "2%", color: "white"}}>Player Rankings</h1>
+          <div style={{width: "5%", position: "absolute", position: "absolute", top: "25%", left: "92.5%"}}>
+            <img style={{height: "100%", width: "100%"}}src={reload} onClick={
+              (e) => {
+                refreshRanking(e)
+                getDate()
+                }}></img>
+          </div>
+        </div>
       </Row>
-      <Row style={{textAlign: "center", color: "white", padding: "1% 0%"}}>
+      <Row style={{textAlign: "center", color: "white", marginTop: "2vh"}}>
+        <Col>
+          <div style={{height: "100%"}} data="previousDay" onClick={
+          (e) => {
+            if ((currentScoringPeriod -7 <= scoringPeriodId - 1) || currentDate.split(" ")[1] === "1") {
+              rankingInfo(e)
+              getDate(e)
+
+            } else {
+              window.alert("Max View 7 Days Prior / Current Month!")
+            }
+          }}>
+          <img style={{maxHeight: "50%"}} src={left} data="previousDay" onClick={
+          (e) => {
+            if ((currentScoringPeriod -7 <= scoringPeriodId - 1) || currentDate.split(" ")[1] === "1") {
+              rankingInfo(e)
+              getDate(e)
+
+            } else {
+              window.alert("Max View 7 Days Prior / Current Month!")
+            }
+          }}></img>
+          </div>
+
+        </Col>
+        <Col xs="4" sm="4" md="4" lg="2">
         <h4> {currentDate} </h4>
+        </Col>
+        <Col>
+        <div style={{height: "100%"}} data="nextDay" onClick={
+          (e) => {
+          if ((currentScoringPeriod !== scoringPeriodId)) {
+            rankingInfo(e)
+            getDate(e)
+          } else {
+            window.alert("No Future History!")
+          }
+          }}>
+            <img style={{maxHeight: "50%"}} src={right} data="nextDay" onClick={
+          (e) => {
+          if ((currentScoringPeriod !== scoringPeriodId)) {
+            rankingInfo(e)
+            getDate(e)
+          } else {
+            window.alert("No Future History!")
+          }
+          }}></img>
+          </div>
+
+        </Col>
       </Row>
       <Row style={{overflow: "auto", maxHeight: "35vh", padding: "0% 1.5% 2% 0%"}}>
         <Table>
-          <thead style={{position: "sticky", top: "0", zIndex: "1", background: "#313131", boxShadow: "inset 0px 1px black, 0px 1px black"}}>
+          <thead style={{position: "sticky", top: "0", zIndex: "1", background: "#212121", boxShadow: "inset 0px 1px black, 0px 1px black"}}>
             <tr style={{textAlign: "center"}}>
-              <th style={{textAlign: "left"}}>
+              <th style={{textAlign: "center"}}>
                 Player
               </th>
               <th>
@@ -145,7 +249,7 @@ function PlayerRankingLP (props) {
                 if ((currentPlayer.player.stats[0] !== undefined) && (Object.keys(currentPlayer.player.stats[0].stats).length > 0)) {
                   return (
                     <tr style={{textAlign: "center"}} key={"table`" + index}>
-                      <th style={{textAlign: "left", width: "15%"}}>
+                      <th style={{textAlign: "left", width: "15%", paddingLeft: "5%"}}>
                       {currentPlayer.player.fullName}
                       </th>
                       <th style={{height: "2%", width: "2%", paddingTop: "3px"}}>
@@ -241,7 +345,7 @@ function PlayerRankingLP (props) {
                 if ((currentPlayer.player.stats[0] !== undefined) && (Object.keys(currentPlayer.player.stats[0].stats).length > 0)) {
                   return (
                     <tr style={{textAlign: "center"}} key={"table`" + index}>
-                      <th style={{textAlign: "left", width: "15%"}}>
+                      <th style={{textAlign: "left", width: "15%", paddingLeft: "5%"}}>
                       {currentPlayer.player.fullName}
                       </th>
                       <th style={{height: "2%", width: "2%", paddingTop: "3px"}}>
@@ -288,7 +392,7 @@ function PlayerRankingLP (props) {
                 } else {
                   return (
                     <tr style={{textAlign: "center"}} key={"table1" + index}>
-                      <th style={{textAlign: "left", width: "15%"}}>
+                      <th style={{textAlign: "left", width: "15%", paddingLeft: "5%"}}>
                       {currentPlayer.player.fullName}
                       </th>
                       <th style={{height: "2%", width: "2%", paddingTop: "3px"}}>
