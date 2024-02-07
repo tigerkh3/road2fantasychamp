@@ -10,7 +10,7 @@ const axios = require('axios');
 
 // also need my own swid and espn_s2 cookies to access private leagues
 // import dotenv variables for this section
-import {PROXY_URL, REACT_APP_SEASON, REACT_APP_LEAGUE, REACT_APP_SWID, REACT_APP_ESPN} from "@env"
+import {SERVER_PORT, PROXY_URL, REACT_APP_SEASON, REACT_APP_LEAGUE, REACT_APP_SWID, REACT_APP_ESPN} from "@env"
 
 
 
@@ -26,7 +26,7 @@ function FantasyTrackerLP () {
     // make a request to our proxy server
     // we want a basic request to ESPN API to return to us our list of teams
 
-    axios.get(`${PROXY_URL}/leagueData`)
+    axios.get(`localhost:${SERVER_PORT}/leagueData`)
     .then ((res, err) => {
       if (err) {
         console.log('error', err)

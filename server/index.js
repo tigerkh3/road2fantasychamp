@@ -1,4 +1,5 @@
 // database server goes here.
+const path = require('path');
 const express = require('express');
 const axios = require('axios');
 require("dotenv").config();
@@ -17,9 +18,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get('/', (req, res) => {
-  res.send("hi")
-})
+app.use(express.static(path.join(__dirname, "../client/src/dist")))
 
 app.get('/watchlist', (req, res) => {
 
@@ -54,6 +53,73 @@ app.post('/removePlayer', (req, res) =>{
   })
 })
 
+app.get('/playerData', (req, res) => {
+  var scoringPeriod = req.query.scoringPeriod;
+  var filter = `{"players":{"filterSlotIds":{"value":[0,5,11,1,2,6,3,4]},"filterStatsForCurrentSeasonScoringPeriodId":{"value":[${scoringPeriod}]},"sortAppliedStatTotal":null,"sortAppliedStatTotalForScoringPeriodId":null,"sortStatId":null,"sortStatIdForScoringPeriodId":{"additionalValue":${scoringPeriod},"sortAsc":false,"sortPriority":2,"value":0},"sortPercOwned":{"sortPriority":3,"sortAsc":false},"filterStatus":{"value":["FREEAGENT","WAIVERS"]},"limit":50}}`
+  var options = {
+    'url': `${API_URL}`,
+    'params': {},
+    'method': "get",
+    'headers': {
+      'Cookie': `SWID={${process.env.REACT_APP_SWID}}; espn_s2=${process.env.REACT_APP_ESPN};`
+    },
+    'withCredentials': 'true'
+  }
+  options.params.view = 'kona_player_info';
+  options.headers['x-fantasy-filter'] = filter;
+  axios.default.request(options)
+  .then (result => {
+    console.log('requested player data')
+    res.send(result.data)
+  })
+})
 
-const PORT = process.env.SERVER_PORT || 6000;
+app.get('/leagueData', (req, res) => {
+  var options = {
+    'url': `${API_URL}`,
+    'params': {},
+    'method': "get",
+    'headers': {
+      'Cookie': `SWID={${process.env.REACT_APP_SWID}}; espn_s2=${process.env.REACT_APP_ESPN};`
+    },
+    'withCredentials': 'true'
+  }
+
+  axios.default.request(options)
+  .then (result => {
+    console.log('requested league data')
+    res.send(result.data)
+  })
+})
+
+app.get('/matchupData', (req, res) => {
+  // get request to public espn api
+  var matchupPeriod = req.query.matchupPeriod
+  var matchupFilter = `{"schedule":{"filterMatchupPeriodIds":{"value":[${matchupPeriod}]}}}`
+  var params = new URLSearchParams()
+  params.append("view", 'mMatchupScore')
+  params.append("view", 'mBoxscore')
+  var options = {
+    'url': `${API_URL}`,
+    'params': params,
+    'method': "get",
+    'headers': {
+      'Cookie': `SWID={${process.env.REACT_APP_SWID}}; espn_s2=${process.env.REACT_APP_ESPN};`
+    },
+    'withCredentials': 'true'
+  }
+
+  options.headers['x-fantasy-filter'] = matchupFilter;
+
+
+  axios.default.request(options)
+  .then (result => {
+    console.log('requested matchup data')
+    res.send(result.data)
+  })
+
+});
+
+
+const PORT = process.env.SERVER_PORT || 6001;
 app.listen(PORT, () => console.log(`listening on ${PORT}`));
