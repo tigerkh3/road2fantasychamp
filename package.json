@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "cd server && node index.js",
-    "dbScript": "cd server && cd scripts && node index.js",
+    "dbScript": "cd server && cd database && cd scripts && node index.js",
     "build": "webpack"
   },
   "repository": {
