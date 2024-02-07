@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server-dev": "cd server && node index.js",
-    "client-dev": "npx webpack-dev-server",
+    "start": "cd server && node index.js",
+    "dbScript": "cd server && cd scripts && node index.js",
     "build": "webpack"
   },
   "repository": {
