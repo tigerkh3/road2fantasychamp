@@ -10,7 +10,7 @@ module.exports = {
   devServer: {
     static: path.resolve(__dirname, "client", "src", "dist"),
     hot: true,
-    port: 3000,
+    port: 6002,
   },
   module: {
     rules: [
