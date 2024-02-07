@@ -1,16 +1,11 @@
 const path = require("path");
 
 module.exports = {
-  mode: "development",
+  mode: "production",
   entry: path.resolve(__dirname, "client", "src", "index.jsx"),
   output: {
     path: path.resolve(__dirname, "client", "src", "dist"),
     filename: "bundle.js"
-  },
-  devServer: {
-    static: path.resolve(__dirname, "client", "src", "dist"),
-    hot: true,
-    port: 6002,
   },
   module: {
     rules: [
