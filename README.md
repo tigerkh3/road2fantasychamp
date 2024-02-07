@@ -78,12 +78,9 @@ guidelines but I am currently focused on investigation and completing functional
 
 [![Watch the video](https://img.youtube.com/vi/FOMNW2K4Ec4/hqdefault.jpg)](https://youtu.be/FOMNW2K4Ec4)
 
-List of Incoming Changes:
-
-Fantasy Tracker Update - green highlighted fields for winning categories, red highlight for losing categories
-Watchlist Update - Add remove player function to the player cards on the watchlist
 
 # R2 Fantasy Champ FAQ
+
 
 ## What is Fantasy Basketball?
 
