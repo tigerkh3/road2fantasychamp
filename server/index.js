@@ -18,6 +18,8 @@ app.use((req, res, next) => {
   next();
 });
 
+const API_URL = "https://fantasy.espn.com/apis/v3/games/fba/seasons/" + process.env.REACT_APP_SEASON + "/segments/0/leagues/" + process.env.REACT_APP_LEAGUE // Replace this URL with your own
+
 app.use(express.static(path.join(__dirname, "../client/src/dist")))
 
 app.get('/watchlist', (req, res) => {
