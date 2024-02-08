@@ -11,10 +11,6 @@ app.use(express.json());
 
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Credentials", "true");
-  res.setHeader("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
-  res.setHeader("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
   next();
 });
 
@@ -89,7 +85,7 @@ app.get('/leagueData', (req, res) => {
 
   axios.default.request(options)
   .then (result => {
-    console.log('requested league data')
+    console.log('requested league data', result.data)
     res.send(result.data)
   })
 })
@@ -116,12 +112,12 @@ app.get('/matchupData', (req, res) => {
 
   axios.default.request(options)
   .then (result => {
-    console.log('requested matchup data')
+    console.log('requested matchup data', result.data)
     res.send(result.data)
   })
 
 });
 
 
-const PORT = process.env.SERVER_PORT || 6001;
+const PORT = process.env.SERVER_PORT
 app.listen(PORT, () => console.log(`listening on ${PORT}`));

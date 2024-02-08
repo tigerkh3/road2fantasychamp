@@ -40,7 +40,7 @@ function PlayerRankingLP (props) {
           setScoringPeriodId(res.data.scoringPeriodId);
 
           var options = {
-            'url': `${PROXY_URL}/playerData`,
+            'url': `http://localhost:${SERVER_PORT}/playerData`,
             'params': {
               scoringPeriod: res.data.scoringPeriodId
             }
