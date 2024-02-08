@@ -60,12 +60,14 @@ function PlayerRankingLP (props) {
   const [playerData, setPlayerData] = useState([])
   const [scoringPeriodId, setScoringPeriodId] = useState()
   const [currentScoringPeriod, setCurrentScoringPeriod] = useState();
+  import {SERVER_PORT} from "@env"
+
   // useEffect here
   useEffect( () => {
 
     if (!scoringPeriodId) {
       getDate();
-      axios.get(`${PROXY_URL}/leagueData`)
+      axios.get(`http://localhost:${SERVER_PORT}/leagueData`)
       .then ((res, err) => {
         if (err) {
           console.log('error', err)
@@ -88,7 +90,7 @@ function PlayerRankingLP (props) {
       })
     } else {
       var options = {
-        'url': `${PROXY_URL}/playerData`,
+        'url': `http://localhost:${SERVER_PORT}/playerData`,
         'params': {
           scoringPeriod: scoringPeriodId
         }
