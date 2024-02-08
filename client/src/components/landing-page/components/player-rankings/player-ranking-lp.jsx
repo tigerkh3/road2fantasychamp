@@ -31,7 +31,7 @@ function PlayerRankingLP (props) {
 
     if (!scoringPeriodId) {
       getDate();
-      axios.get(`http://localhost:${SERVER_PORT}/leagueData`)
+      axios.get(`/leagueData`)
       .then ((res, err) => {
         if (err) {
           console.log('error', err)
@@ -40,7 +40,7 @@ function PlayerRankingLP (props) {
           setScoringPeriodId(res.data.scoringPeriodId);
 
           var options = {
-            'url': `http://localhost:${SERVER_PORT}/playerData`,
+            'url': `/playerData`,
             'params': {
               scoringPeriod: res.data.scoringPeriodId
             }
@@ -54,7 +54,7 @@ function PlayerRankingLP (props) {
       })
     } else {
       var options = {
-        'url': `http://localhost:${SERVER_PORT}/playerData`,
+        'url': `/playerData`,
         'params': {
           scoringPeriod: scoringPeriodId
         }
@@ -133,7 +133,7 @@ function PlayerRankingLP (props) {
           }}>
           <img style={{maxHeight: "50%"}} src={left} data="previousDay" onClick={
           (e) => {
-            if ((currentScoringPeriod -7 <= scoringPeriodId - 1) || currentDate.split(" ")[1] === "1") {
+            if ((currentScoringPeriod -6 <= scoringPeriodId - 1) || currentDate.split(" ")[1] === "1") {
               rankingInfo(e)
               getDate(e)
 
