@@ -26,7 +26,7 @@ function FantasyTrackerLP () {
     // make a request to our proxy server
     // we want a basic request to ESPN API to return to us our list of teams
 
-    axios.get(`localhost:${SERVER_PORT}/leagueData`)
+    axios.get(`http://localhost:${SERVER_PORT}/leagueData`)
     .then ((res, err) => {
       if (err) {
         console.log('error', err)
@@ -40,7 +40,7 @@ function FantasyTrackerLP () {
 
         // send our request for our specific match up here
         var options = {
-          'url': `${PROXY_URL}/matchupData`,
+          'url': `http://localhost:${SERVER_PORT}/matchupData`,
           'params': {
             matchupPeriod: res.data.status.currentMatchupPeriod
           }

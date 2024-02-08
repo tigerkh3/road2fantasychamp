@@ -9,6 +9,7 @@ import { data, images } from "./mock-data/lp-data.js"
 import PlayerRankingLP from "./player-rankings/player-ranking-lp.jsx";
 import "../../../dist/style.css";
 import remove from "../../../dist/icons/remove.png";
+import {SERVER_PORT} from "@env"
 
 
 function WatchlistLP () {
@@ -23,7 +24,7 @@ function WatchlistLP () {
   const [watchlist, setWatchlist] = useState(0);
 
   useEffect( () => {
-    axios.get('http://localhost:6001/watchlist')
+    axios.get(`http://localhost:${SERVER_PORT}/watchlist`)
     .then ( (result, err) => {
       if (err) {
         console.log('watchlist database GET req denied', err)
@@ -40,34 +41,11 @@ function WatchlistLP () {
     })
   }, [watchlist])
 
-  // methods go here
-
-  // method #1
-  // function nextPlayers (e) {
-  //   // we want to get the next 4 players in the data
-  //   // we map over all of them but we can choose our starting/stopping point?
-  //   // we always start with 0 and can go up or down by increments of 4
-  //   // this state would be updated when we click on left or right
-  //   e.preventDefault();
-
-  //   if (e.target.name === "next") {
-  //     var currIndex = imageIndex
-  //     if (imageIndex + 4 < watchedPlayers.length) {
-  //       setImageIndex(currIndex + 4)
-  //     }
-  //   } else if (e.target.name === "back") {
-  //     var currIndex = imageIndex
-  //     if (!(imageIndex - 4 < 0)) {
-  //       setImageIndex(currIndex - 4)
-  //     }
-  //   }
-  // }
-
   // method #2
   function addToWatchlist (e) {
     e.preventDefault();
     var playerInfo = e.target.alt.split(", ")
-    axios.post('http://localhost:6001/addPlayer', {playerName: playerInfo[0], playerId: playerInfo[1]})
+    axios.post(`http://localhost:${SERVER_PORT}/addPlayer`, {playerName: playerInfo[0], playerId: playerInfo[1]})
     .then ( (result, err) => {
       if (err) {
         console.log('failed to add to watchlist database client res', err)
@@ -80,7 +58,7 @@ function WatchlistLP () {
   function removeFromWatchlist (e) {
     e.preventDefault();
     var playerInfo = e.target.alt.split(", ")
-    axios.post('http://localhost:6001/removePlayer', {playerName: playerInfo[0], playerId: playerInfo[1]})
+    axios.post(`http://localhost:${SERVER_PORT}/removePlayer`, {playerName: playerInfo[0], playerId: playerInfo[1]})
     .then ( (result, err) => {
       if (err) {
         console.log('failed to remove from watchlist database client res', err)
