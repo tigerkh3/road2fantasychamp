@@ -24,7 +24,7 @@ function WatchlistLP () {
   const [watchlist, setWatchlist] = useState(0);
 
   useEffect( () => {
-    axios.get(`http://localhost:${SERVER_PORT}/watchlist`)
+    axios.get(`/watchlist`)
     .then ( (result, err) => {
       if (err) {
         console.log('watchlist database GET req denied', err)
@@ -45,7 +45,7 @@ function WatchlistLP () {
   function addToWatchlist (e) {
     e.preventDefault();
     var playerInfo = e.target.alt.split(", ")
-    axios.post(`http://localhost:${SERVER_PORT}/addPlayer`, {playerName: playerInfo[0], playerId: playerInfo[1]})
+    axios.post(`/addPlayer`, {playerName: playerInfo[0], playerId: playerInfo[1]})
     .then ( (result, err) => {
       if (err) {
         console.log('failed to add to watchlist database client res', err)
@@ -58,7 +58,7 @@ function WatchlistLP () {
   function removeFromWatchlist (e) {
     e.preventDefault();
     var playerInfo = e.target.alt.split(", ")
-    axios.post(`http://localhost:${SERVER_PORT}/removePlayer`, {playerName: playerInfo[0], playerId: playerInfo[1]})
+    axios.post(`/removePlayer`, {playerName: playerInfo[0], playerId: playerInfo[1]})
     .then ( (result, err) => {
       if (err) {
         console.log('failed to remove from watchlist database client res', err)
