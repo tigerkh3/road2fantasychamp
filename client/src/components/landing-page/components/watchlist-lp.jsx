@@ -100,7 +100,7 @@ function WatchlistLP () {
                     return (
                       <div key={"wl-" + index} style={{position: "relative", width: "20%", display: "inline-block", margin: "2.5% 2.5% 0% 2.5%"}}>
                         <div style={{padding: "2%", borderRadius: "12.5px"}}>
-                          <img style={{background: "#212121", height: "100%", width: "100%", borderRadius: "12.5px"}} src={`https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/${watchedPlayers[index].player_id}.png&w=184&h=134&cb=1`}></img>
+                          <img style={{background: "#212121", height: "100%", width: "100%", borderRadius: "12.5px"}} src={`http://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/${watchedPlayers[index].player_id}.png&w=184&h=134&cb=1`}></img>
                         </div>
                         <div style={{maxHeight: "20%", overflow: "auto", padding: "5% 2% 0% 2%"}}>
                           <div style={{textAlign: "center"}}>
