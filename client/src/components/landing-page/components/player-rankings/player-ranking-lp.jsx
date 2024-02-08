@@ -15,6 +15,7 @@ import favorited from "../../../../dist/icons/check.png"
 import left from "../../../../dist/icons/left.png"
 import right from "../../../../dist/icons/right.png"
 import reload from "../../../../dist/icons/reload.png"
+import {SERVER_PORT} from "@env"
 
 
 
@@ -60,7 +61,6 @@ function PlayerRankingLP (props) {
   const [playerData, setPlayerData] = useState([])
   const [scoringPeriodId, setScoringPeriodId] = useState()
   const [currentScoringPeriod, setCurrentScoringPeriod] = useState();
-  import {SERVER_PORT} from "@env"
 
   // useEffect here
   useEffect( () => {
