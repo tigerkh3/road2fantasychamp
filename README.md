@@ -17,7 +17,7 @@ I highly recommend that anyone reading this README for the first time check out 
 
 [Application Features](#application-features)
 
-[R2FantasyChamp FAQ](#R2FantasyChamp-faq)
+[R2FantasyChamp FAQ](#r2fantasychamp-faq)
 
 [Application Development Process](#application-development-process)
 
