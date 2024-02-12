@@ -35,7 +35,7 @@ These features make up the core element of R2FC as has allowed me to maintain 1s
 
 Check it out [here](http://road2fantasychamp.com)!
 
-# R2 Fantasy Champ FAQ
+# R2FantasyChamp FAQ
 
 ## What is Fantasy Basketball?
 
