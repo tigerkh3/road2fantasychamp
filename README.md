@@ -6,7 +6,7 @@ As a brief overview, this application is a tool design to assist in "picking up"
 
 I decided to build a fullstack web/mobile application that uses ESPN's RESTful API to grab NBA player statistics live and display it in an interactive web application to help me make better informed decisions.
 
-R2FC can be accessed [here](https://github.com/tigerkh3/road2fantasychamp/assets/85322535/806effb8-7b12-4a0b-9cc1-56c2489eb621). 
+R2FC can be accessed [here](http://road2fantasychamp.com). 
 
 Since it's tied to ESPN's API and requires users to be part of ESPN's Fantasy Basketball League, I have limited usage to only myself at the moment. I did have plans to allow this to be used by many users, but due to the lack of man power and my dedication to finding a full-time engineering job, I have decided to put that on hold. 
 
@@ -33,7 +33,7 @@ Finally, R2FC's core feature is that it auto filters all the free agents in my E
 
 These features make up the core element of R2FC as has allowed me to maintain 1st place in my ESPN Fantasy League as of February 12, 2024. 
 
-Check it out [here](https://github.com/tigerkh3/road2fantasychamp/assets/85322535/806effb8-7b12-4a0b-9cc1-56c2489eb621)](https://miro.medium.com/v2/resize:fit:720/format:webp/1*lQ6a3a94PMOrRCPbYn3wyA.png)!
+Check it out [here](http://road2fantasychamp.com)!
 
 # R2 Fantasy Champ FAQ
 
