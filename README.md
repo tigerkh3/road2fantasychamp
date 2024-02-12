@@ -1,86 +1,41 @@
 # road2fantasychamp
 
-After losing in the finals this year, I am determined to finally win my 2024 fantasy basketball league.
+After losing in the 2023 Championship, I'm determined to win my fantasy basketball league in 2024.
 
-As a brief overview, this application is built specifically for 9-category ESPN Fantasy Basketball leagues. The premise for this is because that is the style of fantasy basketball that I currently play.
+As a brief overview, this application is a tool design to assist in "picking up" suitable free agents in my 9-category ESPN Fantasy Basketball league.
+
 I decided to build a fullstack web/mobile application that uses ESPN's RESTful API to grab NBA player statistics live and display it in an interactive web application to help me make better informed decisions.
 
+R2FC can be accessed [here](https://github.com/tigerkh3/road2fantasychamp/assets/85322535/806effb8-7b12-4a0b-9cc1-56c2489eb621)](https://miro.medium.com/v2/resize:fit:720/format:webp/1*lQ6a3a94PMOrRCPbYn3wyA.png). 
+
+Since it's tied to ESPN's API and requires users to be part of ESPN's Fantasy Basketball League, I have limited usage to only myself at the moment. I did have plans to allow this to be used by many users, but due to the lack of man power and my dedication to finding a full-time engineering job, I have decided to put that on hold. 
+
 I highly recommend that anyone reading this README for the first time check out the FAQ section.
+
 
 # Table of Contents
 
 [Application Features](#application-features)
 
-[HTTP Request / Response Cycle for R2 Fantasy Champ](#http-request-response-cycle-for-R2FantasyChamp)
-
-[Initial Design and Wireframe](#initial-design-and-wireframe)
-
-[Current Progress](#current-progress)
-
 [R2FantasyChamp.io FAQ](#R2FantasyChamp-faq)
+
+[Application Development Process](#application-development-process)
 
 # Application Features
 
-To start building the application, I came up with a list of "MVP" features that I wanted in the application. "MVP" stands for the "minimum viable product" that would comprise a set of features.
+R2FC's feature includes a live fantasy sports tracker which syncs my ESPN Fantasy League's data to a front-end UI that display's all my team's current stats compared to my opponents. 
 
-Here is a list of what I thought of to include in my application to resolve the problem that ESPN's own app currently has.
+It also includes a personalized watchlist that allows me to add players that I notice are doing well on a given day but not well enough for me to add to my team just yet. 
 
-[![image](https://github.com/tigerkh3/road2fantasychamp/assets/85322535/806effb8-7b12-4a0b-9cc1-56c2489eb621)](https://miro.medium.com/v2/resize:fit:720/format:webp/1*lQ6a3a94PMOrRCPbYn3wyA.png)
+This allows for me to save players that I feel may have a breakout stretch of games or look into players and their situations to determine further whether I would like to add them to my team without forgetting them. 
 
-These features make up the critical features that I felt my application would need to serve my needs as well as tackle the issues mentioned with ESPN's application in the FAQ Section [here](#R2FantasyChamp-faq)
+Finally, R2FC's core feature is that it auto filters all the free agents in my ESPN League based on their peformance (in the points category) and displays the information live without the need for me to go to ESPN's website, filter through all the players and then filter them again based on points. 
 
-# HTTP Request Response Cycle for R2 Fantasy Champ
+These features make up the core element of R2FC as has allowed me to maintain 1st place in my ESPN Fantasy League as of February 12, 2024. 
 
-To give users a better understanding of how our application will work as "fullstack", I have included an image of how the basic request response cycle might look like during development.
-
-![image](https://github.com/tigerkh3/road2fantasychamp/assets/85322535/4322e292-6f45-4c09-a882-10189442fca6)
-
-The only difference between this and the actual application would be that the balldontlie.io API would eventually be replaced by the ESPN "hidden" API. The only reason why it is currently being used over the latter would be because
-ESPN currently has no documentation on their API's usage. The fantasy sports development community has been making some progress with interacting with the API and somewhat documenting their progress, but in reality there is little
-information on the API and a lot of network request combing needs to be done in order to find the proper headers to make accurate requests. This is made more difficult due to the NBA season not being currently active. This also
-limits us as we are unable to make requests to ESPN's API for live player data hindering development. Therefore, we are still able to utilize another public API that has player data to shape our web application. Though the APIs may
-return different object structure, we have made note of this to refactor to using ESPN's API whenever the NBA season starts and continuing investigating API interaction.
-
-For further information on the decision points regarding the design and the process. Please visit (https://medium.com/@tigerkh3/road2fantasy-champ-day-5-3509f8b1f3bb)).](https://medium.com/@tigerkh3/road2fantasy-champ-day-5-3509f8b1f3bb).
-
-# Initial Design and Wireframe
-
-Now that we understand how our application should be composed of and how we should go about data retrieval on both the frontend and backend of the application. I then moved onto actually designing how the frontend of the
-application would look and where the features would live on the application.
-
-I first started off with good ole fashioned pen and paper to draw out what I wanted the app to look like. It felt easier for me
-to start off with something tangible such as a pen before moving to a web app to further flesh it out.
-
-Here's what it initially looked like:
-
-![IMG_1245 copy](https://github.com/tigerkh3/road2fantasychamp/assets/85322535/17e39a97-91bf-449b-afbe-7c7426b41ed7)
-
-
-Using Figma, I then mocked up the super basic UI for where the application's features would live.
-
-![image](https://github.com/tigerkh3/road2fantasychamp/assets/85322535/ab36cfa7-b087-4dbf-bcf2-21f9830164bb)
-
-Although it isn't pretty, I wanted the application to display all the critical information that I would need. The colors are supposed to represent ones that are easy on the eyes but with how ugly it looks right now don't worry too much about it.
-
-The actual application looks very similar to the Figma design with some minor changes. Please click [here](#current-progress) to see what the application currently looks like compared to the wireframe.
-
-For further information on the decision points regarding the design and the process. Please visit (https://medium.com/@tigerkh3/road2fantasychamp-episode-6-1fd41318b550).
-
-# Current Progress
-
-To see how the application has gone from its initial conception as an idea to where it is now currently, please see (https://medium.com/@tigerkh3) under the series "Road2FantasyChamp" where I write a detailed blog series on how I decided on building the app,
-coming up with all the features, and more in depth reasoning for technical decisions made regarding the technology in the application.
-
-I will do my best to also continue to update this README as often as possible with video clips regarding the progress made and visuals of the source code reflecting applications.
-
-I will note that I plan on going back and refactoring a lot of the code after finishing off components to make it much cleaner and more concise. I also plan on going back to make sure that my application's user accessibility and code follows proper frontend
-guidelines but I am currently focused on investigation and completing functionality first.
-
-[![Watch the video](https://img.youtube.com/vi/FOMNW2K4Ec4/hqdefault.jpg)](https://youtu.be/FOMNW2K4Ec4)
-
+Check it out [here](https://github.com/tigerkh3/road2fantasychamp/assets/85322535/806effb8-7b12-4a0b-9cc1-56c2489eb621)](https://miro.medium.com/v2/resize:fit:720/format:webp/1*lQ6a3a94PMOrRCPbYn3wyA.png)!
 
 # R2 Fantasy Champ FAQ
-
 
 ## What is Fantasy Basketball?
 
@@ -111,5 +66,58 @@ ESPN's Fantasy Sports Application is one application that is used to play fantas
 
 As we have determined, the quicker we have access to critical player data, the better managers can make pivotal roster decisions on the waiver wire. It's because of this idea, that data can help one lead one to wins, I decided to create my own application, R2 Fantasy Champ, to become the new Champion of my fantasy basketball league.
 
+# Application Development Process
+
+## HTTP Request Response Cycle for R2 Fantasy Champ
+
+To give users a better understanding of how our application will work as "fullstack", I have included an image of how the basic request response cycle might look like during development.
+
+![image](https://github.com/tigerkh3/road2fantasychamp/assets/85322535/4322e292-6f45-4c09-a882-10189442fca6)
+
+The only difference between this and the actual application would be that the balldontlie.io API would eventually be replaced by the ESPN "hidden" API. The only reason why it is currently being used over the latter would be because
+ESPN currently has no documentation on their API's usage. The fantasy sports development community has been making some progress with interacting with the API and somewhat documenting their progress, but in reality there is little
+information on the API and a lot of network request combing needs to be done in order to find the proper headers to make accurate requests. This is made more difficult due to the NBA season not being currently active. This also
+limits us as we are unable to make requests to ESPN's API for live player data hindering development. Therefore, we are still able to utilize another public API that has player data to shape our web application. Though the APIs may
+return different object structure, we have made note of this to refactor to using ESPN's API whenever the NBA season starts and continuing investigating API interaction.
+
+For further information on the decision points regarding the design and the process. Please visit (https://medium.com/@tigerkh3/road2fantasy-champ-day-5-3509f8b1f3bb)).](https://medium.com/@tigerkh3/road2fantasy-champ-day-5-3509f8b1f3bb).
+
+## Initial Design and Wireframe
+
+Now that we understand how our application should be composed of and how we should go about data retrieval on both the frontend and backend of the application. I then moved onto actually designing how the frontend of the
+application would look and where the features would live on the application.
+
+I first started off with good ole fashioned pen and paper to draw out what I wanted the app to look like. It felt easier for me
+to start off with something tangible such as a pen before moving to a web app to further flesh it out.
+
+Here's what it initially looked like:
+
+![IMG_1245 copy](https://github.com/tigerkh3/road2fantasychamp/assets/85322535/17e39a97-91bf-449b-afbe-7c7426b41ed7)
 
 
+Using Figma, I then mocked up the super basic UI for where the application's features would live.
+
+![image](https://github.com/tigerkh3/road2fantasychamp/assets/85322535/ab36cfa7-b087-4dbf-bcf2-21f9830164bb)
+
+Although it isn't pretty, I wanted the application to display all the critical information that I would need. The colors are supposed to represent ones that are easy on the eyes but with how ugly it looks right now don't worry too much about it.
+
+The actual application looks very similar to the Figma design with some minor changes. Please click [here](#current-progress) to see what the application currently looks like compared to the wireframe.
+
+For further information on the decision points regarding the design and the process. Please visit (https://medium.com/@tigerkh3/road2fantasychamp-episode-6-1fd41318b550).
+
+## Past Progress 
+
+Video Link Displaying My Past Progress!
+[![Watch the video](https://img.youtube.com/vi/FOMNW2K4Ec4/hqdefault.jpg)](https://youtu.be/FOMNW2K4Ec4)
+
+## Current Progress
+
+Over the course of a few months since my last update, I've essentially completed the application. I cut out a few features that I felt were a bit redundant as this is a tool used in combination with ESPN's fantasy application. 
+
+Since the core of the application's purpose was to maximize the ability for me to find a player that could increase my ability to win matchups, I stuck to the core feature of displaying free agents that are sync'd to my ESPN fantasy league. 
+
+The application displays all the free agents in my league and their statistics for a past date as well as how they're doing live. ESPN's fantasy app falls short of providing live statistics (on mobile). 
+
+It also requires me to go through more filters than I'd like and my app solves that issue by displaying it in an all in one inclusive site for my personal use!
+
+Feel free to check it out at http://road2fantasychamp.com
